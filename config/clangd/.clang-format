@@ -1,0 +1,372 @@
+---
+# We'll use defaults from the LLVM style, but with 4 columns indentation.
+# LLVM 符合LLVM编码标准的样式
+# Google 符合Google的C ++的风格指南样式
+# Chromium 符合Chromium的风格指南样式
+# Mozilla 符合Mozilla的风格指南样式
+# WebKit 符合WebKit的风格指南样式
+
+# ---
+# 语言: None, Cpp, Java, JavaScript, ObjC, Proto, TableGen, TextProto
+Language: Cpp
+IndentWidth: 4
+
+# # BasedOnStyle:	LLVM
+# 访问说明符(public、private等)的偏移
+AccessModifierOffset: -4
+
+# NOTE: Align 对齐
+PointerAlignment: Left
+ReferenceAlignment: Pointer # Pointer | Left | Right | Middle
+QualifierAlignment: Left # Left | Leave | Right
+# Left
+# const int a;
+# const int *a;
+
+# # 开括号(开圆括号、开尖括号、开方括号)后的对齐: Align, DontAlign, AlwaysBreak(总是在开括号后换行)
+AlignAfterOpenBracket:	AlwaysBreak
+
+# # 结构体赋值对齐方式
+AlignArrayOfStructures: Left
+
+# # 连续赋值时，对齐所有等号
+# 1.
+# AlignConsecutiveMacros: AcrossEmptyLines
+# 2.
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
+
+
+# 宏\的对齐方式
+AlignEscapedNewlines: Left
+
+
+# 操作符换行的对齐方式
+AlignOperands: AlignAfterOperator
+# int aaa = bbbbbbbbbbbbbbb
+#         + ccccccccccccccc;
+
+# 注释的对齐方式 BUG: can't be parsed
+# AlignTrailingComments: 
+#   Kind: Always
+#   OverEmptyLines: 2
+
+# NOTE: Allow 格式
+AllowAllArgumentsOnNextLine: true
+# true:
+# void myFunction(
+#     int a, int b, int c, int d, int e);
+#
+# false:
+# void myFunction(int a,
+#                 int b,
+#                 int c,
+#                 int d,
+#                 int e);
+
+AllowShortBlocksOnASingleLine: Always # Never | Empty | Always
+
+AllowShortCaseLabelsOnASingleLine: true
+
+AllowShortEnumsOnASingleLine: false
+
+# 短的函数是否放在一行
+AllowShortFunctionsOnASingleLine: InlineOnly # None | InlineOnly | Inline | All
+
+AllowShortIfStatementsOnASingleLine: Never # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
+
+AllowShortLambdasOnASingleLine: None # None | Empty | Inline | All
+
+AllowShortLoopsOnASingleLine: false
+
+AlwaysBreakAfterReturnType: None # None | All | TopLevel | AllDefinitions | TopLevelDefinitions
+# All:
+# class A {
+#   int
+#   f() {
+#     return 0;
+#   };
+# };
+# int
+# f();
+# int
+# f() {
+#   return 1;
+# }
+
+AlwaysBreakBeforeMultilineStrings: false
+# true:                                  false:
+# aaaa =                         vs.     aaaa = "bbbb"
+#     "bbbb"                                    "cccc";
+#     "cccc";
+
+AlwaysBreakTemplateDeclarations: Yes # No | MultiLine | Yes
+
+# TODO: 
+# AttributeMacros:
+
+BinPackArguments: false
+# true:
+# void f() {
+#   f(aaaaaaaaaaaaaaaaaaaa, aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+# }
+#
+# false:
+# void f() {
+#   f(aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+# }
+
+BinPackParameters: false
+# true:
+# void f(int aaaaaaaaaaaaaaaaaaaa, int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
+#
+# false:
+# void f(int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
+
+
+BitFieldColonSpacing: After # Both | None | Before | After
+
+# 大括号是否换行 true 为换行, false为不换行
+BreakBeforeBraces: Custom
+BraceWrapping:
+  # 逻辑语句的大括号是否换行
+  AfterControlStatement: Never # Never | MultiLine | Always
+  AfterClass: true
+  AfterStruct: true
+  AfterExternBlock: true
+  BeforeElse: true
+  AfterFunction: true
+  AfterEnum: false
+  SplitEmptyFunction: false
+  AfterCaseLabel: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+  SplitEmptyFunction: true
+  # false:          true:
+  # int f()   vs.   int f()
+  # {}              {
+  #                 }
+  SplitEmptyRecord: true 
+  # false:           true:
+  # class Foo   vs.  class Foo
+  # {}               {
+  #                  }
+  SplitEmptyNamespace: true 
+# BreakArrays: false # only for json
+
+BreakBeforeBinaryOperators: NonAssignment # None | NonAssignment | All
+
+BreakBeforeConceptDeclarations: Always # Never | Always
+
+# BUG: it doesn't work
+# BreakBeforeInlineASMColon: OnlyMultiline # Never | OnlyMultiline  | Always
+
+BreakBeforeTernaryOperators: true
+# true:
+# veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongDescription
+#     ? firstValue
+#     : SecondValueVeryVeryVeryVeryLong;
+#
+# false:
+# veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongDescription ?
+#     firstValue :
+#     SecondValueVeryVeryVeryVeryLong;
+
+BreakConstructorInitializers: AfterColon # BeforeColon | BeforeComma | AfterColon
+
+BreakInheritanceList: AfterColon # BeforeColon | BeforeComma | AfterColon | AfterComma
+
+BreakStringLiterals: false
+# true:
+# const char* x = "veryVeryVeryVeryVeryVe"
+#                 "ryVeryVeryVeryVeryVery"
+#                 "VeryLongString";
+#
+# false:
+# const char* x =
+#   "veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongString";
+
+# 行的字符限制
+ColumnLimit: 100
+
+CompactNamespaces: false
+# true:
+# namespace Foo { namespace Bar {
+# }}
+#
+# false:
+# namespace Foo {
+# namespace Bar {
+# }
+# }
+
+# TODO: figure out how this works
+# ContinuationIndentWidth: 
+
+Cpp11BracedListStyle: false
+# true:                                  false:
+# vector<int> x{1, 2, 3, 4};     vs.     vector<int> x{ 1, 2, 3, 4 };
+# vector<T> x{{}, {}, {}, {}};           vector<T> x{ {}, {}, {}, {} };
+# f(MyMap[{composite, key}]);            f(MyMap[{ composite, key }]);
+# new int[3]{1, 2, 3};                   new int[3]{ 1, 2, 3 };
+
+# EmptyLineAfterAccessModifier: Never | Leave | Always
+EmptyLineBeforeAccessModifier: Always # Never | Leave | Always
+
+# 命名空间加上注释
+FixNamespaceComments: true
+
+# ForEachMacros:
+# IfMacros: 
+
+IncludeBlocks: Regroup # Preserve | Merge | Regroup
+
+# IncludeCategories:
+#   - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
+#     Priority:        2
+#     SortPriority:    2
+#     CaseSensitive:   true
+#   - Regex:           '^((<|")(gtest|gmock|isl|json)/)'
+#     Priority:        3
+#   - Regex:           '<[[:alnum:].]+>'
+#     Priority:        4
+#   - Regex:           '.*'
+#     Priority:        1
+#     SortPriority:    0
+
+# NOTE: Indent
+# 是否缩进类的访问属性
+IndentAccessModifiers: false
+
+IndentCaseBlocks: false
+
+IndentCaseLabels: true
+
+IndentExternBlock: Indent # NoIndent | Indent | with --> AfterExternBlock
+
+IndentGotoLabels: false
+
+# 宏是否缩进
+IndentPPDirectives: None # None | AfterHash | BeforeHash
+
+IndentRequiresClause: true
+
+# IndentWidth: 
+
+IndentWrappedFunctionNames: true
+# true:
+# LoooooooooooooooooooooooooooooooooooooooongReturnType
+#     LoooooooooooooooooooooooooooooooongFunctionDeclaration();
+#
+# false:
+# LoooooooooooooooooooooooooooooooooooooooongReturnType
+# LoooooooooooooooooooooooooooooooongFunctionDeclaration();
+
+InsertBraces: false
+# false:                                    true:
+#
+# if (isa<FunctionDecl>(D))        vs.      if (isa<FunctionDecl>(D)) {
+#   handleFunctionDecl(D);                    handleFunctionDecl(D);
+# else if (isa<VarDecl>(D))                 } else if (isa<VarDecl>(D)) {
+#   handleVarDecl(D);                         handleVarDecl(D);
+# else                                      } else {
+#   return;                                   return;
+#                                           }
+#
+# while (i--)                      vs.      while (i--) {
+#   for (auto *A : D.attrs())                 for (auto *A : D.attrs()) {
+#     handleAttr(A);                            handleAttr(A);
+#                                             }
+#                                           }
+#
+# do                               vs.      do {
+#   --i;                                      --i;
+# while (i);                                } while (i);
+
+InsertTrailingCommas: Wrapped # None | Wrapped
+# TSC_Wrapped:
+# const someArray = [
+# aaaaaaaaaaaaaaaaaaaaaaaaaa,
+# aaaaaaaaaaaaaaaaaaaaaaaaaa,
+# aaaaaaaaaaaaaaaaaaaaaaaaaa,
+# //                        ^ inserted
+# ]
+
+# 保留控制块内的空行
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+LambdaBodyIndentation: OuterScope # Signature | OuterScope
+# someMethod(
+#     [](SomeReallyLongLambdaSignatureArgument foo) {
+#   return;
+# });
+#
+# someMethod(
+#     [](SomeReallyLongLambdaSignatureArgument foo) {
+#       return;
+#     });
+
+# 保留空行的最大限制
+MaxEmptyLinesToKeep: 5
+
+NamespaceIndentation: Inner  # None | Inner | All
+
+TabWidth: 4
+
+# NOTE: Space
+SpaceInEmptyParentheses: false
+SpaceInEmptyBlock: true
+SpaceBeforeSquareBrackets: false
+SpaceBeforeRangeBasedForLoopColon: true
+
+# Should be declared this way:
+SpaceBeforeParens: Custom
+SpaceBeforeParensOptions:
+  AfterControlStatements: true
+  AfterForeachMacros: true
+  AfterIfMacros: true
+  AfterOverloadedOperator: true
+  AfterRequiresInClause: true
+  AfterRequiresInExpression: true
+  BeforeNonEmptyParentheses: false
+  AfterFunctionDefinitionName: false
+  AfterFunctionDeclarationName: false
+
+SpaceBeforeParens: ControlStatements # Never | ControlStatements | ControlStatementsExceptControlMacros | NonEmptyParentheses | Always
+SpaceBeforeInheritanceColon: false
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeCpp11BracedList: true
+SpaceBeforeCaseColon: false
+SpaceBeforeAssignmentOperators: true
+SpaceAfterTemplateKeyword: true
+SpaceAfterLogicalNot: false
+SpaceAfterCStyleCast: true
+
+SortUsingDeclarations: false
+
+SeparateDefinitionBlocks: Always # Leave | Always | Never
+# ShortNamespaceLines: 1
+
+# for clang-format 16
+# RequiresExpressionIndentation: OuterScope # OuterScope | Keyword 
+
+RequiresClausePosition: OwnLine # OwnLine | WithPreceding | WithFollowing
+
+ReflowComments: true
+
+PackConstructorInitializers: Never # Never | BinPack | CurrentLine | NextLine
+
+Standard: Auto # c++03 | c++11 | c++14 | c++17 | c++20 | Latest | Auto
+# UseTab: 
