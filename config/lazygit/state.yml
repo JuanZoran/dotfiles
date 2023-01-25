@@ -1,9 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
+- /home/zoran/project/Neovim/Trans.nvim
 - /home/zoran/.config/nvim
-- /home/zoran/project/Cpp_Server
-- /home/zoran/project/neovim/Trans
+- /home/zoran/project/Cpp/project/parser
 - /home/zoran/Rust/Hello-Rust
 startuppopupversion: 5
 customcommandshistory: []

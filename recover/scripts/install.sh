@@ -18,6 +18,7 @@ ensure_installed=(
 	sqlite3 libsqlite3-dev # for neovim-plugin dependencies
     # openjdk-11-jdk  # for java 11
 )
+
 installer='sudo apt-get -y install'
 
 install() {

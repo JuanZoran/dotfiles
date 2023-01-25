@@ -1,5 +1,6 @@
 done='\e[0m'
-hl='\e[1m'
+hl='Todo'
+bold='\e[1m'
 underline='\e[4m'
 blink='\e[5m'
 reverse='\e[7m'
