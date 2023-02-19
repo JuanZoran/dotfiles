@@ -53,6 +53,7 @@ plugins=(
     # zsh-fzf-history-search
     fzf-tab
 )
+# eval "$(mcfly init zsh)"
 
 # TODO : config this vi-mode
 # Only changing the escape key to `jk` in insert mode, we still
@@ -70,8 +71,6 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/zsh/highlight.zsh
 source $HOME/zsh/alias.zsh
 eval "$(zoxide init zsh)"
-eval "$(mcfly init zsh)"
-
 
 # >>> xmake >>>
 [[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
