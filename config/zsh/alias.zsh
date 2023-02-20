@@ -1,17 +1,5 @@
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 # alias -g NOTE  global works
-
-alias theme="alacritty-colorscheme"
-eval "$(thefuck --alias fuck)"
+# alias theme="alacritty-colorscheme"
 alias vim="nvim"
 alias vi="nvim"
 alias qt="qtcreator&"
@@ -32,13 +20,14 @@ alias e='exit'
 alias f='fanyi'
 alias format='cp ~/dotfiles/config/clangd/.clang-format .'
 alias a="ranger"
-alias lg="lazygit"
+alias aa="lazygit"
 alias lk="du -sh * | sort -h"
 alias ll="exa --tree --level=2 -a --long --header --accessed"
 alias win="sudo dpkg-reconfigure lightdm"
 alias x="xmake"
 alias gb="git checkout"
 alias gg="git clone --depth=1"
+alias lua="luajit"
 
 alias la='luajit'
 alias icat="kitty +kitten icat"
