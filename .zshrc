@@ -1,7 +1,6 @@
 # Fig pre block. Keep at the top of this file.
 source $HOME/zsh/exports.zsh
 source $HOME/zsh/alias.zsh
-source $HOME/zsh/maps.zsh
 
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
@@ -42,11 +41,12 @@ setopt PUSHD_IGNORE_DUPS
 # Two regular plugins loaded without investigating.
 zi ice wait lucid atload'_zsh_autosuggest_start'
 zi light zsh-users/zsh-autosuggestions
-zi light zdharma-continuum/fast-syntax-highlighting
 zi light Tarrasch/zsh-command-not-found
 zi ice depth=1; zinit light romkatv/powerlevel10k
-# zinit ice depth=1;zinit light jeffreytse/zsh-vi-mode
 
+zinit light zsh-users/zsh-syntax-highlighting
+source $HOME/zsh/highlight.zsh
+source $HOME/zsh/maps.zsh
 
 # NOTE :
 #  ╭──────────────────────────────────────────────────────────╮
@@ -78,7 +78,6 @@ recover-tab() {
 }
 
 #  ────────────────────────────────────────────────────────────
-
 ## History file configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -88,6 +87,7 @@ SAVEHIST=10000
 #  │  History command configuration                         │
 #  ╰──────────────────────────────────────────────────────────╯
 # setopt extended_history       # record timestamp of command in HISTFILE
+setopt nonomatch
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
@@ -96,30 +96,6 @@ setopt share_history          # share command history data
 #       ────────────────────────────────────────────────────────────
 
 ### End of Zinit's installer chunk
-# cursor mode
-function zle-keymap-select {
-    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-        echo -ne '\e[1 q'
-    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-        echo -ne '\e[5 q'
-    fi
-}
-
-zle -N zle-keymap-select
-echo -ne '\e[5 q'
-
-preexec() {
-    echo -ne '\e[5 q'
-}
-
-_fix_cursor() {
-    echo -ne '\e[5 q'
-}
-precmd_functions+=(_fix_cursor)
-KEYTIMEOUT=1
-# eval "$(mcfly init zsh)"
-# bind alias
-
 
 # eval "$(thefuck --alias fuck)"
 zi light QuarticCat/zsh-smartcache
