@@ -1,7 +1,14 @@
-# Fig pre block. Keep at the top of this file.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source $HOME/zsh/exports.zsh
 source $HOME/zsh/alias.zsh
 
+# Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # >>> xmake >>>
@@ -24,24 +31,20 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
 #启用 cd 命令的历史纪录，cd -[TAB]进入历史路径
 setopt AUTO_PUSHD
 #相同的历史路径只保留一个
 setopt PUSHD_IGNORE_DUPS
-# autoload compinit; compinit; zinit cdreplay -q
 
 # Two regular plugins loaded without investigating.
-zi ice wait lucid atload'_zsh_autosuggest_start'
 zi light zsh-users/zsh-autosuggestions
-zi light Tarrasch/zsh-command-not-found
+
+zi snippet OMZP::command-not-found
+# zi light Tarrasch/zsh-command-not-found
+# NOTE :
+#                                ╭──────────────╮
+#                                │ Pretty Theme │
+#                                ╰──────────────╯
 zi ice depth=1; zinit light romkatv/powerlevel10k
 
 zinit light zsh-users/zsh-syntax-highlighting
@@ -49,11 +52,11 @@ source $HOME/zsh/highlight.zsh
 source $HOME/zsh/maps.zsh
 
 # NOTE :
-#  ╭──────────────────────────────────────────────────────────╮
-#  │ Auto completion                                          │
-#  ╰──────────────────────────────────────────────────────────╯
+#                               ╭─────────────────╮
+#                               │ Auto completion │
+#                               ╰─────────────────╯
 
-# NOTE: This setting can NOT be changed at runtime.:
+    # NOTE: This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
@@ -99,8 +102,9 @@ setopt share_history          # share command history data
 
 # eval "$(thefuck --alias fuck)"
 zi light QuarticCat/zsh-smartcache
-source <(cod init $$ zsh)
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd cd)"
 # smartcache cod init $$ zsh
 # smartcache eval zoxide init zsh
 smartcache eval thefuck --alias fuck
+# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

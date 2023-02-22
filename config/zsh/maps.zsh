@@ -11,15 +11,15 @@
 # bindkey -r <keystroke>: 删除
 # bindkey -M <keymap> -r <keystroke>: 删除 Bindkey:
 
+bindkey '^v' describe-key-briefly
 
 KEYTIMEOUT=1
-# function zvm_config () {
-#     ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
-# }
+function zvm_config () {
+    ZVM_VI_INSERT_SURROUND_BINDKEY=s-prefix # zsh-vim-surround support
+    ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
+}
 
 function zvm_after_lazy_keybindings() {
-    ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
-
     zvm_bindkey vicmd "h" zvm_enter_insert_mode
     zvm_bindkey vicmd "H" zvm_insert_bol
 

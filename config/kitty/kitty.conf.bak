@@ -1,16 +1,23 @@
 # BEGIN_KITTY_THEME
-# GitHub Dark
-# include current-theme.conf
+# GitHub Dark High Contrast
+include current-theme.conf
 # END_KITTY_THEME
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
-
 # To get a full list of supported fonts use the `kitty +list-fonts` command.
 # font_family     Iosevka Term
 font_family      JetBrainsMono Nerd Font
-font_size 14.0
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
 
+font_size 12.0
+# 中文字体
+symbol_map U+4E00-U+9FFF,U+3400-U+4DBF 得意黑
+
+
+enable_audio_bell no
 scrollback_lines 8000
 
 paste_actions quote-urls-at-prompt
@@ -48,7 +55,9 @@ initial_window_height 400
 
 enabled_layouts splits,fat,horizontal,vertical
 # enabled_layouts all
-
+modify_font underline_position 5
+modify_font underline_thickness 150%
+modify_font strikethrough_position 0px
 
 #: The enabled window layouts. A comma separated list of layout names.
 #: The special value all means all layouts. The first listed layout
@@ -87,59 +96,12 @@ tab_bar_style powerline
 # tab_bar_style separator
 
 # tab_powerline_style slanted
-
-wayland_titlebar_color system
+# wayland_titlebar_color system
 
 # emoji from https://emojipedia.org/regional-indicator-symbol-letter-z/
 # title parse see https://github.com/kovidgoyal/kitty/blob/587f44ad4eb7fe545b0e580168cf0c32117b87c7/kitty/tab_bar.py#L175
 tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}:{'🇿' if layout_name == 'stack' and num_windows > 1 else ''}{title}"
 
-
-
-# vim:ft=kitty
-## name: Kanagawa
-## license: MIT
-## author: Tommaso Laurenzi
-## NOTE: upstream: https://github.com/rebelot/kanagawa.nvim/
-
-background #1F1F28
-foreground #DCD7BA
-selection_background #2D4F67
-selection_foreground #C8C093
-url_color #72A7BC
-cursor #C8C093
-
-# Tabs
-active_tab_background #1F1F28
-active_tab_foreground #DCD7BA
-inactive_tab_background  #1F1F28
-inactive_tab_foreground #C8C093
-#tab_bar_background #15161E
-
-# normal
-color0 #090618
-color1 #C34043
-color2 #76946A
-color3 #C0A36E
-color4 #7E9CD8
-color5 #957FB8
-color6 #6A9589
-color7 #C8C093
-
-# bright
-color8  #727169
-color9  #E82424
-color10 #98BB6C
-color11 #E6C384
-color12 #7FB4CA
-color13 #938AA9
-color14 #7AA89F
-color15 #DCD7BA
-
-
-# extended colors
-color16 #FFA066
-color17 #FF5D62
   
 
 #: The foreground and background colors
@@ -148,14 +110,15 @@ color17 #FF5D62
 # background_opacity 0.9
 # background_opacity 1
 
-# background_image ~/Pictures/girl.png
-background_image ~/Pictures/wallpaper/girl4.png
-background_tint 0.9
+# background_image ~/Pictures/wallpaper/girl1.png
+background_image ~/Pictures/wallpaper/bg_ice.png
+# background_image ~/Pictures/wallpaper/weather-son.png
+background_tint 0.8
 
 # dim_opacity 0
 #: Path to a background image. Must be in PNG format.
 
-background_image_layout tiled
+background_image_layout scaled
 #: Whether to tile, scale or clamp the background image. The value can
 #: be one of tiled, mirror-tiled, scaled, clamped.
 background_image_linear no
@@ -221,8 +184,8 @@ shell_integration enabled
 #: ``disabled`` to turn off shell integration, completely. See
 #: https://sw.kovidgoyal.net/kitty/shell-integration/ for details.
 
-#term xterm-kitty
-term xterm-256color
+term xterm-kitty
+# term xterm-256color
 
 
 # kitty_mod has to be modifiers not keys, see
@@ -242,9 +205,10 @@ map kitty_mod+x close_tab
 map kitty_mod+c copy_to_clipboard
 map kitty_mod+v paste_from_clipboard
 
+
 map kitty_mod+i scroll_line_up
 map kitty_mod+k scroll_line_down
-# NOTE: about window
+# NOTE: about tab
 map kitty_mod+l next_tab
 map kitty_mod+j previous_tab
 map kitty_mod+o new_tab_with_cwd
@@ -264,8 +228,8 @@ map ctrl+w>l next_window
 map ctrl+w>ctrl+j previous_window
 map ctrl+w>ctrl+l next_window
 
-map ctrl+w>ctrl+, move_window_forward
-map ctrl+w>ctrl+. move_window_backward
+# map ctrl+w>ctrl+, move_window_forward
+# map ctrl+w>ctrl+. move_window_backward
 
 map ctrl+w>ctrl+g move_window_to_top
 
@@ -290,10 +254,10 @@ map ctrl+w>ctrl+u launch --location=hsplit
 # map ctrl+w>o launch --location=vsplit
 #
 # Move the active window in the indicated direction
-map kitty_mod+up move_window up
-map kitty_mod+left move_window left
-map kitty_mod+right move_window right
-map kitty_mod+down move_window down
+map ctrl+w>up move_window up
+map ctrl+w>left move_window left
+map ctrl+w>right move_window right
+map ctrl+w>down move_window down
 
 map kitty_mod+left resize_window narrower
 map kitty_mod+right resize_window wider
@@ -341,6 +305,8 @@ map ctrl+h>d     debug_config
 # default alphabet see https://github.com/kovidgoyal/kitty/blob/0c4b20aa4e6b29ccf7c389e15d7ff5189f8e98f5/kittens/hints/main.py#L125
 # qwerty alphabets borrow from https://github.com/fcsonline/tmux-thumbs#Alphabets
 map kitty_mod+space kitten hints --alphabet asdfqwerzxcvjklmiuopghtybn1234567890 --customize-processing custom-hints.py
+# map kitty_mod+space>kitty_mod+space kitten hints --alphabet asdfqwerzxcvjklmiuopghtybn1234567890 --customize-processing custom-hints.py
+# map kitty_mod+space>kitty_mod+l kitten hints --type line
 
 # map f3 kitten hints --program '*'
 
