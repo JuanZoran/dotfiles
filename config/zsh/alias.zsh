@@ -72,3 +72,11 @@ cleartrash()
       /bin/rm -rf ~/.trash/.* 2>/dev/null
    fi
 }
+
+- () {
+    cd -
+}
+
+mkcd () {
+    mkdir -p "$@" && cd "$_"
+}
