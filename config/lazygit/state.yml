@@ -1,11 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/zoran/dotfiles
-- /home/zoran/.config/nvim
-- /home/zoran/notes/gitbooks/Neovim-entry-into-the-ground
-- /home/zoran/project/Neovim/Trans.nvim
-- /home/zoran/project/Neovim/Trans.nvim/wiki
-- /home/zoran/project/Cpp/project/parser
+- /data/data/com.termux/files/home/dotfiles
+- /data/data/com.termux/files/home/.config/nvim
+- /data/data/com.termux/files/home/Desktop/nvim
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

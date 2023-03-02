@@ -2,14 +2,11 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 source $HOME/zsh/exports.zsh
 source $HOME/zsh/alias.zsh
-
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # >>> xmake >>>
 [[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
@@ -36,17 +33,13 @@ setopt AUTO_PUSHD
 #相同的历史路径只保留一个
 setopt PUSHD_IGNORE_DUPS
 
-# Two regular plugins loaded without investigating.
-zi light zsh-users/zsh-autosuggestions
-
-zi snippet OMZP::command-not-found
-# zi light Tarrasch/zsh-command-not-found
 # NOTE :
 #                                ╭──────────────╮
 #                                │ Pretty Theme │
 #                                ╰──────────────╯
 zi ice depth=1; zinit light romkatv/powerlevel10k
 
+zi light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 source $HOME/zsh/highlight.zsh
 source $HOME/zsh/maps.zsh
@@ -56,18 +49,16 @@ source $HOME/zsh/maps.zsh
 #                               │ Auto completion │
 #                               ╰─────────────────╯
 
-    # NOTE: This setting can NOT be changed at runtime.:
+# NOTE: This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
+# zstyle ':autocomplete:*' insert-unambiguous yes  # FIXME :
+
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
 # menu-complete: Press again to cycle to next (previous) completion.
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 zi light marlonrichert/zsh-autocomplete
 
-bindkey '^p' up-line-or-search
-# # Down arrow:
-bindkey '^k' menu-select
-bindkey '^n' menu-select
 # up-line-or-search:  Open history menu.
 # up-line-or-history: Cycle to previous history line.
 
@@ -77,7 +68,10 @@ bindkey '^n' menu-select
 # FIXME :
 add-zsh-hook precmd recover-tab
 recover-tab() {
-    zstyle ':autocomplete:*' insert-unambiguous yes
+    bindkey '^p' up-line-or-search
+    # # Down arrow:
+    bindkey '^k' menu-select
+    bindkey '^n' menu-select
 }
 
 #  ────────────────────────────────────────────────────────────
@@ -99,12 +93,6 @@ setopt share_history          # share command history data
 #       ────────────────────────────────────────────────────────────
 
 ### End of Zinit's installer chunk
-
-# eval "$(thefuck --alias fuck)"
-zi light QuarticCat/zsh-smartcache
 eval "$(zoxide init zsh --cmd cd)"
-# smartcache cod init $$ zsh
-# smartcache eval zoxide init zsh
-smartcache eval thefuck --alias fuck
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
