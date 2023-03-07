@@ -12,6 +12,7 @@ if [ -e "$TMUX" ]; then
 fi
 
 
+export POWERLEVEL9K_GITSTATUS_MAX_SYNC_LATENCY_SECONDS=0
 export PATH="$HOME/.local/bin:/usr/sbin/:$PATH"
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
