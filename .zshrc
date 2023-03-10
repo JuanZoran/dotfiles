@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 source $HOME/zsh/exports.zsh
@@ -48,6 +48,7 @@ zi snippet OMZP::command-not-found
 zi ice depth=1; zinit light romkatv/powerlevel10k
 
 zinit light zsh-users/zsh-syntax-highlighting
+# source $HOME/zsh/mocha.zsh
 source $HOME/zsh/highlight.zsh
 source $HOME/zsh/maps.zsh
 
@@ -56,7 +57,7 @@ source $HOME/zsh/maps.zsh
 #                               │ Auto completion │
 #                               ╰─────────────────╯
 
-    # NOTE: This setting can NOT be changed at runtime.:
+# NOTE: This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
@@ -64,20 +65,20 @@ zstyle ':autocomplete:*' widget-style menu-select
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 zi light marlonrichert/zsh-autocomplete
 
-bindkey '^p' up-line-or-search
-# # Down arrow:
-bindkey '^k' menu-select
-bindkey '^n' menu-select
-# up-line-or-search:  Open history menu.
-# up-line-or-history: Cycle to previous history line.
-
-# Return key in completion menu & history menu:
-# .accept-line: Accept command line.
-# accept-line:  Accept selection and exit menu.
 # FIXME :
 add-zsh-hook precmd recover-tab
 recover-tab() {
     zstyle ':autocomplete:*' insert-unambiguous yes
+    bindkey '^p' up-line-or-search
+    # # Down arrow:
+    bindkey '^k' menu-select
+    bindkey '^n' menu-select
+    # up-line-or-search:  Open history menu.
+    # up-line-or-history: Cycle to previous history line.
+
+    # Return key in completion menu & history menu:
+    # .accept-line: Accept command line.
+    # accept-line:  Accept selection and exit menu.
 }
 
 #  ────────────────────────────────────────────────────────────

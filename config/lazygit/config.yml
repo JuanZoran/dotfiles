@@ -8,25 +8,24 @@ gui:
   language: 'zh' # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl' | 'ja' | 'ko'
   timeFormat: '02 Jan 06 15:04 MST' # https://pkg.go.dev/time#Time.Format
   theme:
+    lightTheme: false 
     activeBorderColor:
-      - green
+      - "#a6e3a1" # Green
       - bold
     inactiveBorderColor:
-      - white
+      - "#cdd6f4" # Text
     optionsTextColor:
-      - blue
+      - "#89b4fa" # Blue
     selectedLineBgColor:
-      - blue # set to `default` to have no background colour
+      - "#313244" # Surface0
     selectedRangeBgColor:
-      - blue
+      - "#313244" # Surface0
     cherryPickedCommitBgColor:
-      - cyan
+      - "#94e2d5" # Teal
     cherryPickedCommitFgColor:
-      - blue
+      - "#89b4fa" # Blue
     unstagedChangesColor:
-      - red
-    defaultFgColor:
-      - default
+      - red       # Red
   commitLength:
     show: true
   mouseEvents: true
@@ -72,8 +71,8 @@ git:
   diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
   editCommand: 'nvim' # see 'Configuring File Editing' section
-  editCommandTemplate: ''
-  openCommand: ''
+  editCommandTemplate: '{{editor}} {{filename}} +{{line}}'
+  openCommand: 'xdg-open {{filename}} >/dev/null'
 refresher:
   refreshInterval: 10 # File/submodule refresh interval in seconds. Auto-refresh can be disabled via option 'git.autoRefresh'.
   fetchInterval: 60 # Re-fetch interval in seconds. Auto-fetch can be disabled via option 'git.autoFetch'.
