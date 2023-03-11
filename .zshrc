@@ -68,6 +68,7 @@ zi light marlonrichert/zsh-autocomplete
 # FIXME :
 add-zsh-hook precmd recover-tab
 recover-tab() {
+    zstyle ':autocomplete:*' insert-unambiguous yes
     bindkey '^p' up-line-or-search
     # # Down arrow:
     bindkey '^k' menu-select
