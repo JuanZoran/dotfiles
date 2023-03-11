@@ -15,6 +15,18 @@ fi
 export PATH="$HOME/.local/bin:/usr/sbin/:$PATH"
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
+export PATH=$PATH:$HOME/dotfiles/scripts/zsh
+export PATH=$PATH:$HOME/.local/share/neovim/bin
+# export PATH=$PATH:$HOME/.yarn/bin
+
+export OPENAI_API_KEY=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
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+export LC_CTYPE=zh_CN.UTF-8
+
+export CHEATCOLORS=true
+export CHEAT_EDITOR=/usr/local/vim/bin/nvim
 
 # for Fzf
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.sass-cache,node_modules,build} --type f"

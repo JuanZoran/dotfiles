@@ -1,8 +1,6 @@
 lastupdatecheck: 0
 recentrepos:
 - /data/data/com.termux/files/home/dotfiles
-- /data/data/com.termux/files/home/.config/nvim
-- /data/data/com.termux/files/home/Desktop/nvim
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

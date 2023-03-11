@@ -41,6 +41,7 @@ zi ice depth=1; zinit light romkatv/powerlevel10k
 
 zi light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
+# source $HOME/zsh/mocha.zsh
 source $HOME/zsh/highlight.zsh
 source $HOME/zsh/maps.zsh
 
@@ -59,15 +60,10 @@ zstyle ':autocomplete:*' widget-style menu-select
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 zi light marlonrichert/zsh-autocomplete
 
-# up-line-or-search:  Open history menu.
-# up-line-or-history: Cycle to previous history line.
-
-# Return key in completion menu & history menu:
-# .accept-line: Accept command line.
-# accept-line:  Accept selection and exit menu.
 # FIXME :
 add-zsh-hook precmd recover-tab
 recover-tab() {
+    zstyle ':autocomplete:*' insert-unambiguous yes
     bindkey '^p' up-line-or-search
     # # Down arrow:
     bindkey '^k' menu-select
