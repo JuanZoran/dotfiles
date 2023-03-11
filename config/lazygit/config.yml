@@ -221,3 +221,8 @@ customCommands:
     context: "files"
     loadingText: "opening commitizen commit tool"
     subprocess: true
+  - key: "<c-a>"
+    command: "aicommits"
+    context: "files"
+    loadingText: "ai commit message"
+    subprocess: true
