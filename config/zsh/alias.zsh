@@ -1,5 +1,4 @@
 # alias -g NOTE  global works
-# alias theme="alacritty-colorscheme"
 alias vim="nvim"
 alias vi="nvim"
 alias py="python3"
@@ -21,11 +20,12 @@ alias gb="git checkout"
 alias gg="git clone --depth=1"
 
 alias ls='exa'
-alias ins="apt -y install"
-alias up="pkg upgrade"
-alias cl="apt autoremove"
+alias ins="sudo apt -y install"
+alias cl="sudo apt autoclean && sudo apt autoremove"
+alias up="sudo apt -y upgrade && cl"
 alias bench="hyperfine"
-alias del="pkg remove --auto-remove"
+alias cc="cloc . --exclude-list-file .clocignore"
+alias del="sudo apt remove --auto-remove"
 
 
 # safe rm

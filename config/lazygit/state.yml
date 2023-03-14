@@ -1,6 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
-- /data/data/com.termux/files/home/dotfiles
+- /home/zoran/dotfiles
+- /home/zoran/project/Neovim/Trans.nvim
+- /home/zoran/.local/share/nvim/lazy/ChatGPT.nvim
+- /home/zoran/.config/nvim
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false
