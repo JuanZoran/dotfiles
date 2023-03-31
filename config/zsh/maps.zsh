@@ -1,17 +1,9 @@
 #!/usr/bin/env zsh
 
-# NOTE :
-#  ╭──────────────────────────────────────────────────────────╮
-#  │  bindkey: 可以查看所有的 widgets                         │
-#  ╰──────────────────────────────────────────────────────────╯
-# bindkey <keystroke>: 基于按键查看 widgets
-# bindkey <keystroke> <widget>: 绑定到已经有的 widgets 里面
-# bindkey -s <keystroke> <keystroke>: 把 a 绑定到 b 快捷键上
-# bindkey -M <keymap> <keystroke>: 绑定到具体模式
-# bindkey -r <keystroke>: 删除
-# bindkey -M <keymap> -r <keystroke>: 删除 Bindkey:
-
-bindkey '^v' describe-key-briefly
+export ZVM_VI_SURROUND_BINDKEY='s-prefix'
+export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+export ZVM_VI_HIGHLIGHT_BACKGROUND=#89e051           # Hex value
+export ZVM_VI_HIGHLIGHT_FOREGROUND=#1d202f           # Hex value
 
 KEYTIMEOUT=1
 function zvm_config () {
@@ -30,9 +22,41 @@ function zvm_after_lazy_keybindings() {
 
     zvm_bindkey vicmd "J" vi-beginning-of-line
     zvm_bindkey vicmd "L" vi-end-of-line
+
+    zvm_bindkey visual "j" backward-char
+    zvm_bindkey visual "i" up-line
+    zvm_bindkey visual "k" down-line
+    # zvm_bindkey viins "^v" describe-key-briefly
 }
 
 zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+# NOTE :
+#  ╭──────────────────────────────────────────────────────────╮
+#  │  bindkey: 可以查看所有的键绑定                          │
+#  ╰──────────────────────────────────────────────────────────╯
+# bindkey <keystroke>: 基于按键查看 widgets
+# bindkey <keystroke> <widget>: 绑定到已经有的 widgets 里面
+# bindkey -s <keystroke> <keystroke>: 把 a 绑定到 b 快捷键上
+# bindkey -M <keymap> <keystroke>: 绑定到具体模式
+# bindkey -r <keystroke>: 删除
+# bindkey -M <keymap> -r <keystroke>: 删除 Bindkey:
+# zle -l 查看所有的widgets
+
+# NOTE :
+# ╭──────────────────────────────────────────────────────────╮
+# │ 可以绑定的所有模式                                       │
+# ╰──────────────────────────────────────────────────────────╯
+# .safe
+# command
+# emacs
+# isearch
+# listscroll
+# main
+# menuselect
+# vicmd
+# viins
+# viopp
+# visual
 
 # NOTE :zsh-vi-mode has done that
 # cursor mode
@@ -43,6 +67,22 @@ zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 #         echo -ne '\e[5 q'
 #     fi
 # }
+
+# NOTE :
+#  ╭──────────────────────────────────────────────────────────╮
+#  │ Ctrl + a         需要在对应的词上                        │
+#  ╰──────────────────────────────────────────────────────────╯
+# 1.  yes -> no
+# 2.  on -> off
+# 3.  true -> false
+# 4.  T -> F
+# 5.  + -> -
+# 6.  ++ -> --
+# 7.  == => !=
+# 8.  !== => ===
+# 9.  && => ||
+# 10. and => or
+
 
 # zle -N zle-keymap-select
 

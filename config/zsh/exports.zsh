@@ -6,6 +6,8 @@ export VISUAL=nvim
 export GOPATH=$HOME/gowork
 export GOBIN=$GOPATH/bin
 
+export BLOG=$HOME/myConfig/blog
+
 
 if [ -e "$TMUX" ]; then
     export TERM='screen-256color'
@@ -16,7 +18,7 @@ export PATH="$HOME/.local/bin:/usr/sbin/:$PATH"
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/dotfiles/scripts/zsh
-export PATH=$PATH:$HOME/.local/share/neovim/bin
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 # export PATH=$PATH:$HOME/.yarn/bin
 
 export OPENAI_API_KEY=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
@@ -29,9 +31,10 @@ export CHEATCOLORS=true
 export CHEAT_EDITOR=/usr/local/vim/bin/nvim
 
 # for Fzf
-export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.sass-cache,node_modules,build} --type f"
-export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,hl:#bd93f9 --color=fg+:#f8f8f2,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+# export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.sass-cache,node_modules,build} --type f"
+# export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,hl:#bd93f9 --color=fg+:#f8f8f2,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 
+# export TERM="xterm-kitty"
 export GO111MODULE=auto
 # export GO111MODULE=on
 

@@ -1,9 +1,13 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
-- /home/zoran/project/Neovim/Trans.nvim
-- /home/zoran/.local/share/nvim/lazy/ChatGPT.nvim
 - /home/zoran/.config/nvim
+- /home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch
+- /home/zoran/project/Neovim/Trans.nvim
+- /home/zoran/project/Cpp/folk/EmmyLua
+- /home/zoran/project/Neovim/Trans.nvim/wiki
+- /home/zoran/.local/share/nvim/lazy/ChatGPT.nvim
 startuppopupversion: 5
-customcommandshistory: []
+customcommandshistory:
+- ' "baidu",'
 hidecommandlog: false
