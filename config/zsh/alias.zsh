@@ -16,6 +16,7 @@ alias lk="du -sh * | sort -h"
 alias ll="exa --tree --level=2 -a --long --header --accessed"
 alias win="sudo dpkg-reconfigure lightdm"
 alias x="xmake"
+alias xr="xmake -r && xmake r"
 alias gb="git checkout"
 alias gg="git clone --depth=1"
 

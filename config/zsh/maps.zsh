@@ -11,22 +11,104 @@ function zvm_config () {
     ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
 }
 
+add-zsh-hook precmd recover-tab
+recover-tab() {
+    zstyle ':autocomplete:*' insert-unambiguous yes
+    bindkey '^p' up-line-or-search
+    # # Down arrow:
+    bindkey '^k' menu-select
+    bindkey '^n' menu-select
+    bindkey '^V' describe-key-briefly
+    bindkey '^b' backward-word
+    bindkey '^f' forward-word
+}
+
+
+
 function zvm_after_lazy_keybindings() {
-    zvm_bindkey vicmd "h" zvm_enter_insert_mode
-    zvm_bindkey vicmd "H" zvm_insert_bol
+    # Unbind key
+    local function unset_key() {
+        local mode=$1; shift 1
+        local keys=("$@")
+        for key ($keys); do
+            bindkey -r -M $mode $key
+        done
+    }
 
-    zvm_bindkey vicmd "i" up-line-or-history
-    zvm_bindkey vicmd "k" down-line-or-history
-    zvm_bindkey vicmd "j" vi-backward-char
-    zvm_bindkey vicmd "l" vi-forward-char
+    unset_key viopp \
+        j k iW iw ia
 
-    zvm_bindkey vicmd "J" vi-beginning-of-line
-    zvm_bindkey vicmd "L" vi-end-of-line
 
-    zvm_bindkey visual "j" backward-char
-    zvm_bindkey visual "i" up-line
-    zvm_bindkey visual "k" down-line
-    # zvm_bindkey viins "^v" describe-key-briefly
+    local -A keys
+    local function set_keys() {
+        local mode=$1
+        for key value (${(kv)keys}); do
+            zvm_bindkey $mode $key $value
+        done
+    }
+
+    keys=(
+        h zvm_enter_insert_mode
+        H zvm_insert_bol
+
+        i up-line-or-history
+        k down-line-or-history
+        j vi-backward-char
+        l vi-forward-char
+    )
+    set_keys vicmd
+
+
+    keys=(
+        j backward-char
+        k down-line
+    )
+    set_keys visual
+
+    keys=(
+        W select-in-blank-word
+        w select-in-word
+        i up-line
+        k down-line
+        J vi-beginning-of-line
+        L vi-end-of-line
+    )
+    set_keys viopp
+    # zvm_bindkey visual "i" up-line
+    # unset_key visual \
+        #     "i^["\
+        #     "i "\
+        #     "i\""\
+        #     "i'"\
+        #     "i("\
+        #     "i)"\
+        #     "i<"\
+        #     "i>"\
+        #     "iW"\
+        #     "i["\
+        #     "i]"\
+        #     "i\`"\
+        #     "ia"\
+        #     "iw"\
+        #     "i{"\
+        #     "i}"
+    # zvm_bindkey visual "h" zvm_readkeys_handler
+    # zvm_bindkey visual "h^[" zvm_select_surround
+    # zvm_bindkey visual "h " zvm_select_surround
+    # zvm_bindkey visual "h\"" zvm_select_surround
+    # zvm_bindkey visual "h'" zvm_select_surround
+    # zvm_bindkey visual "h(" zvm_select_surround
+    # zvm_bindkey visual "h)" zvm_select_surround
+    # zvm_bindkey visual "h<" zvm_select_surround
+    # zvm_bindkey visual "h>" zvm_select_surround
+    # zvm_bindkey visual "hW" select-in-blank-word
+    # zvm_bindkey visual "h[" zvm_select_surround
+    # zvm_bindkey visual "h]" zvm_select_surround
+    # zvm_bindkey visual "h\`" zvm_select_surround
+    # zvm_bindkey visual "ha" select-in-shell-word
+    # zvm_bindkey visual "hw" select-in-word
+    # zvm_bindkey visual "h{" zvm_select_surround
+    # zvm_bindkey visual "h}" zvm_select_surround
 }
 
 zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
@@ -90,3 +172,8 @@ zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 #     echo -ne '\e[5 q'
 # }
 # precmd_functions+=(_fix_cursor)
+# {}在zsh里被称为花括号，通常用于展开多个文件或文件夹的名称。例如，我们可以使用`touch file{1..3}.txt`命令来创建三个文件file1.txt、file2.txt和file3.txt。
+
+# ()表示子shell，它将命令序列包含在一个子进程中并执行它们。此外，它也可以用于分组命令和处理变量替换。例如，`(cd dir && command)`可以在子Shell中进入dir目录并执行command命令。
+
+# []通常用于条件测试。例如，`[ -e file.txt ]`可以检查当前目录下是否存在file.txt文件，如果存在，则返回true。另外，[]还可以用于文件名扩展。例如，`ls [abc]*.txt`将列出以a、b或c开头的所有txt文件。

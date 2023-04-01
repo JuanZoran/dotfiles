@@ -47,26 +47,11 @@ source $HOME/zsh/maps.zsh
 
 # NOTE: This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
-# zstyle ':autocomplete:*' insert-unambiguous yes  # FIXME :
-
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
 # menu-complete: Press again to cycle to next (previous) completion.
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 zi light marlonrichert/zsh-autocomplete
-
-# FIXME :
-add-zsh-hook precmd recover-tab
-recover-tab() {
-    zstyle ':autocomplete:*' insert-unambiguous yes
-    bindkey '^p' up-line-or-search
-    # # Down arrow:
-    bindkey '^k' menu-select
-    bindkey '^n' menu-select
-    bindkey '^V' describe-key-briefly
-    bindkey '^b' backward-word
-    bindkey '^f' forward-word
-}
 
 #  ────────────────────────────────────────────────────────────
 ## History file configuration
@@ -95,7 +80,6 @@ setopt share_history          # share command history data
 zi ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # eval "$(starship init zsh)"
-
 
 eval "$(zoxide init zsh --cmd cd)"
 
