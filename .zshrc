@@ -33,11 +33,6 @@ setopt AUTO_PUSHD
 #相同的历史路径只保留一个
 setopt PUSHD_IGNORE_DUPS
 
-# NOTE :
-#                                ╭──────────────╮
-#                                │ Pretty Theme │
-#                                ╰──────────────╯
-zi ice depth=1; zinit light romkatv/powerlevel10k
 
 zi light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
@@ -73,6 +68,9 @@ recover-tab() {
     # # Down arrow:
     bindkey '^k' menu-select
     bindkey '^n' menu-select
+    bindkey '^V' describe-key-briefly
+    bindkey '^b' backward-word
+    bindkey '^f' forward-word
 }
 
 #  ────────────────────────────────────────────────────────────
@@ -94,6 +92,14 @@ setopt share_history          # share command history data
 #       ────────────────────────────────────────────────────────────
 
 ### End of Zinit's installer chunk
-eval "$(zoxide init zsh --cmd cd)"
+# NOTE :
+#                                ╭──────────────╮
+#                                │ Pretty Theme │
+#                                ╰──────────────╯
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+zi ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# eval "$(starship init zsh)"
+
+
+eval "$(zoxide init zsh --cmd cd)"
