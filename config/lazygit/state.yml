@@ -1,9 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
 - /data/data/com.termux/files/home/dotfiles
-- /data/data/com.termux/files/home/project/Neovim/Trans.nvim
-- /data/data/com.termux/files/home/.config/nvim
 - /data/data/com.termux/files/home/project/Cpp/Principle-of-compilation-from-scratch
+- /data/data/com.termux/files/home/.config/nvim
 - /data/data/com.termux/files/home/Desktop/nvim
 startuppopupversion: 5
 customcommandshistory: []

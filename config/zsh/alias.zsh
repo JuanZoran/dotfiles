@@ -16,6 +16,7 @@ alias lk="du -sh * | sort -h"
 alias ll="exa --tree --level=2 -a --long --header --accessed"
 alias win="sudo dpkg-reconfigure lightdm"
 alias x="xmake"
+alias xr="xmake -r && xmake r"
 alias gb="git checkout"
 alias gg="git clone --depth=1"
 
@@ -26,6 +27,12 @@ alias cl="apt autoremove"
 alias bench="hyperfine"
 alias del="pkg remove --auto-remove"
 alias sy="sudo cp ~/config.yaml /data/clash/"
+alias cat="batcat"
+
+alias f='nvim $(fzf)'
+
+# cd fzf result dir
+alias c='cd `dirname $(fzf)`'
 
 
 # safe rm

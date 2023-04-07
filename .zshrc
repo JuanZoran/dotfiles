@@ -8,21 +8,10 @@ fi
 source $HOME/zsh/exports.zsh
 source $HOME/zsh/alias.zsh
 
-# >>> xmake >>>
-[[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
-# <<< xmake <<<
+
 go env -w GOPROXY="https://goproxy.cn"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
+
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
@@ -44,34 +33,13 @@ source $HOME/zsh/maps.zsh
 #                               │ Auto completion │
 #                               ╰─────────────────╯
 
-# NOTE: This setting can NOT be changed at runtime.:
+# NOTE : This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
-# zstyle ':autocomplete:*' insert-unambiguous yes  # FIXME :
-
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
 # menu-complete: Press again to cycle to next (previous) completion.
 # menu-select:   Same as `menu-complete`, but updates selection in menu.
 zi light marlonrichert/zsh-autocomplete
-
-# up-line-or-search:  Open history menu.
-# up-line-or-history: Cycle to previous history line.
-
-# Return key in completion menu & history menu:
-# .accept-line: Accept command line.
-# accept-line:  Accept selection and exit menu.
-# FIXME :
-add-zsh-hook precmd recover-tab
-recover-tab() {
-    zstyle ':autocomplete:*' insert-unambiguous yes
-    bindkey '^p' up-line-or-search
-    # # Down arrow:
-    bindkey '^k' menu-select
-    bindkey '^n' menu-select
-    bindkey '^V' describe-key-briefly
-    bindkey '^b' backward-word
-    bindkey '^f' forward-word
-}
 
 #  ────────────────────────────────────────────────────────────
 ## History file configuration
@@ -101,5 +69,8 @@ zi ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # eval "$(starship init zsh)"
 
-
 eval "$(zoxide init zsh --cmd cd)"
+source ~/.asdf/asdf.sh
+# >>> xmake >>>
+[[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
+# <<< xmake <<<
