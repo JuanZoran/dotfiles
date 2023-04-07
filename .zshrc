@@ -8,9 +8,7 @@ fi
 source $HOME/zsh/exports.zsh
 source $HOME/zsh/alias.zsh
 
-# >>> xmake >>>
-[[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
-# <<< xmake <<<
+
 go env -w GOPROXY="https://goproxy.cn"
 
 # Fig post block. Keep at the bottom of this file.
@@ -84,3 +82,6 @@ zi ice depth=1; zinit light romkatv/powerlevel10k
 eval "$(zoxide init zsh --cmd cd)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# >>> xmake >>>
+test -f "/home/zoran/.xmake/profile" && source "/home/zoran/.xmake/profile"
+# <<< xmake <<<

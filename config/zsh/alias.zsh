@@ -30,6 +30,11 @@ alias del="sudo apt remove --auto-remove"
 alias cat="batcat"
 alias h="hexo"
 
+alias f='nvim $(fzf)'
+
+# cd fzf result dir
+alias c='cd `dirname $(fzf)`'
+
 
 # safe rm
 alias rm='trash'

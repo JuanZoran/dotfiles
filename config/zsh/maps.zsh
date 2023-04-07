@@ -18,7 +18,7 @@ recover-tab() {
     # # Down arrow:
     bindkey '^k' menu-select
     bindkey '^n' menu-select
-    bindkey '^V' describe-key-briefly
+    bindkey '^v' describe-key-briefly
     bindkey '^b' backward-word
     bindkey '^f' forward-word
 }
