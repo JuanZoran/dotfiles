@@ -21,8 +21,6 @@ export PATH=$PATH:$HOME/dotfiles/scripts/zsh
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 # export PATH=$PATH:$HOME/.yarn/bin
 
-export OPENAI_API_KEY=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
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_CTYPE=zh_CN.UTF-8

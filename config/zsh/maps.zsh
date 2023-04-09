@@ -55,6 +55,8 @@ function zvm_after_lazy_keybindings() {
         k down-line-or-history
         j vi-backward-char
         l vi-forward-char
+        J vi-beginning-of-line
+        L vi-end-of-line
     )
     set_keys vicmd
 
