@@ -31,7 +31,7 @@ keybinds clear-defaults=true {
  
          // INFO : Mode Switch
          bind "Ctrl p"     { SwitchToMode "Pane"; }
-         bind "Ctrl r"     { SwitchToMode "Resize"; }
+         bind "Ctrl z" "=" { SwitchToMode "Resize"; }
          bind "Ctrl x"     { SwitchToMode "Scroll"; }
          bind "Ctrl s" "s" { SwitchToMode "Session"; }
          bind "Ctrl t" "t" { SwitchToMode "Tab"; }
@@ -46,6 +46,8 @@ keybinds clear-defaults=true {
          bind "K"   { MovePane "Down";  SwitchToMode "Locked";  }
          bind "J"   { MovePane "Left";  SwitchToMode "Locked";  }
          bind "L"   { MovePane "Right"; SwitchToMode "Locked";  }
+
+
          bind "d"   { CloseFocus;       SwitchToMode "Locked";  }
          bind "Tab" { MovePane;         SwitchToMode "Locked";  }
          bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0; }
@@ -62,6 +64,8 @@ keybinds clear-defaults=true {
          bind "k" { MoveFocus "Down";      SwitchToMode "Locked"; }
          bind "j" { MoveFocus "Left";      SwitchToMode "Locked"; }
          bind "l" { MoveFocus "Right";     SwitchToMode "Locked"; }
+
+         bind "f"   { ToggleFloatingPanes; SwitchToMode "Locked";  }
          bind "w" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
  
          // bind "d" { Detach; }
@@ -78,7 +82,6 @@ keybinds clear-defaults=true {
          bind "J" { MovePane "Left";  }
          bind "L" { MovePane "Right"; }
          bind "d" { CloseFocus;       }
- 
  
          bind "Space" { SwitchFocus; }
  
@@ -226,7 +229,7 @@ theme "catppuccin-macchiato"
 // The name of the default layout to load on startup
 // Default: "default"
 //
-// default_layout "compact"
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
