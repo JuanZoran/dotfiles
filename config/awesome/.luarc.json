@@ -1,0 +1,13 @@
+{
+    "workspace.library": [
+        "/usr/share/awesome/lib",
+        "${3rd}/lfs/library"
+    ],
+    "diagnostics.globals": [
+        "lfs",
+        "awesome",
+        "client",
+        "screen",
+        "root"
+    ]
+}

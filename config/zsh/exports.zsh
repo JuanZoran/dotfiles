@@ -2,13 +2,11 @@ export RANGER_LOAD_DEFAULT_RC=false
 
 export EDITOR=nvim
 export VISUAL=nvim
-
 export GOPATH=$HOME/gowork
 export GOBIN=$GOPATH/bin
 
+
 export BLOG=$HOME/myConfig/blog
-
-
 if [ -e "$TMUX" ]; then
     export TERM='screen-256color'
 fi
@@ -17,8 +15,8 @@ fi
 export PATH="$HOME/.local/bin:/usr/sbin/:$PATH"
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
-export PATH=$PATH:$HOME/dotfiles/scripts/zsh
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+export PATH=$PATH:$HOME/zsh/script
 # export PATH=$PATH:$HOME/.yarn/bin
 
 # You may need to manually set your language environment

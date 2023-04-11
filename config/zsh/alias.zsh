@@ -78,17 +78,3 @@ mkcd () {
     mkdir -p "$@" && cd "$_"
 }
 
-# function which can create a new hexo file and open it in vim
-nn () {
-    if [ -z "$1" ]; then
-        echo "Please enter a title for the new post"
-    else
-        touch $BLOG/source/_posts/$1.md
-        echo "---" >> $BLOG/source/_posts/$1.md
-        echo "title: $1" >> $BLOG/source/_posts/$1.md
-        echo "date: $(date +%Y-%m-%d\ %H:%M:%S)" >> $BLOG/source/_posts/$1.md
-        echo "tags: " >> $BLOG/source/_posts/$1.md
-        echo "---" >> $BLOG/source/_posts/$1.md
-        vim $BLOG/source/_posts/$1.md
-    fi
-}

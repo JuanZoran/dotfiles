@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+prompt="请选择需要打开的文件："
+
+
+newfile ()
+{
+
+    echo "Enter the title of the new post"
+    read title
+    touch $dir/$title.md
+    echo "---" >> $dir/$title.md
+    echo "title: $title" >> $dir/$title.md
+    echo "date: $(date +%Y-%m-%d\ %H:%M:%S)" >> $dir/$title.md
+    echo "tags: " >> $dir/$title.md
+    echo "---" >> $dir/$title.md
+    nvim $dir/$title.md
+    exit 0
+}
+
+while getopts "d:nc:" opt; do
+    case $opt in
+        d)
+            dir=$OPTARG
+            ;;
+        n)
+            is_new=true
+            ;;
+        c)
+            category=$OPTARG
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+done
+
+[[ -z $dir ]] && dir=$BLOG/source/_posts
+
+[[ ! -z $is_new ]] && newfile
+
+while [[ -d $dir ]]; do
+    dir=$dir/"$(ls $dir | fzf --prompt="$prompt")"
+done
+
+
+if [[ -f $dir ]]; then
+    file=$dir
+else
+    echo "Unknown file"
+    exit 1
+fi
+
+nvim $file
