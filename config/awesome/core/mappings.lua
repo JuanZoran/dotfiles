@@ -1,14 +1,15 @@
-local key           = {}
-local modkey        = 'Mod4'
-local menubar       = require 'menubar'
+local key              = {}
+local modkey           = 'Mod4'
+local altkey           = 'Mod1'
+local menubar          = require 'menubar'
+menubar.utils.terminal = conf.terminal -- Set the terminal for applications that require it
+
+
+
 local hotkeys_popup = require 'awful.hotkeys_popup'
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
 require 'awful.hotkeys_popup.keys'
 
--- Create a launcher widget and a main menu
 local keys = util.keys
-menubar.utils.terminal = conf.terminal -- Set the terminal for applications that require it
 
 --- INFO : Custom Configuration Defines
 local k = awful.key.new
@@ -32,9 +33,33 @@ bling.widget.window_switcher.enable {
     filterClients = awful.widget.tasklist.filter.currenttags, -- The function to filter the viewed clients
 }
 
+
+awful.key.ignore_modifiers = { 'Lock', 'Mod2' }
+awful.keygrabber {
+    keybindings = {
+        { { modkey }, 'd', function()
+            naughty.notify { text = 'begin ... ' }
+        end, },
+    },
+    export_keybindings = true,
+    stop_key = 'Escape',
+    -- stop_callback = function(_, stop_key, _, sequence)
+    --     naughty.notify { text = 'stop_key: ' .. stop_key .. ', sequence: ' .. sequence }
+    -- end,
+    keypressed_callback = function(_, mods, map, event)
+        for _, mod in ipairs(mods) do
+            naughty.notify { text = 'keypressed_callback: [mods]: ' ..
+                mod .. '[key]: ' .. map .. '[event]: ' .. event, }
+        end
+    end,
+}
+
 ---@format disable-next
 -- {{{ Key bindings
 key.global = keys {
+
+
+
     k({ modkey            }, '/', hotkeys_popup.show_help, { description = 'show help',      group = 'awesome' }),
     k({ modkey, 'Control' }, 'r', awesome.restart,         { description = 'reload awesome', group = 'awesome' }),
     k({ modkey, 'Shift'   }, 'q', awesome.quit,            { description = 'quit awesome',   group = 'awesome' }),
@@ -64,16 +89,22 @@ key.global = keys {
     --     end
     -- end, { description = 'go back', group = 'client' }),
 
+    k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
+    k({ altkey, "Shift" }, 'Up',     function() awful.spawn.with_shell('xbacklight -inc 5')           end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey, 'Shift' }, 'Down',   function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
+
     -- Standard program
-    k({ modkey            }, 'a',     function() awful.spawn(conf.terminal)          end, { description = 'open a terminal',                       group = 'launcher'}),
-    k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)           end, { description = 'increase master width factor',          group = 'layout' }),
-    k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)          end, { description = 'decrease master width factor',          group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)  end, { description = 'increase the number of master clients', group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true) end, { description = 'decrease the number of master clients', group = 'layout' }),
-    k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)     end, { description = 'increase the number of columns',        group = 'layout' }),
-    k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)    end, { description = 'decrease the number of columns',        group = 'layout' }),
-    k({ modkey            }, 'space', function() awful.layout.inc(1)                 end, { description = 'select next',                           group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'space', function() awful.layout.inc(-1)                end, { description = 'select previous',                       group = 'layout' }),
+    k({ modkey            }, 'a',     function() awful.spawn(conf.terminal)              end, { description = 'open a terminal',                       group = 'launcher'}),
+    k({ modkey            }, 's',     function() awful.spawn.with_shell('flameshot gui') end, { description = 'screen shot use flameshot',             group = 'launcher' }),
+    k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)               end, { description = 'increase master width factor',          group = 'layout' }),
+    k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)              end, { description = 'decrease master width factor',          group = 'layout' }),
+    k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)      end, { description = 'increase the number of master clients', group = 'layout' }),
+    k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true)     end, { description = 'decrease the number of master clients', group = 'layout' }),
+    k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)         end, { description = 'increase the number of columns',        group = 'layout' }),
+    k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)        end, { description = 'decrease the number of columns',        group = 'layout' }),
+    k({ modkey            }, 'space', function() awful.layout.inc(1)                     end, { description = 'select next',                           group = 'layout' }),
+    k({ modkey, 'Shift'   }, 'space', function() awful.layout.inc(-1)                    end, { description = 'select previous',                       group = 'layout' }),
 
     k({ modkey, 'Control' }, 'n', function()
         local c = awful.client.restore()
@@ -146,6 +177,10 @@ key.clientkeys = util.keys {
     end, { description = '(un)maximize horizontally', group = 'client' }),
 }
 
+
+-- TODO : Use this to show current volume
+-- pactl list sinks | grep 'front-left:'
+
 -- Bind all key umbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
@@ -204,7 +239,9 @@ key.clientbuttons = keys {
     end),
 }
 
-
+-- Load Debian menu entries
+local debian = require 'debian.menu'
+local has_fdo, freedesktop = pcall(require, 'freedesktop')
 local myawesomemenu = {
     { 'hotkeys',     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
     { 'edit config', conf.editor_cmd .. ' ' .. awesome.conffile },
@@ -212,13 +249,25 @@ local myawesomemenu = {
     { 'quit',        function() awesome.quit() end },
 }
 
-local mymainmenu    = awful.menu {
-    items = { { 'awesome', myawesomemenu, beautiful.awesome_icon },
-        { 'open terminal', conf.terminal },
-    },
-}
-local button        = util.button
-key.mouse           = keys {
+local menu_awesome = { 'awesome', myawesomemenu, beautiful.awesome_icon }
+local menu_terminal = { 'open terminal', terminal }
+
+if has_fdo then
+    mymainmenu = freedesktop.menu.build {
+        before = { menu_awesome },
+        after = { menu_terminal },
+    }
+else
+    mymainmenu = awful.menu {
+        items = {
+            menu_awesome,
+            { 'Debian', debian.menu.Debian_menu.Debian },
+            menu_terminal,
+        },
+    }
+end
+local button = util.button
+key.mouse    = keys {
     button { 3, function() mymainmenu:toggle() end },
     button { 4, awful.tag.viewnext },
     button { 5, awful.tag.viewprev },

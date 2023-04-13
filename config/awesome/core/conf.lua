@@ -1,4 +1,6 @@
-local conf      = {
+require 'awful.autofocus'
+
+local conf = {
     rofi_theme = 'rofi',
 }
 
@@ -8,11 +10,11 @@ conf.editor_cmd = conf.terminal .. ' -e ' .. conf.editor
 
 conf.layout     = {
     bling.layout.centered,
-    awful.layout.suit.tile,
-    awful.layout.suit.floating,
-    awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    awful.layout.suit.tile,
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.top,
 
     -- INFO :Default
     -- awful.layout.suit.tile,
@@ -55,7 +57,5 @@ conf.widgets = {
         }
     end,
 }
-
-require 'awful.autofocus'
 
 _G.conf = conf

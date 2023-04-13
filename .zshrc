@@ -5,14 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $HOME/zsh/exports.zsh
-source $HOME/zsh/alias.zsh
-
-
 go env -w GOPROXY="https://goproxy.cn"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -26,17 +20,35 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-#启用 cd 命令的历史纪录，cd -[TAB]进入历史路径
+
+# 启用 cd 命令的历史纪录，cd -[TAB]进入历史路径
 setopt AUTO_PUSHD
 #相同的历史路径只保留一个
 setopt PUSHD_IGNORE_DUPS
+# 禁用终端响铃
+unsetopt BEEP
+# 加强版通配符
+setopt EXTENDED_GLOB
+# 如果连续输入的命令相同，历史纪录中只保留一个
+setopt HIST_IGNORE_DUPS
+# 多个 zsh 间分享历史纪录
+setopt SHARE_HISTORY
 
+
+
+source $HOME/zsh/highlight.zsh
+source $HOME/zsh/exports.zsh
+source $HOME/zsh/alias.zsh
+source $HOME/zsh/maps.zsh
 
 zi light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
-# source $HOME/zsh/mocha.zsh
-source $HOME/zsh/highlight.zsh
-source $HOME/zsh/maps.zsh
+# NOTE :
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                        OMZ-plugin                        │
+#  ╰──────────────────────────────────────────────────────────╯
+zi snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
+# zi snippet OMZ::plugins/thefuck/thefuck.plugin.zsh
 
 # NOTE :
 #                               ╭─────────────────╮
@@ -45,6 +57,7 @@ source $HOME/zsh/maps.zsh
 
 # NOTE: This setting can NOT be changed at runtime.:
 zstyle ':autocomplete:*' widget-style menu-select
+zstyle ':autocomplete:*' insert-unambiguous yes
 # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
 # complete-word: (Shift-)Tab inserts the top (bottom) completion.
 # menu-complete: Press again to cycle to next (previous) completion.
@@ -80,6 +93,7 @@ zi ice depth=1; zinit light romkatv/powerlevel10k
 # eval "$(starship init zsh)"
 
 eval "$(zoxide init zsh --cmd cd)"
+eval $(thefuck --alias)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # >>> xmake >>>

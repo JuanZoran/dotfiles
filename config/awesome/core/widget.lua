@@ -1,62 +1,9 @@
--- INFO :
---  ╭──────────────────────────────────────────────────────────╮
---  │                      bling settings                      │
---  ╰──────────────────────────────────────────────────────────╯
-
--- FIXME :This doesn work
-bling.widget.tag_preview.enable {
-    show_client_content = false, -- Whether or not to show the client content
-    x = 10,                      -- The x-coord of the popup
-    y = 10,                      -- The y-coord of the popup
-    scale = 0.15,                -- The scale of the previews compared to the screen
-    honor_padding = false,       -- Honor padding when creating widget size
-    honor_workarea = false,      -- Honor work area when creating widget size
-    placement_fn = function(c)   -- Place the widget using awful.placement (this overrides x & y)
-        awful.placement.top(c, {
-            margins = {
-                top = 70,
-            },
-        })
-    end,
-}
-
-bling.widget.task_preview.enable {
-    x = 20,                    -- The x-coord of the popup
-    y = 20,                    -- The y-coord of the popup
-    height = 200,              -- The height of the popup
-    width = 200,               -- The width of the popup
-    placement_fn = function(c) -- Place the widget using awful.placement (this overrides x & y)
-        awful.placement.bottom(c, {
-            margins = {
-                bottom = 30,
-            },
-        })
-    end,
-}
-
 local wconf = conf.widgets
---  ╭──────────────────────────────────────────────────────────╮
---  │                    End bling settings                    │
---  ╰──────────────────────────────────────────────────────────╯
-local function set_wallpaper(s)
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == 'function' then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal('property::geometry', set_wallpaper)
-
 
 local btn_act = util.enum.bottom
 local button = util.button
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s)
-    set_wallpaper(s)
     -- Each screen has its own tag table.
     awful.tag({ '1', '2', '3', '4', '5' }, s, awful.layout.suit.tile)
 
