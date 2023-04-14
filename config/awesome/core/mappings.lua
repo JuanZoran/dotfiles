@@ -15,6 +15,27 @@ local keys = util.keys
 local k = awful.key.new
 
 -- INFO :Custom utility
+-- local theme = require 'theme.theme'
+-- theme.window_switcher_widget_bg = '#000000'              -- The bg color of the widget
+-- theme.window_switcher_widget_border_width = 3            -- The border width of the widget
+-- theme.window_switcher_widget_border_radius = 0           -- The border radius of the widget
+-- theme.window_switcher_widget_border_color = '#ffffff'    -- The border color of the widget
+-- theme.window_switcher_clients_spacing = 20               -- The space between each client item
+-- theme.window_switcher_client_icon_horizontal_spacing = 5 -- The space between client icon and text
+-- theme.window_switcher_client_width = 150                 -- The width of one client widget
+-- theme.window_switcher_client_height = 250                -- The height of one client widget
+-- theme.window_switcher_client_margins = 10                -- The margin between the content and the border of the widget
+-- theme.window_switcher_thumbnail_margins = 10             -- The margin between one client thumbnail and the rest of the widget
+-- theme.thumbnail_scale = true                            -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
+-- theme.window_switcher_name_margins = 10                  -- The margin of one clients title to the rest of the widget
+-- theme.window_switcher_name_valign = 'center'             -- How to vertically align one clients title
+-- theme.window_switcher_name_forced_width = 200            -- The width of one title
+-- theme.window_switcher_name_font = theme.font             -- The font of all titles
+-- theme.window_switcher_name_normal_color = '#ffffff'      -- The color of one title if the client is unfocused
+-- theme.window_switcher_name_focus_color = '#ff0000'       -- The color of one title if the client is focused
+-- theme.window_switcher_icon_valign = 'center'             -- How to vertically align the one icon
+-- theme.window_switcher_icon_width = 40                    -- The width of one icon
+
 bling.widget.window_switcher.enable {
     type = 'thumbnail', -- set to anything other than "thumbnail" to disable client previews
 
@@ -28,7 +49,6 @@ bling.widget.window_switcher.enable {
     next_key = 'Right',                                       -- The key on which to select the next client
     vim_previous_key = 'j',                                   -- Alternative key on which to select the previous client
     vim_next_key = 'l',                                       -- Alternative key on which to select the next client
-
     cycleClientsByIdx = awful.client.focus.byidx,             -- The function to cycle the clients
     filterClients = awful.widget.tasklist.filter.currenttags, -- The function to filter the viewed clients
 }
@@ -89,8 +109,10 @@ key.global = keys {
     --     end
     -- end, { description = 'go back', group = 'client' }),
 
-    k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
-    k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
+    k({ altkey          }, 'Up',     function() require'lib.volume-control.volume'.up() end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey          }, 'Down',   function() require'lib.volume-control.volume'.down() end, { description = 'Decrease volume', group = 'client' }),
+    -- k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
+    -- k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
     k({ altkey, "Shift" }, 'Up',     function() awful.spawn.with_shell('xbacklight -inc 5')           end, { description = 'Increase volume', group = 'client' }),
     k({ altkey, 'Shift' }, 'Down',   function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
 

@@ -1,6 +1,5 @@
 local theme_assets = require 'beautiful.theme_assets'
-local xresources   = require 'beautiful.xresources'
-local dpi          = xresources.apply_dpi
+local dpi          = require 'beautiful.xresources'.apply_dpi
 
 local Jb           = 'JetBrains Mono Nerd Font'
 local norm_font    = Jb .. ' 12'

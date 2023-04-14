@@ -97,8 +97,8 @@ M.keys = {
 
 
     -- NOTE :Close
-    k { lead, 'd', act.CloseCurrentTab { confirm = false } },
-    k { mod, 'q', act.CloseCurrentPane { confirm = false } },
+    k { lead, 'd', act.CloseCurrentPane { confirm = false } },
+    k { mod, 'q', act.CloseCurrentTab { confirm = false } },
 
     k { mod, 'c', act.CopyTo 'Clipboard' },
     k { mod, 'v', act.PasteFrom 'Clipboard' },

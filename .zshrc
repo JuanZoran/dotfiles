@@ -35,9 +35,8 @@ setopt HIST_IGNORE_DUPS
 setopt SHARE_HISTORY
 
 
-
-source $HOME/zsh/highlight.zsh
 source $HOME/zsh/exports.zsh
+source $HOME/zsh/highlight.zsh
 source $HOME/zsh/alias.zsh
 source $HOME/zsh/maps.zsh
 

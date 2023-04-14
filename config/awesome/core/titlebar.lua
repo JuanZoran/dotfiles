@@ -5,6 +5,20 @@ local no_titlebar = {
     ['TelegramDesktop']  = true,
 }
 local normal_size = 35
+-- FIXME :It doesn't work
+-- local dpi         = require 'beautiful.xresources'.apply_dpi
+-- bling.widget.tabbed_misc.titlebar_indicator(client, {
+--     layout = wibox.layout.fixed.vertical,
+--     layout_spacing = dpi(5),         -- Set spacing in between items
+--     icon_size = dpi(24),             -- Set icon size
+--     icon_margin = 0,                 -- Set icon margin
+--     fg_color = '#cccccc',            -- Normal color for text
+--     fg_color_focus = '#ffffff',      -- Color for focused text
+--     bg_color_focus = '#282828',      -- Color for the focused items
+--     bg_color = '#1d2021',            -- Color for normal / unfocused items
+--     icon_shape = gears.shape.circle, -- Set icon shape,
+-- })
+
 
 client.connect_signal('request::titlebars', function(c)
     -- buttons for the titlebar
@@ -22,8 +36,7 @@ client.connect_signal('request::titlebars', function(c)
         {
             -- Left
             awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal,
+            layout = wibox.layout.fixed.horizontal,
         },
         {
             -- Middle

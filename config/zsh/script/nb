@@ -1,4 +1,5 @@
 #!/bin/zsh
+source ./color
 
 prompt="请选择需要打开的文件："
 
@@ -6,7 +7,7 @@ prompt="请选择需要打开的文件："
 newfile ()
 {
 
-    echo "Enter the title of the new post"
+    echo "$green Enter the title of the new post $done"
     read title
     touch $dir/$title.md
     echo "---" >> $dir/$title.md
