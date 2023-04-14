@@ -1,6 +1,6 @@
 require 'awful.autofocus'
 
-local conf = {
+local conf      = {
     rofi_theme = 'rofi',
 }
 
@@ -9,11 +9,13 @@ conf.terminal   = 'wezterm'
 conf.editor_cmd = conf.terminal .. ' -e ' .. conf.editor
 
 conf.layout     = {
+    -- awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile,
+    awful.layout.suit.floating,
+    awful.layout.suit.max,
     bling.layout.centered,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile,
     -- awful.layout.suit.floating,
-    -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.top,
 
     -- INFO :Default
@@ -36,6 +38,8 @@ conf.layout     = {
     -- awful.layout.suit.corner.se,
 }
 
+conf.widget_fg  = '#a6adc8'
+conf.widget_bg  = '#1e1e2e'
 
 conf.widgets = {
     systray = {
