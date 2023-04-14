@@ -20,6 +20,10 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+source $HOME/zsh/exports.zsh
+source $HOME/zsh/highlight.zsh
+source $HOME/zsh/alias.zsh
+source $HOME/zsh/maps.zsh
 
 # 启用 cd 命令的历史纪录，cd -[TAB]进入历史路径
 setopt AUTO_PUSHD
@@ -35,10 +39,6 @@ setopt HIST_IGNORE_DUPS
 setopt SHARE_HISTORY
 
 
-source $HOME/zsh/exports.zsh
-source $HOME/zsh/highlight.zsh
-source $HOME/zsh/alias.zsh
-source $HOME/zsh/maps.zsh
 
 zi light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting

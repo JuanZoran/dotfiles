@@ -5,13 +5,15 @@ run() {
     fi
 }
 
-source /home/zoran/zsh/exports.zsh
-
-run autorandr -c
-
+# run autorandr -c
 run flameshot
 run telegram
 run picom
+run utools
+# feh --randomize --bg-fill ~/background/*
+run variety
+
+
 
 killall -q polybar
 polybar --config=/home/zoran/.config/polybar/config.ini left &

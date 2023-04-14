@@ -147,10 +147,14 @@ key.global = keys {
 	-- k({ modkey }, "w", function()
 	-- 	awful.util.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi -show window")
 	-- end, { description = "show the window", group = "rofi window" }),
-	k({ modkey }, "r", function()
-		awful.util.spawn("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show run")
-	end, { description = "show the run", group = "rofi run" }),
 
+
+	k({ modkey }, "r", function()
+		awful.util.spawn_with_shell("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show run")
+	end, { description = "show the run", group = "rofi run" }),
+	-- k({ modkey }, "r", function()
+	-- 	awful.util.spawn_with_shell("/home/zoran/.config/rofi/launchers/type-7/launcher.sh")
+	-- end, { description = "show the run", group = "rofi run" }),
 
     k({ modkey }, 'p', function() menubar.show() end,
         { description = 'show the menubar', group = 'launcher' }),

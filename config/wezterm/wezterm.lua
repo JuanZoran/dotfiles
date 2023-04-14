@@ -69,7 +69,7 @@ return {
 
     font = wz.font_with_fallback {
         -- "FiraCode Nerd Font Mono",
-        'JetBrains Mono Nerd Font',
+        'JetBrains Mono Nerd Font Mono',
         '得意黑',
     },
 }

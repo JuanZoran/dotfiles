@@ -11,14 +11,6 @@ if [ -e "$TMUX" ]; then
     export TERM='screen-256color'
 fi
 
-
-export PATH="$HOME/.local/bin:/usr/sbin/:$PATH"
-export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
-export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
-export PATH=$PATH:$HOME/zsh/script
-# export PATH=$PATH:$HOME/.yarn/bin
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 export LC_CTYPE=zh_CN.UTF-8
