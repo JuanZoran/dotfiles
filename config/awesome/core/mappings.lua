@@ -109,10 +109,10 @@ key.global = keys {
     --     end
     -- end, { description = 'go back', group = 'client' }),
 
-    k({ altkey          }, 'Up',     function() require'lib.volume-control.volume'.up() end, { description = 'Increase volume', group = 'client' }),
-    k({ altkey          }, 'Down',   function() require'lib.volume-control.volume'.down() end, { description = 'Decrease volume', group = 'client' }),
-    -- k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
-    -- k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
+    -- k({ altkey          }, 'Up',     function() require'lib.volume-control.volume'.up() end, { description = 'Increase volume', group = 'client' }),
+    -- k({ altkey          }, 'Down',   function() require'lib.volume-control.volume'.down() end, { description = 'Decrease volume', group = 'client' }),
+    k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
     k({ altkey, "Shift" }, 'Up',     function() awful.spawn.with_shell('xbacklight -inc 5')           end, { description = 'Increase volume', group = 'client' }),
     k({ altkey, 'Shift' }, 'Down',   function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
 

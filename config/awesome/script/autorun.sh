@@ -13,6 +13,11 @@ run flameshot
 run telegram
 run picom
 
+killall -q polybar
+polybar --config=/home/zoran/.config/polybar/config.ini left &
+# polybar --config=/home/zoran/.config/polybar/config.ini middle &
+polybar --config=/home/zoran/.config/polybar/config.ini right &
+
 # NetWork Manager
 run nm-applet --sm-disable
 # remap Ctrl to escape
