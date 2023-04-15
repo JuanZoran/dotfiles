@@ -89,7 +89,7 @@ setopt share_history          # share command history data
 # # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 zi ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 
 eval "$(zoxide init zsh --cmd cd)"
 eval $(thefuck --alias)
