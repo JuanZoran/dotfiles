@@ -1,10 +1,3 @@
--- INFO :Avoid titlebar get conflict
-local no_titlebar = {
-    ['Chromium-browser'] = true,
-    ['QQ']               = true,
-    ['TelegramDesktop']  = true,
-}
-local normal_size = 35
 -- FIXME :It doesn't work
 -- local dpi         = require 'beautiful.xresources'.apply_dpi
 -- bling.widget.tabbed_misc.titlebar_indicator(client, {
@@ -18,9 +11,17 @@ local normal_size = 35
 --     bg_color = '#1d2021',            -- Color for normal / unfocused items
 --     icon_shape = gears.shape.circle, -- Set icon shape,
 -- })
+-- INFO :Avoid titlebar get conflict
+local no_titlebar = {
+    ['Chromium-browser']       = true,
+    ['QQ']                     = true,
+    ['TelegramDesktop']        = true,
+    ['org.wezfurlong.wezterm'] = true,
+}
 
 
 client.connect_signal('request::titlebars', function(c)
+    if no_titlebar[c.class] then return end
     -- buttons for the titlebar
     local buttons = util.keys {
         awful.button({}, 1, function()
@@ -32,7 +33,7 @@ client.connect_signal('request::titlebars', function(c)
             awful.mouse.client.resize(c)
         end),
     }
-    awful.titlebar(c, { position = 'top', size = no_titlebar[c.class] and 0 or normal_size }):setup {
+    awful.titlebar(c, { position = 'top', size = conf.titlebar_size}):setup {
         {
             -- Left
             awful.titlebar.widget.iconwidget(c),

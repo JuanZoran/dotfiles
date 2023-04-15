@@ -40,6 +40,7 @@ conf.layout     = {
 
 conf.widget_fg  = '#a6adc8'
 conf.widget_bg  = '#1e1e2e'
+conf.titlebar_size = 40
 
 conf.widgets = {
     systray = {
