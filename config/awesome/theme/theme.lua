@@ -191,6 +191,10 @@ theme.awesome_icon = theme_assets.awesome_icon(
 )
 
 
+theme.collision_focus_bg = theme.bg_normal
+theme.collision_focus_fg = theme.fg_normal
+
+
 -- theme.tag_preview_widget_border_radius = 10
 -- theme.tag_preview_client_border_radius = 10
 -- theme.tag_preview_client_opacity = 0.1

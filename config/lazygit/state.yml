@@ -1,6 +1,7 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
+- /home/zoran/dotfiles/config/surfingkeys-conf
 - /home/zoran/myConfig/blog
 - /home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch
 - /home/zoran/.config/nvim

@@ -5,7 +5,6 @@ local menubar          = require 'menubar'
 menubar.utils.terminal = conf.terminal -- Set the terminal for applications that require it
 
 
-
 local hotkeys_popup = require 'awful.hotkeys_popup'
 require 'awful.hotkeys_popup.keys'
 
@@ -67,33 +66,44 @@ awful.keygrabber {
     --     naughty.notify { text = 'stop_key: ' .. stop_key .. ', sequence: ' .. sequence }
     -- end,
     keypressed_callback = function(_, mods, map, event)
-        for _, mod in ipairs(mods) do
-            naughty.notify { text = 'keypressed_callback: [mods]: ' ..
-                mod .. '[key]: ' .. map .. '[event]: ' .. event, }
-        end
+        local mod = table.concat(mods, '|')
+        naughty.notify { text = 'keypressed_callback: [mods]: ' .. mod .. '[key]: ' .. map .. '[event]: ' .. event }
     end,
 }
+
+
+-- require 'collision' {
+--     up    = { 'Up', 'i' },
+--     down  = { 'Down', 'k' },
+--     left  = { 'Left', 'j' },
+--     right = { 'Right', 'l' },
+-- }
 
 ---@format disable-next
 -- {{{ Key bindings
 key.global = keys {
+    k({ modkey }, 'Left',   awful.tag.viewprev,         { description = 'view previous', group = 'tag' }),
+    k({ modkey }, 'Right',  awful.tag.viewnext,         { description = 'view next',     group = 'tag' }),
     k({ modkey            }, '/', hotkeys_popup.show_help, { description = 'show help',      group = 'awesome' }),
     k({ modkey, 'Control' }, 'r', awesome.restart,         { description = 'reload awesome', group = 'awesome' }),
     k({ modkey, 'Shift'   }, 'q', awesome.quit,            { description = 'quit awesome',   group = 'awesome' }),
 
     k({ modkey }, 'Escape', awful.tag.history.restore,  { description = 'go back',       group = 'tag' }),
-    k({ modkey }, 'Left',   awful.tag.viewprev,         { description = 'view previous', group = 'tag' }),
-    k({ modkey }, 'Right',  awful.tag.viewnext,         { description = 'view next',     group = 'tag' }),
     -- k({ modkey }, 'w', function() mymainmenu:show() end, { description = 'show main menu', group = 'awesome' }),
 
     -- Layout manipulation
     -- k({ modkey }, 'u', awful.client.urgent.jumpto, { description = 'jump to urgent client', group = 'client' }),
-    k({ modkey, 'Control' }, 'j', function() awful.screen.focus_relative(-1) end, { description = 'focus the previous screen',          group = 'screen' }),
-    k({ modkey, 'Control' }, 'l', function() awful.screen.focus_relative(1)  end, { description = 'focus the next screen',              group = 'screen' }),
-    k({ modkey, 'Shift' }, 'j',   function() awful.client.swap.byidx(-1)     end, { description = 'swap with previous client by index', group = 'client' }),
-    k({ modkey, 'Shift' }, 'l',   function() awful.client.swap.byidx(1)      end, { description = 'swap with next client by index',     group = 'client' }),
-    k({ modkey }, 'j',            function() awful.client.focus.byidx(-1)    end, { description = 'focus previous by index',            group = 'client' }),
-    k({ modkey }, 'l',            function() awful.client.focus.byidx(1)     end, { description = 'focus next by index',                group = 'client' }),
+    k({ modkey, 'Control' }, 'j', function() awful.screen.focus_relative(-1)        end, { description = 'focus the previous screen',          group = 'screen' }),
+    k({ modkey, 'Control' }, 'l', function() awful.screen.focus_relative(1)         end, { description = 'focus the next screen',              group = 'screen' }),
+
+    k({ modkey, 'Shift' }, 'i',   function() awful.client.swap.bydirection('up')     end, { description = 'swap with up client',    group = 'client' }),
+    k({ modkey, 'Shift' }, 'k',   function() awful.client.swap.bydirection('down')   end, { description = 'swap with down client',  group = 'client' }),
+    k({ modkey, 'Shift' }, 'j',   function() awful.client.swap.bydirection('left')   end, { description = 'swap with left client',  group = 'client' }),
+    k({ modkey, 'Shift' }, 'l',   function() awful.client.swap.bydirection('right')  end, { description = 'swap with right client', group = 'client' }),
+    k({ modkey }, 'i',            function() awful.client.focus.bydirection('up')    end, { description = 'focus up',               group = 'client' }),
+    k({ modkey }, 'k',            function() awful.client.focus.bydirection('down')  end, { description = 'focus down',             group = 'client' }),
+    k({ modkey }, 'j',            function() awful.client.focus.bydirection('left')  end, { description = 'focus left',             group = 'client' }),
+    k({ modkey }, 'l',            function() awful.client.focus.bydirection('right') end, { description = 'focus right',            group = 'client' }),
 
 
     k({ modkey }, 'Tab', function()
@@ -282,23 +292,23 @@ local myawesomemenu = {
 local menu_awesome = { 'awesome', myawesomemenu, beautiful.awesome_icon }
 local menu_terminal = { 'open terminal', terminal }
 
-if has_fdo then
-    mymainmenu = freedesktop.menu.build {
+local mainmenu = has_fdo
+    and freedesktop.menu.build {
         before = { menu_awesome },
         after = { menu_terminal },
     }
-else
-    mymainmenu = awful.menu {
+    or awful.menu {
         items = {
             menu_awesome,
             { 'Debian', debian.menu.Debian_menu.Debian },
             menu_terminal,
         },
     }
-end
+
+
 local button = util.button
 key.mouse    = keys {
-    button { 3, function() mymainmenu:toggle() end },
+    button { 3, function() mainmenu:toggle() end },
     button { 4, awful.tag.viewnext },
     button { 5, awful.tag.viewprev },
 }
