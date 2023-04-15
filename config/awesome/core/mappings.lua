@@ -77,9 +77,6 @@ awful.keygrabber {
 ---@format disable-next
 -- {{{ Key bindings
 key.global = keys {
-
-
-
     k({ modkey            }, '/', hotkeys_popup.show_help, { description = 'show help',      group = 'awesome' }),
     k({ modkey, 'Control' }, 'r', awesome.restart,         { description = 'reload awesome', group = 'awesome' }),
     k({ modkey, 'Shift'   }, 'q', awesome.quit,            { description = 'quit awesome',   group = 'awesome' }),
@@ -87,7 +84,6 @@ key.global = keys {
     k({ modkey }, 'Escape', awful.tag.history.restore,  { description = 'go back',       group = 'tag' }),
     k({ modkey }, 'Left',   awful.tag.viewprev,         { description = 'view previous', group = 'tag' }),
     k({ modkey }, 'Right',  awful.tag.viewnext,         { description = 'view next',     group = 'tag' }),
-
     -- k({ modkey }, 'w', function() mymainmenu:show() end, { description = 'show main menu', group = 'awesome' }),
 
     -- Layout manipulation
@@ -99,6 +95,10 @@ key.global = keys {
     k({ modkey }, 'j',            function() awful.client.focus.byidx(-1)    end, { description = 'focus previous by index',            group = 'client' }),
     k({ modkey }, 'l',            function() awful.client.focus.byidx(1)     end, { description = 'focus next by index',                group = 'client' }),
 
+
+    -- k({ modkey }, 'Tab', function()
+    --     awful.client.focus.byidx(1)
+    -- end, { description = 'Window Switcher', group = 'client' }),
     k({ modkey }, 'Tab', function()
          awesome.emit_signal("bling::window_switcher::turn_on")
     end, { description = 'Window Switcher', group = 'client' }),
@@ -109,22 +109,26 @@ key.global = keys {
     --     end
     -- end, { description = 'go back', group = 'client' }),
 
+
+
     -- k({ altkey          }, 'Up',     function() require'lib.volume-control.volume'.up() end, { description = 'Increase volume', group = 'client' }),
     -- k({ altkey          }, 'Down',   function() require'lib.volume-control.volume'.down() end, { description = 'Decrease volume', group = 'client' }),
-    k({ altkey          }, 'Up',     function() awful.spawn.with_shell('pactl set-sink-volume 0 +5%') end, { description = 'Increase volume', group = 'client' }),
-    k({ altkey          }, 'Down',   function() awful.spawn.with_shell('pactl set-sink-volume 0 -5%') end, { description = 'Decrease volume', group = 'client' }),
-    k({ altkey, "Shift" }, 'Up',     function() awful.spawn.with_shell('xbacklight -inc 5')           end, { description = 'Increase volume', group = 'client' }),
-    k({ altkey, 'Shift' }, 'Down',   function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
+    k({}, 'XF86AudioRaiseVolume',  function() awful.spawn.with_shell('pactl set-sink-volume @DEFAULT_SINK@ +5%') end, { description = 'Increase volume', group = 'client' }),
+    k({}, 'XF86AudioLowerVolume',  function() awful.spawn.with_shell('pactl set-sink-volume @DEFAULT_SINK@ -5%') end, { description = 'Decrease volume', group = 'client' }),
+    k({ altkey          }, 'Up',   function() awful.spawn.with_shell('pactl set-sink-volume @DEFAULT_SINK@ +5%') end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey          }, 'Down', function() awful.spawn.with_shell('pactl set-sink-volume @DEFAULT_SINK@ -5%') end, { description = 'Decrease volume', group = 'client' }),
+    k({ altkey, "Shift" }, 'Up',   function() awful.spawn.with_shell('xbacklight -inc 5')           end, { description = 'Increase volume', group = 'client' }),
+    k({ altkey, 'Shift' }, 'Down', function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
 
     -- Standard program
     k({ modkey            }, 'a',     function() awful.spawn(conf.terminal)              end, { description = 'open a terminal',                       group = 'launcher'}),
     k({ modkey            }, 's',     function() awful.spawn.with_shell('flameshot gui') end, { description = 'screen shot use flameshot',             group = 'launcher' }),
-    k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)               end, { description = 'increase master width factor',          group = 'layout' }),
-    k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)              end, { description = 'decrease master width factor',          group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)      end, { description = 'increase the number of master clients', group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true)     end, { description = 'decrease the number of master clients', group = 'layout' }),
-    k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)         end, { description = 'increase the number of columns',        group = 'layout' }),
-    k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)        end, { description = 'decrease the number of columns',        group = 'layout' }),
+    -- k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)               end, { description = 'increase master width factor',          group = 'layout' }),
+    -- k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)              end, { description = 'decrease master width factor',          group = 'layout' }),
+    -- k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)      end, { description = 'increase the number of master clients', group = 'layout' }),
+    -- k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true)     end, { description = 'decrease the number of master clients', group = 'layout' }),
+    -- k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)         end, { description = 'increase the number of columns',        group = 'layout' }),
+    -- k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)        end, { description = 'decrease the number of columns',        group = 'layout' }),
     k({ modkey            }, 'space', function() awful.layout.inc(1)                     end, { description = 'select next',                           group = 'layout' }),
     k({ modkey, 'Shift'   }, 'space', function() awful.layout.inc(-1)                    end, { description = 'select previous',                       group = 'layout' }),
 
@@ -142,18 +146,18 @@ key.global = keys {
     -- k({ modkey }, 'r', function() awful.screen.focused().mypromptbox:run() end,
     --     { description = 'run prompt', group = 'launcher' }),
 	-- k({ modkey }, "q", function()
-	-- 	awful.util.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi  -show drun")
+	-- 	awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi  -show drun")
 	-- end, { description = "show the menubar", group = "rofi apps" }),
 	-- k({ modkey }, "w", function()
-	-- 	awful.util.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi -show window")
+	-- 	awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi -show window")
 	-- end, { description = "show the window", group = "rofi window" }),
 
 
 	k({ modkey }, "r", function()
-		awful.util.spawn_with_shell("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show run")
+		awful.spawn.with_shell("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show run")
 	end, { description = "show the run", group = "rofi run" }),
 	-- k({ modkey }, "r", function()
-	-- 	awful.util.spawn_with_shell("/home/zoran/.config/rofi/launchers/type-7/launcher.sh")
+	-- 	awful.spawn_with_shell("/home/zoran/.config/rofi/launchers/type-7/launcher.sh")
 	-- end, { description = "show the run", group = "rofi run" }),
 
     k({ modkey }, 'p', function() menubar.show() end,

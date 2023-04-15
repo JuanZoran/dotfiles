@@ -12,7 +12,7 @@ alias e='exit'
 alias format='cp ~/dotfiles/config/clangd/.clang-format .'
 alias a="ranger"
 alias aa="lazygit"
-alias lk="du -sh * | sort -h"
+alias lk="du -sh * .* | sort -h"
 alias ll="exa --tree --level=2 -a --long --header --accessed"
 alias win="sudo dpkg-reconfigure lightdm"
 alias x="xmake"
@@ -29,6 +29,8 @@ alias cc="cloc . --exclude-list-file .clocignore"
 alias del="sudo apt remove --auto-remove"
 alias cat="batcat"
 alias h="hexo"
+alias ne="neofetch"
+alias gtktheme="lxappearance"
 
 alias f='nvim $(fzf)'
 
