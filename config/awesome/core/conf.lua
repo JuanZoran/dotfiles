@@ -1,14 +1,14 @@
 require 'awful.autofocus'
 
-local conf      = {
+local conf         = {
     rofi_theme = 'rofi',
 }
 
-conf.editor     = 'nvim'
-conf.terminal   = 'wezterm'
-conf.editor_cmd = conf.terminal .. ' -e ' .. conf.editor
+conf.editor        = 'nvim'
+conf.terminal      = 'wezterm'
+conf.editor_cmd    = conf.terminal .. ' -e ' .. conf.editor
 
-conf.layout     = {
+conf.layout        = {
     -- awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.left,
     -- awful.layout.suit.tile,
@@ -38,24 +38,25 @@ conf.layout     = {
     -- awful.layout.suit.corner.se,
 }
 
-conf.widget_fg  = '#a6adc8'
-conf.widget_bg  = '#1e1e2e'
+conf.widget_fg     = '#a6adc8'
+conf.widget_bg     = '#1e1e2e'
 conf.titlebar_size = 40
 
-conf.widgets = {
+conf.widgets       = {
     systray = {
         icon_size = 30,
     },
     get_wibar = function(s)
         return {
             shape        = function(cr, w, h) gears.shape.rounded_rect(cr, w, h, 10) end,
-            position     = 'top',
+            position     = 'bottom',
             x            = 0,
             y            = 20,
             screen       = s,
             height       = 45,
             width        = 900,
             stretch      = false,
+            opacity      = 0.8,
             -- bg        = '#1A1B26', -- bar bg color
             border_width = 0,
             -- border_color = '#3f4859',
@@ -63,4 +64,4 @@ conf.widgets = {
     end,
 }
 
-_G.conf = conf
+_G.conf            = conf

@@ -14,9 +14,9 @@ run variety # Wallpaper
 # run latte-dock
 run nm-applet --sm-disable # Network Manager
 run xcape -e 'Control_L=Escape' # remap Ctrl to escape
-run xautolock -time 10 -locker 'betterlockscreen -l dim' # 在无操作十分种后锁定会话
 
-
+run xidlehook --not-when-fullscreen --not-when-audio --timer 600 'betterscreenlock -l dim' ''
+# run xautolock -time 10 -locker 'betterlockscreen -l dim' # 在无操作十分种后锁定会话
 # run eww daemon
 # "$HOME"/.config/eww/run
 
