@@ -1,5 +1,4 @@
 local wconf = conf.widgets
-
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s)
     -- local btn_act = util.enum.bottom
@@ -18,7 +17,7 @@ awful.screen.connect_for_each_screen(function(s)
         button { 5, function() awful.layout.inc(-1) end },
     })
 
-    s.wibar     = awful.wibar(wconf.get_wibar(s))
+    s.wibar = awful.wibar(wconf.get_wibar(s))
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
@@ -48,13 +47,30 @@ awful.screen.connect_for_each_screen(function(s)
             --      0, 10, 7, 7), -- Clock
         },
     }
-    -- Add widgets
-    -- This is a valid wallpaper definition
-    -- bling.module.wallpaper.setup {
-    --     screen       = s,
-    --     change_timer = 1800,
-    --     position     = 'maximized',
-    --     wallpaper    = { os.getenv 'HOME' .. '/background' }, -- folders
-    --     set_function = bling.module.wallpaper.setters.random,
-    -- }
+
+
+    local hidden = function()
+        s.wibar.visible = false
+        s.show_wibar_timer:start()
+    end
+    s.show_wibar_timer = gears.timer {
+        timeout = 0.25, -- 250ms delay between checks if the bar should be shown
+        callback = function()
+            local coords = mouse.coords()
+            if coords.x < s.geometry.x or coords.x > s.geometry.x + s.geometry.width
+                -- comment this out if you want to show bar even for fullscreen windows
+                or (next(s.clients) and s.clients[1].fullscreen)
+            then
+                if s.wibar.visible then hidden() end
+                return
+            end
+            -- moving the mouse within 5px of the bottom of the screen shows the bar
+            if coords.y > s.geometry.height - 5 then
+                s.wibar.visible = true
+                s.show_wibar_timer:stop()
+            end
+        end,
+        autostart = true,
+    }
+    s.wibar:connect_signal('mouse::leave', hidden)
 end)
