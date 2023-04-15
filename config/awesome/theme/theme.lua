@@ -21,23 +21,23 @@ local themes_path  = gfs.get_themes_dir()
 --theme.taglist_bg_focus = "#ff0000"
 
 local theme                 = {
-    font        = norm_font,
+    font          = norm_font,
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                            Bg                            │
     --  ╰──────────────────────────────────────────────────────────╯
-    active      = '#6A6E78',
+    active        = '#6A6E78',
     -- bg             = '#161719',
-    bg_sidebar  = '#161719',
-    bg_selected = '#1D1F22',
-    bg_widget   = '#1D1F22',
-    bg_normal   = '#161719',
-    bg_systray  = '#222222',
-    bg_focus    = '#535d6c',
-    bg_urgent   = '#ff0000',
-    bg_minimize = '#444444',
+    bg_normal     = '#1A1B26',
+    bg_focus      = '#1A1B26',
+    bg_urgent     = '#1A1B26',
+    bg_minimize   = '#1A1B26',
+    bg_systray    = '#1A1B26',
 
+    -- bg_sidebar  = '#161719',
+    -- bg_selected = '#1D1F22',
+    -- bg_widget   = '#1D1F22',
 
     icon_bg       = '#FFFFFF',
     icon_normal   = '#8A8E97',
@@ -54,10 +54,10 @@ local theme                 = {
     fg_minimize   = '#8A8E97',
 
     useless_gap   = 20,
-    border_width  = dpi(1),
-    border_normal = '#000000',
-    border_focus  = '#535d6c',
-    border_marked = '#91231c',
+    border_width  = 2,
+    border_normal = '#4E5173',
+    border_focus  = '#8C91FA',
+    border_marked = '#4E5173',
     border_color  = '#252628',
 
 
@@ -80,15 +80,16 @@ local theme                 = {
     -- menu_[bg|fg]_[normal|focus]
     -- menu_[border_color|border_width]
     menu_submenu_icon = themes_path .. 'default/submenu.png',
-    -- menu_bg_normal    = '#8aadf4',
-    -- menu_fg_normal    = '#81c8be',
     menu_height       = dpi(25),
     menu_width        = dpi(200),
+    menu_bg_normal    = '#1b1f27',
+    -- menu_bg_normal    = '#8aadf4',
+    -- menu_fg_normal    = '#81c8be',
     -- HACK :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme        = 'Yaru',
+    icon_theme        = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
@@ -120,6 +121,18 @@ local theme                 = {
     -- -- beautiful.variable in your rc.lua
     -- --theme.bg_widget = "#cc0000"
     -- -- Define the image to load
+    titlebar_close_button_normal                  = util.conf_dir .. '/theme/titlebar/inactive.png',
+    titlebar_close_button_focus                   = util.conf_dir .. '/theme/titlebar/close.png',
+    titlebar_close_button_focus_hover             = util.conf_dir .. '/theme/titlebar/close_hover.png',
+    titlebar_minimize_button_normal               = util.conf_dir .. '/theme/titlebar/inactive.png',
+    titlebar_minimize_button_focus                = util.conf_dir .. '/theme/titlebar/minimize.png',
+    titlebar_minimize_button_focus_hover          = util.conf_dir .. '/theme/titlebar/minimize_hover.png',
+    titlebar_floating_button_normal_inactive      = util.conf_dir .. '/theme/titlebar/inactive.png',
+    titlebar_floating_button_focus_inactive       = util.conf_dir .. '/theme/titlebar/floating.png',
+    titlebar_floating_button_normal_active        = util.conf_dir .. '/theme/titlebar/inactive.png',
+    titlebar_floating_button_focus_active         = util.conf_dir .. '/theme/titlebar/floating.png',
+    titlebar_floating_button_focus_active_hover   = util.conf_dir .. '/theme/titlebar/floating_hover.png',
+    titlebar_floating_button_focus_inactive_hover = util.conf_dir .. '/theme/titlebar/floating_hover.png',
     -- titlebar_unfocused                        = '#252628',
     -- titlebar_close_button_normal              = themes_path .. 'default/titlebar/close_normal.png',
     -- titlebar_close_button_focus               = themes_path .. 'default/titlebar/close_focus.png',
@@ -178,6 +191,16 @@ theme.awesome_icon = theme_assets.awesome_icon(
 )
 
 
+-- theme.tag_preview_widget_border_radius = 10
+-- theme.tag_preview_client_border_radius = 10
+-- theme.tag_preview_client_opacity = 0.1
+-- theme.tag_preview_client_bg = "#1b1f27"
+-- theme.tag_preview_client_border_color = "#3f4859"
+-- theme.tag_preview_client_border_width = 2
+-- theme.tag_preview_widget_bg = "#1b1f27"
+-- theme.tag_preview_widget_border_color = "#3f4859"
+-- theme.tag_preview_widget_border_width = 2
+-- theme.tag_preview_widget_margin = 0
 -- theme.search_bar        = '#1D1F22'
 -- theme.dark_slider_bg    = '#3F8CFF'
 -- theme.arc_bg            = '#161719'

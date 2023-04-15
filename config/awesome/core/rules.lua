@@ -1,5 +1,8 @@
-local key = require 'core.mappings'
+local key         = require 'core.mappings'
+-- local dpi         = require 'beautiful.xresources'.apply_dpi
 -- Rules to apply to new clients (through the "manage" signal).
+
+
 awful.rules.rules = {
     -- All clients will match this rule.
     {
@@ -55,9 +58,15 @@ awful.rules.rules = {
         rule_any = {
             type = { 'normal', 'dialog' },
         },
-        properties = { titlebars_enabled = false },
+        properties = { titlebars_enabled = true },
     },
-
+    -- {
+    --     rule = { class = 'eww-top-panel' },
+    --     properties = {
+    --         focusable = false,
+    --         border_width = dpi(0),
+    --     },
+    -- },
 }
 
 -- Set Firefox to always map on the tag named "2" on screen 1.
