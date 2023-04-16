@@ -82,14 +82,21 @@ local theme                 = {
     menu_submenu_icon = themes_path .. 'default/submenu.png',
     menu_height       = dpi(25),
     menu_width        = dpi(200),
-    menu_bg_normal    = '#1b1f27',
+    menu_fg_normal    = '#89dceb',
+    menu_bg_normal    = '#181825',
     -- menu_bg_normal    = '#8aadf4',
-    -- menu_fg_normal    = '#81c8be',
+
+    -- INFO :
+    --  ╭──────────────────────────────────────────────────────────╮
+    --  │                         Hotkeys                          │
+    --  ╰──────────────────────────────────────────────────────────╯
+    hotkeys_modifiers_fg = '#69bbae',
+
     -- HACK :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme        = 'WhiteSur',
+    icon_theme           = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │

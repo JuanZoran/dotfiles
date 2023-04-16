@@ -9,8 +9,8 @@ _G.naughty   = require 'naughty'   -- Notification library
 
 -- os.execute 'bash ~/.config/awesome/script/sync.sh'
 -- awful.spawn 'xrandr  --output HDMI-0 --mode 2560x1440  --pos 0x0 --rate 75 --primary --output DP-2 --pos 2560x360 --auto'
-
-_G.bling = require 'lib.bling' -- Notification library
+_G.lain      = require 'lain'
+_G.bling     = require 'lib.bling' -- Notification library
 
 require 'core'
 awful.spawn.with_shell 'bash ~/.config/awesome/script/autorun.sh'
