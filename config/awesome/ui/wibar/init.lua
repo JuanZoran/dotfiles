@@ -1,14 +1,17 @@
+local path = ... .. '.'
+
 awful.screen.connect_for_each_screen(function(s)
+    local button = util.button
     local self = setmetatable({}, {
         __index = function(_, name)
-            local widget = require('widgets.' .. name)
+            local widget = require(path .. name)
             if type(widget) == 'function' then
                 widget = widget(s)
             end
             return widget
         end,
     })
-    local button = util.button
+
     s.layoutbox = awful.widget.layoutbox(s)
     s.layoutbox:buttons(util.keys {
         button { 1, function() awful.layout.inc(1) end },

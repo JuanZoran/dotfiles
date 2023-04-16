@@ -1,6 +1,5 @@
 local theme_assets = require 'beautiful.theme_assets'
 local dpi          = require 'beautiful.xresources'.apply_dpi
-
 local Jb           = 'JetBrains Mono Nerd Font'
 local norm_font    = Jb .. ' 12'
 local gfs          = require 'gears.filesystem'
@@ -34,7 +33,6 @@ local theme                 = {
     bg_urgent     = '#1A1B26',
     bg_minimize   = '#1A1B26',
     bg_systray    = '#1A1B26',
-
     -- bg_sidebar  = '#161719',
     -- bg_selected = '#1D1F22',
     -- bg_widget   = '#1D1F22',
@@ -79,45 +77,44 @@ local theme                 = {
     -- Variables set for theming the menu:
     -- menu_[bg|fg]_[normal|focus]
     -- menu_[border_color|border_width]
-    menu_submenu_icon = themes_path .. 'default/submenu.png',
-    menu_height       = dpi(25),
-    menu_width        = dpi(200),
-    menu_fg_normal    = '#89dceb',
-    menu_bg_normal    = '#181825',
+    menu_submenu_icon                             = themes_path .. 'default/submenu.png',
+    menu_height                                   = dpi(25),
+    menu_width                                    = dpi(200),
+    menu_fg_normal                                = '#89dceb',
+    menu_bg_normal                                = '#181825',
     -- menu_bg_normal    = '#8aadf4',
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                         Hotkeys                          │
     --  ╰──────────────────────────────────────────────────────────╯
-    hotkeys_modifiers_fg = '#69bbae',
+    hotkeys_modifiers_fg                          = '#69bbae',
 
     -- HACK :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme           = 'WhiteSur',
+    icon_theme                                    = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
     --  ╰──────────────────────────────────────────────────────────╯
-    -- layout_fairh                              = themes_path .. 'default/layouts/fairhw.png',
-    -- layout_fairv                              = themes_path .. 'default/layouts/fairvw.png',
-    -- layout_floating                           = themes_path .. 'default/layouts/floatingw.png',
-    -- layout_magnifier                          = themes_path .. 'default/layouts/magnifierw.png',
-    -- layout_max                                = themes_path .. 'default/layouts/maxw.png',
-    -- layout_fullscreen                         = themes_path .. 'default/layouts/fullscreenw.png',
-    -- layout_tilebottom                         = themes_path .. 'default/layouts/tilebottomw.png',
-    -- layout_tileleft                           = themes_path .. 'default/layouts/tileleftw.png',
-    -- layout_tile                               = themes_path .. 'default/layouts/tilew.png',
-    -- layout_tiletop                            = themes_path .. 'default/layouts/tiletopw.png',
-    -- layout_spiral                             = themes_path .. 'default/layouts/spiralw.png',
-    -- layout_dwindle                            = themes_path .. 'default/layouts/dwindlew.png',
-    -- layout_cornernw                           = themes_path .. 'default/layouts/cornernww.png',
-    -- layout_cornerne                           = themes_path .. 'default/layouts/cornernew.png',
-    -- layout_cornersw                           = themes_path .. 'default/layouts/cornersww.png',
-    -- layout_cornerse                           = themes_path .. 'default/layouts/cornersew.png',
-
+    layout_fairh                                  = themes_path .. 'default/layouts/fairhw.png',
+    layout_fairv                                  = themes_path .. 'default/layouts/fairvw.png',
+    layout_floating                               = themes_path .. 'default/layouts/floatingw.png',
+    layout_magnifier                              = themes_path .. 'default/layouts/magnifierw.png',
+    layout_max                                    = themes_path .. 'default/layouts/maxw.png',
+    layout_fullscreen                             = themes_path .. 'default/layouts/fullscreenw.png',
+    layout_tilebottom                             = themes_path .. 'default/layouts/tilebottomw.png',
+    layout_tileleft                               = themes_path .. 'default/layouts/tileleftw.png',
+    layout_tile                                   = themes_path .. 'default/layouts/tilew.png',
+    layout_tiletop                                = themes_path .. 'default/layouts/tiletopw.png',
+    layout_spiral                                 = themes_path .. 'default/layouts/spiralw.png',
+    layout_dwindle                                = themes_path .. 'default/layouts/dwindlew.png',
+    layout_cornernw                               = themes_path .. 'default/layouts/cornernww.png',
+    layout_cornerne                               = themes_path .. 'default/layouts/cornernew.png',
+    layout_cornersw                               = themes_path .. 'default/layouts/cornersww.png',
+    layout_cornerse                               = themes_path .. 'default/layouts/cornersew.png',
 
     -- -- INFO :
     -- --  ╭──────────────────────────────────────────────────────────╮
