@@ -1,0 +1,64 @@
+<c-a>
+<c>
+<tab>
+<c-s-tab>
+<ctab>
+<s-c-tab>
+<c-cr>
+<cr>
+<bs>
+<c-s-bs>
+<c-left>
+<down>
+<space>
+<sp>
+soo
+
+
+regex: 
+1. match a character
+    ({{special-key}})|.
+
+2. handle special keys
+    mods:
+        shift: s | S
+        ctrl: c | C
+        alt: a | A
+        meta: m | M
+
+    keys:
+        .
+        space
+        tab
+        cr
+        bs
+        up
+        down
+        left
+        right
+    
+    group:
+        <key>
+        <(mods)+-key>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\v(\<([scam]-)*)(tab|cr|bs|left|right|up|down|space|.)\>

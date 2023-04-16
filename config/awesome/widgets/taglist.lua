@@ -1,3 +1,100 @@
+bling.widget.tag_preview.enable {
+    show_client_content = false, -- Whether or not to show the client content
+    x = 10,                      -- The x-coord of the popup
+    y = 10,                      -- The y-coord of the popup
+    scale = 0.25,                -- The scale of the previews compared to the screen
+    honor_padding = false,       -- Honor padding when creating widget size
+    honor_workarea = false,      -- Honor work area when creating widget size
+    placement_fn = function(c)   -- Place the widget using awful.placement (this overrides x & y)
+        awful.placement.top_left(c, {
+            margins = {
+                top = 30,
+                left = 30,
+            },
+        })
+    end,
+    background_widget = wibox.widget { -- Set a background image (like a wallpaper) for the widget
+        image                 = beautiful.wallpaper,
+        horizontal_fit_policy = 'fit',
+        vertical_fit_policy   = 'fit',
+        widget                = wibox.widget.imagebox,
+    },
+}
+
+---@format disable-next
+return function(s)
+    local btn_act = util.enum.bottom
+    local button = util.button
+    awful.tag({ '1', '2', '3', '4', '5' }, s, awful.layout.layouts[1])
+
+    return awful.widget.taglist {
+        screen          = s,
+        style           = { shape = gears.shape.rounded_bar },
+        filter          = awful.widget.taglist.filter.all,
+        buttons         = util.keys {
+            button { btn_act.LEFT, function(t) t:view_only() end },
+            button { mods = { modkey }, 1, function(t)
+                if client.focus then
+                    client.focus:move_to_tag(t)
+                end
+            end, },
+            button { mods = { modkey }, 3, function(t)
+                if client.focus then
+                    client.focus:toggle_tag(t)
+                end
+            end, },
+            button { btn_act.RIGHT, awful.tag.viewtoggle },
+            button { btn_act.SCROLL_DOWN, function(t) awful.tag.viewnext(t.screen) end },
+            button { btn_act.SCROLL_UP,   function(t) awful.tag.viewprev(t.screen) end },
+        },
+        layout          = {
+            spacing = 0,
+            spacing_widget = {
+                shape = gears.shape.rounded_rect,
+                widget = wibox.widget.separator,
+            },
+            layout = wibox.layout.fixed.horizontal,
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id = 'text_role',
+                            widget = wibox.widget.textbox,
+                        },
+                        widget = wibox.container.background,
+                    },
+                    {
+                        id = 'index_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                left = 7,
+                right = 7,
+                widget = wibox.container.margin,
+            },
+            id = 'background_role',
+            widget = wibox.container.background,
+            -- Add support for hover colors and an index label
+            create_callback = function(self, c3, index, objects) --luacheck: no unused args
+                self:connect_signal('mouse::enter', function()
+                    if #c3:clients() > 0 then
+                        awesome.emit_signal('bling::tag_preview::update', c3)
+                        awesome.emit_signal('bling::tag_preview::visibility', s, true)
+                    end
+                end)
+                self:connect_signal('mouse::leave', function()
+                    awesome.emit_signal('bling::tag_preview::visibility', s, false)
+                    if self.has_backup then
+                        self.bg = self.backup
+                    end
+                end)
+            end,
+        },
+    }
+end
 -- local dpi = require 'beautiful.xresources'.apply_dpi
 -- ------------------------------------
 
@@ -81,98 +178,3 @@
 -- end
 
 -- return get_taglist
-bling.widget.tag_preview.enable {
-    show_client_content = false, -- Whether or not to show the client content
-    x = 10,                      -- The x-coord of the popup
-    y = 10,                      -- The y-coord of the popup
-    scale = 0.25,                -- The scale of the previews compared to the screen
-    honor_padding = false,       -- Honor padding when creating widget size
-    honor_workarea = false,      -- Honor work area when creating widget size
-    placement_fn = function(c)   -- Place the widget using awful.placement (this overrides x & y)
-        awful.placement.top_left(c, {
-            margins = {
-                top = 30,
-                left = 30,
-            },
-        })
-    end,
-    background_widget = wibox.widget { -- Set a background image (like a wallpaper) for the widget
-        image                 = beautiful.wallpaper,
-        horizontal_fit_policy = 'fit',
-        vertical_fit_policy   = 'fit',
-        widget                = wibox.widget.imagebox,
-    },
-}
-
-
-return function(s)
-    local btn_act = util.enum.bottom
-    local button = util.button
-    return awful.widget.taglist {
-        screen          = s,
-        style           = { shape = gears.shape.rounded_bar },
-        filter          = awful.widget.taglist.filter.all,
-        buttons         = util.keys {
-            button { btn_act.LEFT, function(t) t:view_only() end },
-            button { mods = { modkey }, 1, function(t)
-                if client.focus then
-                    client.focus:move_to_tag(t)
-                end
-            end, },
-            button { mods = { modkey }, 3, function(t)
-                if client.focus then
-                    client.focus:toggle_tag(t)
-                end
-            end, },
-            button { btn_act.RIGHT, awful.tag.viewtoggle },
-            button { btn_act.SCROLL_DOWN, function(t) awful.tag.viewnext(t.screen) end },
-            button { btn_act.SCROLL_UP, function(t) awful.tag.viewprev(t.screen) end },
-        },
-        layout          = {
-            spacing = 0,
-            spacing_widget = {
-                shape = gears.shape.rounded_rect,
-                widget = wibox.widget.separator,
-            },
-            layout = wibox.layout.fixed.horizontal,
-        },
-        widget_template = {
-            {
-                {
-                    {
-                        {
-                            id = 'text_role',
-                            widget = wibox.widget.textbox,
-                        },
-                        widget = wibox.container.background,
-                    },
-                    {
-                        id = 'index_role',
-                        widget = wibox.widget.textbox,
-                    },
-                    layout = wibox.layout.fixed.horizontal,
-                },
-                left = 7,
-                right = 7,
-                widget = wibox.container.margin,
-            },
-            id = 'background_role',
-            widget = wibox.container.background,
-            -- Add support for hover colors and an index label
-            create_callback = function(self, c3, index, objects) --luacheck: no unused args
-                self:connect_signal('mouse::enter', function()
-                    if #c3:clients() > 0 then
-                        awesome.emit_signal('bling::tag_preview::update', c3)
-                        awesome.emit_signal('bling::tag_preview::visibility', s, true)
-                    end
-                end)
-                self:connect_signal('mouse::leave', function()
-                    awesome.emit_signal('bling::tag_preview::visibility', s, false)
-                    if self.has_backup then
-                        self.bg = self.backup
-                    end
-                end)
-            end,
-        },
-    }
-end

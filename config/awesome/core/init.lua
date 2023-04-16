@@ -16,4 +16,4 @@ require 'core.rules'
 
 require 'core.titlebar'
 require 'core.signals'
-require 'core.widget'
+require 'widgets'

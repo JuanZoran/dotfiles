@@ -1,19 +1,3 @@
--- bling.widget.task_preview.enable {
---     -- x = 1,                    -- The x-coord of the popup
---     -- y = 1,                    -- The y-coord of the popup
---     height = 400,              -- The height of the popup
---     width = 400,               -- The width of the popup
---     placement_fn = function(c) -- Place the widget using awful.placement (this overrides x & y)
---         -- awful.placement.top(c, {
---         --     margins = {
---         --         top = 70,
---         --     },
---         -- })
---         awful.placement.bottom(c, {
---             margins = { bottom = 50 },
---         })
---     end,
--- }
 return function(s)
     local btn_act = util.enum.bottom
     local button = util.button
@@ -70,3 +54,20 @@ return function(s)
         },
     }
 end
+
+-- bling.widget.task_preview.enable {
+--     -- x = 1,                    -- The x-coord of the popup
+--     -- y = 1,                    -- The y-coord of the popup
+--     height = 400,              -- The height of the popup
+--     width = 400,               -- The width of the popup
+--     placement_fn = function(c) -- Place the widget using awful.placement (this overrides x & y)
+--         -- awful.placement.top(c, {
+--         --     margins = {
+--         --         top = 70,
+--         --     },
+--         -- })
+--         awful.placement.bottom(c, {
+--             margins = { bottom = 50 },
+--         })
+--     end,
+-- }
