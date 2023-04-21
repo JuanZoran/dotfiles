@@ -1,10 +1,39 @@
-local theme_assets = require 'beautiful.theme_assets'
+-- local theme_assets = require 'beautiful.theme_assets'
 local dpi          = require 'beautiful.xresources'.apply_dpi
 local Jb           = 'JetBrains Mono Nerd Font'
 local norm_font    = Jb .. ' 12'
 local gfs          = require 'gears.filesystem'
 local themes_path  = gfs.get_themes_dir()
 
+local icon_dir     = util.conf_dir .. '/theme'
+
+local c            = {
+    dark         = '#0c0e0f',
+    dim_blue     = '#6791c9',
+    disabled     = '#707880',
+    dim          = '#181b28',
+    gray         = '#8a8e97',
+    rosewater    = '#f5e0dc',
+    flamingo     = '#f2cdcd',
+    pink         = '#f5c2e7',
+    mauve        = '#cba6f7',
+    red          = '#f38ba8',
+    maroon       = '#eba0ac',
+    white        = '#ffffff',
+    peach        = '#fab387',
+    yellow       = '#f9e2af',
+    green        = '#a6e3a1',
+    custom       = '#69bbae',
+    teal         = '#94e2d5',
+    sky          = '#89dceb',
+    sapphire     = '#74c7ec',
+    blue         = '#89b4fa',
+    lavender     = '#b4befe',
+    base         = '#1e1e2e',
+    purple       = '#7c3aed',
+    light_purple = '#c61ad9',
+    mantle       = '#181825',
+}
 
 -- There are other variable sets
 -- overriding the default one when
@@ -19,45 +48,45 @@ local themes_path  = gfs.get_themes_dir()
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
-local theme                 = {
-    font          = norm_font,
+
+---@class beautiful
+local theme                            = {
+    font_name      = Jb,
+    font           = norm_font,
+    color          = c,
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                            Bg                            │
     --  ╰──────────────────────────────────────────────────────────╯
-    active        = '#6A6E78',
-    -- bg             = '#161719',
-    bg_normal     = '#1A1B26',
-    bg_focus      = '#1A1B26',
-    bg_urgent     = '#1A1B26',
-    bg_minimize   = '#1A1B26',
-    bg_systray    = '#1A1B26',
+    active         = '#6A6E78',
+    bg_normal      = c.base,
+    bg_focus       = c.blue,
+    bg_urgent      = c.base,
+    bg_minimize    = c.base,
+    -- bg_systray    = '#1A1B26',
     -- bg_sidebar  = '#161719',
     -- bg_selected = '#1D1F22',
     -- bg_widget   = '#1D1F22',
 
-    icon_bg       = '#FFFFFF',
-    icon_normal   = '#8A8E97',
-    icon_selected = '#FFFFFF',
+    icon_bg        = c.white,
+    icon_normal    = c.rosewater,
+    icon_selected  = c.white,
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                            Fg                            │
     --  ╰──────────────────────────────────────────────────────────╯
-    fg_normal     = '#8A8E97',
-    fg_focus      = '#FFFFFF',
-    fg_contrast   = '#FFFFFF',
-    fg_urgent     = '#8A8E97',
-    fg_minimize   = '#8A8E97',
+    fg_normal      = c.lavender,
+    fg_focus       = c.white,
+    fg_contrast    = c.white,
+    fg_urgent      = '#8A8E97',
+    fg_minimize    = '#8A8E97',
 
-    useless_gap   = 20,
-    border_width  = 2,
-    border_normal = '#4E5173',
-    border_focus  = '#8C91FA',
-    border_marked = '#4E5173',
-    border_color  = '#252628',
-
+    useless_gap    = 15,
+    border_width   = 3,
+    border_normal  = c.blue,
+    border_focus   = c.purple,
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
@@ -77,66 +106,81 @@ local theme                 = {
     -- Variables set for theming the menu:
     -- menu_[bg|fg]_[normal|focus]
     -- menu_[border_color|border_width]
-    menu_submenu_icon                             = themes_path .. 'default/submenu.png',
-    menu_height                                   = dpi(25),
-    menu_width                                    = dpi(200),
-    menu_fg_normal                                = '#89dceb',
-    menu_bg_normal                                = '#181825',
+    menu_submenu_icon    = themes_path .. 'default/submenu.png',
+    menu_height          = dpi(25),
+    menu_width           = dpi(200),
+    menu_fg_normal       = '#89dceb',
+    menu_bg_normal       = '#181825',
     -- menu_bg_normal    = '#8aadf4',
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                         Hotkeys                          │
     --  ╰──────────────────────────────────────────────────────────╯
-    hotkeys_modifiers_fg                          = '#69bbae',
-
+    hotkeys_bg           = c.dark,
+    hotkeys_modifiers_fg = c.sapphire,
     -- HACK :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme                                    = 'WhiteSur',
+    -- icon_theme           = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
     --  ╰──────────────────────────────────────────────────────────╯
-    layout_fairh                                  = themes_path .. 'default/layouts/fairhw.png',
-    layout_fairv                                  = themes_path .. 'default/layouts/fairvw.png',
-    layout_floating                               = themes_path .. 'default/layouts/floatingw.png',
-    layout_magnifier                              = themes_path .. 'default/layouts/magnifierw.png',
-    layout_max                                    = themes_path .. 'default/layouts/maxw.png',
-    layout_fullscreen                             = themes_path .. 'default/layouts/fullscreenw.png',
-    layout_tilebottom                             = themes_path .. 'default/layouts/tilebottomw.png',
-    layout_tileleft                               = themes_path .. 'default/layouts/tileleftw.png',
-    layout_tile                                   = themes_path .. 'default/layouts/tilew.png',
-    layout_tiletop                                = themes_path .. 'default/layouts/tiletopw.png',
-    layout_spiral                                 = themes_path .. 'default/layouts/spiralw.png',
-    layout_dwindle                                = themes_path .. 'default/layouts/dwindlew.png',
-    layout_cornernw                               = themes_path .. 'default/layouts/cornernww.png',
-    layout_cornerne                               = themes_path .. 'default/layouts/cornernew.png',
-    layout_cornersw                               = themes_path .. 'default/layouts/cornersww.png',
-    layout_cornerse                               = themes_path .. 'default/layouts/cornersew.png',
+    -- --- Layout
+    -- --- You can use your own layout icons like this:
+    layout_floating      = icon_dir .. '/layouts/floating.png',
+    layout_max           = icon_dir .. '/layouts/max.png',
+    layout_tile          = icon_dir .. '/layouts/tile.png',
+    layout_dwindle       = icon_dir .. '/layouts/dwindle.png',
+    layout_centered      = icon_dir .. '/layouts/centered.png',
+    layout_machi         = icon_dir .. '/layouts/machi.png',
+
+    -- layout_fairv         = icon_dir .. '/layouts/fairvw.png',
+    -- layout_magnifier     = icon_dir .. '/layouts/magnifierw.png',
+    -- layout_fullscreen    = icon_dir .. '/layouts/fullscreenw.png',
+    -- layout_tilebottom    = icon_dir .. '/layouts/tilebottomw.png',
+    -- layout_tileleft      = icon_dir .. '/layouts/tileleftw.png',
+    -- layout_tiletop       = icon_dir .. '/layouts/tiletopw.png',
+    -- layout_spiral        = icon_dir .. '/layouts/spiralw.png',
+    -- layout_cornernw      = icon_dir .. '/layouts/cornernww.png',
+    -- layout_cornerne      = icon_dir .. '/layouts/cornernew.png',
+    -- layout_cornersw      = icon_dir .. '/layouts/cornersww.png',
+    -- layout_cornerse      = icon_dir .. '/layouts/cornersew.png',
+    -- layout_fairh         = icon_dir .. '/layouts/fairhw.png',
+
 
     -- -- INFO :
     -- --  ╭──────────────────────────────────────────────────────────╮
     -- --  │ Titlebar                                                 │
     -- --  ╰──────────────────────────────────────────────────────────╯
-    -- -- You can add as many variables as
-    -- -- you wish and access them by using
-    -- -- beautiful.variable in your rc.lua
-    -- --theme.bg_widget = "#cc0000"
-    -- -- Define the image to load
-    titlebar_close_button_normal                  = util.conf_dir .. '/theme/titlebar/inactive.png',
-    titlebar_close_button_focus                   = util.conf_dir .. '/theme/titlebar/close.png',
-    titlebar_close_button_focus_hover             = util.conf_dir .. '/theme/titlebar/close_hover.png',
-    titlebar_minimize_button_normal               = util.conf_dir .. '/theme/titlebar/inactive.png',
-    titlebar_minimize_button_focus                = util.conf_dir .. '/theme/titlebar/minimize.png',
-    titlebar_minimize_button_focus_hover          = util.conf_dir .. '/theme/titlebar/minimize_hover.png',
-    titlebar_floating_button_normal_inactive      = util.conf_dir .. '/theme/titlebar/inactive.png',
-    titlebar_floating_button_focus_inactive       = util.conf_dir .. '/theme/titlebar/floating.png',
-    titlebar_floating_button_normal_active        = util.conf_dir .. '/theme/titlebar/inactive.png',
-    titlebar_floating_button_focus_active         = util.conf_dir .. '/theme/titlebar/floating.png',
-    titlebar_floating_button_focus_active_hover   = util.conf_dir .. '/theme/titlebar/floating_hover.png',
-    titlebar_floating_button_focus_inactive_hover = util.conf_dir .. '/theme/titlebar/floating_hover.png',
+    titlebar_bg_normal                              = c.dark,
+    titlebar_bg_focus                               = c.dark,
+    titlebar_close_button_normal                    = icon_dir .. '/titlebar/normal.svg',
+    titlebar_close_button_focus                     = icon_dir .. '/titlebar/close_focus.svg',
+    titlebar_close_button_normal_hover              = icon_dir .. '/titlebar/close_focus_hover.svg',
+    titlebar_close_button_focus_hover               = icon_dir .. '/titlebar/close_focus_hover.svg',
+
+    -- Minimize Button
+    titlebar_minimize_button_normal                 = icon_dir .. '/titlebar/normal.svg',
+    titlebar_minimize_button_focus                  = icon_dir .. '/titlebar/minimize_focus.svg',
+    titlebar_minimize_button_normal_hover           = icon_dir .. '/titlebar/minimize_focus_hover.svg',
+    titlebar_minimize_button_focus_hover            = icon_dir .. '/titlebar/minimize_focus_hover.svg',
+
+    -- Maximized Button (While Window is Maximized)
+    titlebar_maximized_button_normal_active         = icon_dir .. '/titlebar/normal.svg',
+    titlebar_maximized_button_focus_active          = icon_dir .. '/titlebar/maximized_focus.svg',
+    titlebar_maximized_button_normal_active_hover   = icon_dir .. '/titlebar/maximized_focus_hover.svg',
+    titlebar_maximized_button_focus_active_hover    = icon_dir .. '/titlebar/maximized_focus_hover.svg',
+
+    -- Maximized Button (While Window is not Maximized)
+    titlebar_maximized_button_normal_inactive       = icon_dir .. '/titlebar/normal.svg',
+    titlebar_maximized_button_focus_inactive        = icon_dir .. '/titlebar/maximized_focus.svg',
+    titlebar_maximized_button_normal_inactive_hover = icon_dir .. '/titlebar/maximized_focus_hover.svg',
+    titlebar_maximized_button_focus_inactive_hover  = icon_dir .. '/titlebar/maximized_focus_hover.svg',
+
+    -- TODO: TITBLE
     -- titlebar_unfocused                        = '#252628',
     -- titlebar_close_button_normal              = themes_path .. 'default/titlebar/close_normal.png',
     -- titlebar_close_button_focus               = themes_path .. 'default/titlebar/close_focus.png',
@@ -158,7 +202,6 @@ local theme                 = {
     -- titlebar_maximized_button_focus_inactive  = themes_path .. 'default/titlebar/maximized_focus_inactive.png',
     -- titlebar_maximized_button_normal_active   = themes_path .. 'default/titlebar/maximized_normal_active.png',
     -- titlebar_maximized_button_focus_active    = themes_path .. 'default/titlebar/maximized_focus_active.png',
-
     -- INFO :
     -- Notifications
     -- Variables set for theming notifications:
@@ -167,72 +210,68 @@ local theme                 = {
     -- notification_[width|height|margin]
     -- notification_[border_color|border_width|shape|opacity]
 
-
     -- INFO :
     -- Taglist
-    taglist_bg_focus = {
-        type = 'linear',
-        from = { 00, 00, 10 },
-        to = { 100, 100, 30 },
-        stops = { { 0, '#3F8CFF' }, { 1, '#5197FF' } },
-    },
+    taglist_fg_focus                                = c.custom,
+    taglist_fg_empty                                = c.gray,
+    -- taglist_bg_focus = {
+    --     type = 'linear',
+    --     from = { 00, 00, 10 },
+    --     to = { 100, 100, 30 },
+    --     stops = { { 0, '#3F8CFF' }, { 1, '#5197FF' } },
+    -- },
 }
 
--- Generate taglist squares:
-local taglist_square_size   = dpi(4)
-theme.taglist_squares_sel   = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
+-- HACK : Window switcher
+-- window_switcher_widget_bg                      = c.base,  -- The bg color of the widget
+-- window_switcher_widget_border_width            = 3,       -- The border width of the widget
+-- window_switcher_widget_border_radius           = dpi(10), -- The border radius of the widget
+-- window_switcher_widget_border_color            = c.blue,  -- The border color of the widget
+-- window_switcher_clients_spacing                = 20,      -- The space between each client item
+-- window_switcher_client_icon_horizontal_spacing = 5,       -- The space between client icon and text
+-- -- window_switcher_client_width                   = 400,       -- The width of one client widget
+-- -- window_switcher_client_height                  = 200,       -- The height of one client widget
+-- window_switcher_client_margins                 = 10,        -- The margin between the content and the border of the widget
+-- window_switcher_thumbnail_margins              = 10,        -- The margin between one client thumbnail and the rest of the widget
+-- thumbnail_scale                                = false,     -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
+-- window_switcher_name_margins                   = 10,        -- The margin of one clients title to the rest of the widget
+-- window_switcher_name_valign                    = 'center',  -- How to vertically align one clients title
+-- window_switcher_name_forced_width              = 200,       -- The width of one title
+-- -- window_switcher_name_font                      = norm_font, -- The font of all titles
+-- window_switcher_name_normal_color              = '#89b4fa', -- The color of one title if the client is unfocused
+-- window_switcher_name_focus_color               = c.blue,    -- The color of one title if the client is focused
+-- window_switcher_icon_valign                    = 'center',  -- How to vertically align the one icon
+-- window_switcher_icon_width                     = 40,        -- The width of one icon
 
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+theme.tag_preview_widget_border_radius = 10
+theme.tag_preview_client_border_radius = 10
+theme.tag_preview_client_opacity       = 0.9
+theme.tag_preview_client_bg            = theme.bg_normal
+theme.tag_preview_client_border_color  = theme.border_normal
+theme.tag_preview_client_border_width  = theme.border_width
+theme.tag_preview_widget_bg            = theme.bg_normal
+theme.tag_preview_widget_border_color  = theme.border_normal
+theme.tag_preview_widget_border_width  = 0
+theme.tag_preview_widget_margin        = 0
 
-
--- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
-
-
-theme.collision_focus_bg = theme.bg_normal
-theme.collision_focus_fg = theme.fg_normal
-
-
--- theme.tag_preview_widget_border_radius = 10
--- theme.tag_preview_client_border_radius = 10
--- theme.tag_preview_client_opacity = 0.1
--- theme.tag_preview_client_bg = "#1b1f27"
--- theme.tag_preview_client_border_color = "#3f4859"
--- theme.tag_preview_client_border_width = 2
--- theme.tag_preview_widget_bg = "#1b1f27"
--- theme.tag_preview_widget_border_color = "#3f4859"
--- theme.tag_preview_widget_border_width = 2
--- theme.tag_preview_widget_margin = 0
--- theme.search_bar        = '#1D1F22'
--- theme.dark_slider_bg    = '#3F8CFF'
--- theme.arc_bg            = '#161719'
--- theme.arc_color         = '#6192FB'
+-- theme.search_bar                       =
+-- theme.dark_slider_bg                   = '#3F8CFF'
+-- theme.arc_bg                           = '#161719'
+-- theme.arc_color                        = '#6192FB'
 
 -- theme.snap_bg           = theme.border_color
 -- theme.snap_border_width = dpi(2)
--- theme.red                = '#db7272'
--- theme.grey               = '#8B8B8B'
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          Icons                           │
 --  ╰──────────────────────────────────────────────────────────╯
 -- theme.dark_toggle        = util.conf_dir .. '/icons/bar/light.png'
 -- theme.darkmode           = util.conf_dir .. '/icons/bar/darkmode.png'
-
 -- theme.clear_icon         = util.conf_dir .. '/icons/notif-center/clear.png'
 -- theme.clear_filled       = util.conf_dir .. '/icons/notif-center/clear_filled.png'
 -- theme.delete_icon        = util.conf_dir .. '/icons/notif-center/delete.png'
-
 -- theme.profile            = util.conf_dir .. '/icons/bar/uiface2.png'
-
 -- theme.home               = util.conf_dir .. '/icons/tag/home.png'
 -- theme.home_selected      = util.conf_dir .. '/icons/tag/home_selected.png'
-
 -- theme.dashboard          = util.conf_dir .. '/icons/tag/dashboard.png'
 -- theme.dashboard_selected = util.conf_dir .. '/icons/tag/dashboard_selected.png'
 

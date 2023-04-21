@@ -12,7 +12,10 @@ run qq
 run telegram
 run utools # Utility
 run nm-applet --sm-disable # Network Manager
-run xidlehook --not-when-fullscreen --not-when-audio --timer 600 'betterlockscreen -l dim && systemctl suspend' ''
+# run xidlehook --not-when-fullscreen --not-when-audio \
+run xidlehook --not-when-audio \
+    --timer 600 'betterlockscreen -l dim' ''  \
+    --timer 1000 'systemctl suspend' ''
 
 # run variety # Wallpaper
 # run latte-dock

@@ -1,6 +1,7 @@
 local path = ... .. '.'
-
 awful.screen.connect_for_each_screen(function(s)
+    local widgets = require 'widgets'
+
     local button = util.button
     local self = setmetatable({}, {
         __index = function(_, name)
@@ -19,60 +20,62 @@ awful.screen.connect_for_each_screen(function(s)
         button { 4, function() awful.layout.inc(1) end },
         button { 5, function() awful.layout.inc(-1) end },
     })
+
     --- INFO : Conf
     local size = s.geometry
     local auto_hidden = false
     s.wibar = awful.wibar {
-        screen       = s,
-        position     = 'bottom',
-        shape        = gears.shape.rounded_rect,
-        height       = size.height * 0.03,
-        width        = size.width,
-        stretch      = false,     -- 是否wibar需要拉伸填满屏幕。
-
-        opacity      = 0.8,       -- wibox 的不透明度，介于 0 和 1 之间。
-        bg           = '#181825', -- bar bg color
-        border_width = 4,
-        border_color = '#69bbae',
-        -- ontop	On top of other windows. 在其他窗口之上。
-        -- cursor	The mouse cursor
-        -- visible	Visibility.
-        -- type     窗口类型（桌面、普通、停靠栏……）。
-        -- drawable	wibox 的可绘制对象。
-        -- widget	The widget that the wibox displays.
-        -- wibox    显示的小部件。
-        -- window	The X window id. X 窗口标识。
-        -- shape_bounding	The wibox’s bounding shape as a (native) cairo surface.
-        -- wibox 的边界形状作为（本地）cairo 表面。
-        -- shape_clip	wibox 的剪辑形状作为（本地）cairo 表面。
-        -- shape_input	wibox 的输入形状作为（本地）cairo 表面。
-        -- input_passthrough 将输入转发到 wibox 下面的客户端。
-        -- bgimage 可绘制对象的背景图像。
-        -- x            = 0,
-        -- y            = 500,
+        screen   = s,
+        -- maximum_height = dpi(65),
+        -- minimum_width  = s.geometry.width,
+        -- maximum_width  = s.geometry.width,
+        position = 'top',
+        shape    = gears.shape.rounded_rect,
+        height   = size.height * 0.03,
+        width    = size.width,
+        stretch  = false, -- 是否wibar需要拉伸填满屏幕。
+        bg       = beautiful.color.dark,
+        fg       = beautiful.color.dim_blue,
+        -- opacity      = 0.8,       -- wibox 的不透明度，介于 0 和 1 之间。
+        -- border_width = 4,
+        -- border_color = '#69bbae',
     }
+
+    local widget_font = beautiful.font_name .. ' 10'
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
         {
+            self.taglist,
+            -- bg = '#282832'
             -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
             -- wibox.layout.margin(awesome_icon, 7, 7, 7, 7),
             self.tasklist,
+
+            layout = wibox.layout.fixed.horizontal,
         },
         {
+            self.clock,
             layout = wibox.layout.fixed.horizontal,
-            {
-                self.taglist,
-                widget = wibox.container.background,
-            },
         },
         {
             -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
+            widgets['volume-widget'] {
+                icon_and_text_args = { font = widget_font },
+            },
+            {
+                self.systray,
+                bg = beautiful.color.dim,
+                shape = gears.shape.rounded_rect,
+                -- forced_width = 300,
+                widget = wibox.container.background,
+            },
+            -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
+            widgets['github-activity-widget'] {
+                username = 'JuanZoran',
+            },
             s.layoutbox,
-            self.systray,
             -- lain.widget.net {
             --     settings = function()
             --         widget:set_markup(' ' .. net_now.received .. '|' .. net_now.sent)
@@ -92,7 +95,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen       = s,
         change_timer = 1800,
         position     = 'maximized',
-        wallpaper    = { os.getenv 'HOME' .. '/background/dark' }, -- folders
+        wallpaper    = { util.home .. '/background/dark' }, -- folders
         set_function = bling.module.wallpaper.setters.random,
     }
 
@@ -124,3 +127,21 @@ awful.screen.connect_for_each_screen(function(s)
         end)
     end
 end)
+
+-- INFO : More option for wibar setup
+-- ontop	On top of other windows. 在其他窗口之上。
+-- cursor	The mouse cursor
+-- visible	Visibility.
+-- type     窗口类型（桌面、普通、停靠栏……）。
+-- drawable	wibox 的可绘制对象。
+-- widget	The widget that the wibox displays.
+-- wibox    显示的小部件。
+-- window	The X window id. X 窗口标识。
+-- shape_bounding	The wibox’s bounding shape as a (native) cairo surface.
+-- wibox 的边界形状作为（本地）cairo 表面。
+-- shape_clip	wibox 的剪辑形状作为（本地）cairo 表面。
+-- shape_input	wibox 的输入形状作为（本地）cairo 表面。
+-- input_passthrough 将输入转发到 wibox 下面的客户端。
+-- bgimage 可绘制对象的背景图像。
+-- x            = 0,
+-- y            = 500,

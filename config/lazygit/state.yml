@@ -1,11 +1,11 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
-- /home/zoran/.config/nvim
-- /home/zoran/dotfiles/config/surfingkeys-conf
-- /home/zoran/myConfig/blog
 - /home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch
+- /home/zoran/.config/nvim
+- /home/zoran/myConfig/blog
 - /home/zoran/.config/nvim/custom/Trans.nvim
+- /home/zoran/dotfiles/config/surfingkeys-conf
 - /home/zoran/.config/nvim/custom/Trans.nvim/wiki
 startuppopupversion: 5
 customcommandshistory:

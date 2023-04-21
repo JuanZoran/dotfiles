@@ -1,4 +1,4 @@
-local key         = require 'core.mappings'
+local key = require 'core.mappings'
 -- local dpi         = require 'beautiful.xresources'.apply_dpi
 -- Rules to apply to new clients (through the "manage" signal).
 
@@ -60,6 +60,15 @@ awful.rules.rules = {
         },
         properties = { titlebars_enabled = true },
     },
+
+    {
+        rule_any = {
+            class = { 'QQ', 'neovide' },
+        },
+        properties = {
+            floating = true,
+        },
+    },
     -- {
     --     rule = { class = 'eww-top-panel' },
     --     properties = {
@@ -69,6 +78,10 @@ awful.rules.rules = {
     -- },
 }
 
+
+
+client.connect_signal('focus', function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)
 -- Set Firefox to always map on the tag named "2" on screen 1.
 -- { rule = { class = "Firefox" },
 --   properties = { screen = 1, tag = "2" } },

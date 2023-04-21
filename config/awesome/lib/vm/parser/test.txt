@@ -45,20 +45,4 @@ regex:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \v(\<([scam]-)*)(tab|cr|bs|left|right|up|down|space|.)\>
