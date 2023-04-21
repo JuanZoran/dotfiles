@@ -4,55 +4,14 @@ local altkey           = 'Mod1'
 local menubar          = require 'menubar'
 menubar.utils.terminal = conf.terminal -- Set the terminal for applications that require it
 
-
-local hotkeys_popup = require 'awful.hotkeys_popup'
+local hotkeys_popup    = require 'awful.hotkeys_popup'
 require 'awful.hotkeys_popup.keys'
-
 local keys = util.keys
 
 --- INFO : Custom Configuration Defines
 local k = awful.key.new
 
 -- INFO :Custom utility
--- local theme = require 'theme.theme'
--- theme.window_switcher_widget_bg = '#000000'              -- The bg color of the widget
--- theme.window_switcher_widget_border_width = 3            -- The border width of the widget
--- theme.window_switcher_widget_border_radius = 0           -- The border radius of the widget
--- theme.window_switcher_widget_border_color = '#ffffff'    -- The border color of the widget
--- theme.window_switcher_clients_spacing = 20               -- The space between each client item
--- theme.window_switcher_client_icon_horizontal_spacing = 5 -- The space between client icon and text
--- theme.window_switcher_client_width = 150                 -- The width of one client widget
--- theme.window_switcher_client_height = 250                -- The height of one client widget
--- theme.window_switcher_client_margins = 10                -- The margin between the content and the border of the widget
--- theme.window_switcher_thumbnail_margins = 10             -- The margin between one client thumbnail and the rest of the widget
--- theme.thumbnail_scale = true                            -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
--- theme.window_switcher_name_margins = 10                  -- The margin of one clients title to the rest of the widget
--- theme.window_switcher_name_valign = 'center'             -- How to vertically align one clients title
--- theme.window_switcher_name_forced_width = 200            -- The width of one title
--- theme.window_switcher_name_font = theme.font             -- The font of all titles
--- theme.window_switcher_name_normal_color = '#ffffff'      -- The color of one title if the client is unfocused
--- theme.window_switcher_name_focus_color = '#ff0000'       -- The color of one title if the client is focused
--- theme.window_switcher_icon_valign = 'center'             -- How to vertically align the one icon
--- theme.window_switcher_icon_width = 40                    -- The width of one icon
-
--- bling.widget.window_switcher.enable {
---     type = 'thumbnail', -- set to anything other than "thumbnail" to disable client previews
-
---     -- keybindings (the examples provided are also the default if kept unset)
---     hide_window_switcher_key = 'Escape',                      -- The key on which to close the popup
---     minimize_key = 'n',                                       -- The key on which to minimize the selected client
---     unminimize_key = 'N',                                     -- The key on which to unminimize all clients
---     kill_client_key = 'q',                                    -- The key on which to close the selected client
---     cycle_key = 'Tab',                                        -- The key on which to cycle through all clients
---     previous_key = 'Left',                                    -- The key on which to select the previous client
---     next_key = 'Right',                                       -- The key on which to select the next client
---     vim_previous_key = 'j',                                   -- Alternative key on which to select the previous client
---     vim_next_key = 'l',                                       -- Alternative key on which to select the next client
---     cycleClientsByIdx = awful.client.focus.byidx,             -- The function to cycle the clients
---     filterClients = awful.widget.tasklist.filter.currenttags, -- The function to filter the viewed clients
--- }
-
-
 awful.key.ignore_modifiers = { 'Lock', 'Mod2' }
 awful.keygrabber {
     keybindings = {
@@ -71,12 +30,18 @@ awful.keygrabber {
     end,
 }
 
+-- These are example rubato tables. You can use one for just y, just x, or both.
+-- The duration and easing is up to you. Please check out the rubato docs to learn more.
 
--- require 'collision' {
---     up    = { 'Up', 'i' },
---     down  = { 'Down', 'k' },
---     left  = { 'Left', 'j' },
---     right = { 'Right', 'l' },
+-- local term_scratch = bling.module.scratchpad {
+--     command                 = 'wezterm start --class spad',                    -- How to spawn the scratchpad
+--     rule                    = { instance = 'spad' },                           -- The rule that the scratchpad will be searched by
+--     sticky                  = true,                                            -- Whether the scratchpad should be sticky
+--     autoclose               = true,                                            -- Whether it should hide itself when losing focus
+--     floating                = true,                                            -- Whether it should be floating (MUST BE TRUE FOR ANIMATIONS)
+--     geometry                = { x = 360, y = 90, height = 900, width = 1200 }, -- The geometry in a floating state
+--     reapply                 = true,                                            -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
+--     dont_focus_before_close = false,                                           -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
 -- }
 
 ---@format disable-next
@@ -106,9 +71,13 @@ key.global = keys {
     k({ modkey }, 'l',            function() awful.client.focus.bydirection('right') end, { description = 'focus right',            group = 'client' }),
 
 
+    -- k({ modkey }, 'Tab', function()
+    --     awful.client.focus.byidx(1)
+    -- end, { description = 'Window Switcher', group = 'client' }),
     k({ modkey }, 'Tab', function()
-        awful.client.focus.byidx(1)
+        require 'lib.awesome-cyclefocus'.cycle({modifier="Super_L"})
     end, { description = 'Window Switcher', group = 'client' }),
+
     -- k({ modkey }, 'Tab', function()
     --      awesome.emit_signal("bling::window_switcher::turn_on")
     -- end, { description = 'Window Switcher', group = 'client' }),
@@ -131,16 +100,17 @@ key.global = keys {
     k({ altkey, 'Shift' }, 'Down', function() awful.spawn.with_shell('xbacklight -dec 5')           end, { description = 'Decrease volume', group = 'client' }),
 
     -- Standard program
+    -- k({ modkey            }, 'a',     function()  term_scratch:toggle()              end, { description = 'open a terminal',                       group = 'launcher'}),
     k({ modkey            }, 'a',     function() awful.spawn(conf.terminal)              end, { description = 'open a terminal',                       group = 'launcher'}),
     k({ modkey            }, 's',     function() awful.spawn.with_shell('flameshot gui') end, { description = 'screen shot use flameshot',             group = 'launcher' }),
+    k({ modkey            }, 'space', function() awful.layout.inc(1)                     end, { description = 'select next',                           group = 'layout' }),
+    k({ modkey, 'Shift'   }, 'space', function() awful.layout.inc(-1)                    end, { description = 'select previous',                       group = 'layout' }),
     -- k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)               end, { description = 'increase master width factor',          group = 'layout' }),
     -- k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)              end, { description = 'decrease master width factor',          group = 'layout' }),
     -- k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)      end, { description = 'increase the number of master clients', group = 'layout' }),
     -- k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true)     end, { description = 'decrease the number of master clients', group = 'layout' }),
     -- k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)         end, { description = 'increase the number of columns',        group = 'layout' }),
     -- k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)        end, { description = 'decrease the number of columns',        group = 'layout' }),
-    k({ modkey            }, 'space', function() awful.layout.inc(1)                     end, { description = 'select next',                           group = 'layout' }),
-    k({ modkey, 'Shift'   }, 'space', function() awful.layout.inc(-1)                    end, { description = 'select previous',                       group = 'layout' }),
 
     k({ modkey, 'Control' }, 'n', function()
         local c = awful.client.restore()
@@ -231,34 +201,27 @@ for i = 1, 9 do
         k({ modkey }, '#' .. i + 9, function()
             local screen = awful.screen.focused()
             local tag = screen.tags[i]
-            if tag then
-                tag:view_only()
-            end
+            if tag then tag:view_only() end
         end, { description = 'view tag #' .. i, group = 'tag' }),
+
         -- Toggle tag display.
         k({ modkey, 'Control' }, '#' .. i + 9, function()
             local screen = awful.screen.focused()
             local tag = screen.tags[i]
-            if tag then
-                awful.tag.viewtoggle(tag)
-            end
+            if tag then awful.tag.viewtoggle(tag) end
         end, { description = 'toggle tag #' .. i, group = 'tag' }),
         -- Move client to tag.
         k({ modkey, 'Shift' }, '#' .. i + 9, function()
             if client.focus then
                 local tag = client.focus.screen.tags[i]
-                if tag then
-                    client.focus:move_to_tag(tag)
-                end
+                if tag then client.focus:move_to_tag(tag) end
             end
         end, { description = 'move focused client to tag #' .. i, group = 'tag' }),
         -- Toggle tag on focused client.
         k({ modkey, 'Control', 'Shift' }, '#' .. i + 9, function()
             if client.focus then
                 local tag = client.focus.screen.tags[i]
-                if tag then
-                    client.focus:toggle_tag(tag)
-                end
+                if tag then client.focus:toggle_tag(tag) end
             end
         end, { description = 'toggle focused client on tag #' .. i, group = 'tag' }),
     }

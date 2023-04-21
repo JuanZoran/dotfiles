@@ -140,10 +140,10 @@ BraceWrapping:
   AfterClass: true
   AfterStruct: true
   AfterExternBlock: true
-  BeforeElse: true
-  AfterFunction: true
+  AfterFunction: false
   AfterEnum: false
-  SplitEmptyFunction: false
+  BeforeElse: true
+  SplitEmptyFunction: true
   AfterCaseLabel: false
   AfterNamespace: false
   AfterObjCDeclaration: false
@@ -151,7 +151,6 @@ BraceWrapping:
   BeforeCatch: false
   BeforeLambdaBody: false
   BeforeWhile: false
-  SplitEmptyFunction: true
   # false:          true:
   # int f()   vs.   int f()
   # {}              {
@@ -342,7 +341,7 @@ SpaceBeforeParensOptions:
   AfterFunctionDefinitionName: false
   AfterFunctionDeclarationName: false
 
-SpaceBeforeParens: ControlStatements # Never | ControlStatements | ControlStatementsExceptControlMacros | NonEmptyParentheses | Always
+# SpaceBeforeParens: ControlStatements # Never | ControlStatements | ControlStatementsExceptControlMacros | NonEmptyParentheses | Always
 SpaceBeforeInheritanceColon: false
 SpaceBeforeCtorInitializerColon: false
 SpaceBeforeCpp11BracedList: true

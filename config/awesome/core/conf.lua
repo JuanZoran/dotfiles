@@ -1,4 +1,7 @@
+beautiful.init(util.conf_dir .. '/theme/theme.lua')
+local dpi = require 'beautiful.xresources'.apply_dpi
 require 'awful.autofocus'
+
 local conf         = {
     rofi_theme = 'rofi',
     editor     = 'nvim',
@@ -7,10 +10,10 @@ local conf         = {
 
 conf.editor_cmd    = conf.terminal .. ' -e ' .. conf.editor
 conf.layout        = {
-    -- awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile,
+    awful.layout.suit.tile,
+    -- awful.layout.suit.tile.left,
     awful.layout.suit.floating,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.max,
     bling.layout.centered,
     -- awful.layout.suit.floating,
@@ -38,6 +41,7 @@ conf.layout        = {
 
 conf.widget_fg     = '#a6adc8'
 conf.widget_bg     = '#1e1e2e'
-conf.titlebar_size = 40
+conf.titlebar_size = dpi(30)
+
 
 _G.conf = conf
