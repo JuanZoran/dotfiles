@@ -21,18 +21,20 @@ awful.screen.connect_for_each_screen(function(s)
         button { 5, function() awful.layout.inc(-1) end },
     })
 
-    --- INFO : Conf
+    --- INFO : Conf 
     local size = s.geometry
     local auto_hidden = false
     s.wibar = awful.wibar {
+        -- TODO : Better layout
         screen   = s,
         -- maximum_height = dpi(65),
         -- minimum_width  = s.geometry.width,
         -- maximum_width  = s.geometry.width,
-        position = 'top',
-        shape    = gears.shape.rounded_rect,
         height   = size.height * 0.03,
         width    = size.width,
+        -- width    = size.width * 0.85,
+        position = 'top',
+        shape    = gears.shape.rounded_rect,
         stretch  = false, -- 是否wibar需要拉伸填满屏幕。
         bg       = beautiful.color.dark,
         fg       = beautiful.color.dim_blue,

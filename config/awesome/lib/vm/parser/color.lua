@@ -30,15 +30,16 @@ end
 
 local function print_table(tbl, indent)
     indent = indent or ''
+    print(indent .. '{')
     for k, v in pairs(tbl) do
         if type(v) == 'table' then
-            print(indent .. k .. ' = {')
-            print_table(v, indent .. '    ')
-            print(indent .. k .. '}')
+            print(indent .. '  ' .. k .. ' = ')
+            print_table(v, indent .. '  ')
         else
-            print(indent .. k .. ' = ' .. tostring(v))
+            print(indent .. '  ' .. k .. ' = ' .. tostring(v))
         end
     end
+    print(indent .. '}')
 end
 
 _G.pretty_print_table = print_table
