@@ -1,10 +1,10 @@
 -- FIXME :It doesn't work
-local dpi         = require 'beautiful.xresources'.apply_dpi
-local tabbed_misc = bling.widget.tabbed_misc
+-- local dpi         = require 'beautiful.xresources'.apply_dpi
+-- local tabbed_misc = bling.widget.tabbed_misc
 -- INFO :Avoid titlebar get conflict
 local no_titlebar = {
     ['neovide']                = true,
-    ['QQ']                     = true,
+    -- ['QQ']                     = true,
     ['Chromium-browser']       = true,
     ['TelegramDesktop']        = true,
     ['org.wezfurlong.wezterm'] = true,
@@ -46,9 +46,6 @@ client.connect_signal('request::titlebars', function(c)
         },
         {
             -- Right,
-            -- awful.titlebar.widget.floatingbutton(c),
-            -- awful.titlebar.widget.stickybutton(c),
-            -- awful.titlebar.widget.ontopbutton(c),
             wibox.container.margin(awful.titlebar.widget.minimizebutton(c)  , 3, 3, 10, 10),
             wibox.container.margin(awful.titlebar.widget.maximizedbutton(c) , 3, 3, 10, 10),
             wibox.container.margin(awful.titlebar.widget.closebutton(c)     , 3, 3, 10, 10),

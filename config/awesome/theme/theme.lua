@@ -1,15 +1,14 @@
 -- local theme_assets = require 'beautiful.theme_assets'
-local dpi          = require 'beautiful.xresources'.apply_dpi
-local Jb           = 'JetBrains Mono Nerd Font'
-local norm_font    = Jb .. ' 12'
-local gfs          = require 'gears.filesystem'
-local themes_path  = gfs.get_themes_dir()
+local dpi         = require 'beautiful.xresources'.apply_dpi
+local Jb          = 'JetBrains Mono Nerd Font'
+local norm_font   = Jb .. ' 12'
+local gfs         = require 'gears.filesystem'
+local themes_path = gfs.get_themes_dir()
 
-local icon_dir     = util.conf_dir .. '/theme'
+local icon_dir    = util.conf_dir .. '/theme'
 
-local c            = {
+local c           = {
     dark         = '#0c0e0f',
-    dim_blue     = '#6791c9',
     disabled     = '#707880',
     dim          = '#181b28',
     gray         = '#8a8e97',
@@ -27,6 +26,7 @@ local c            = {
     teal         = '#94e2d5',
     sky          = '#89dceb',
     sapphire     = '#74c7ec',
+    dim_blue     = '#6791c9',
     blue         = '#89b4fa',
     lavender     = '#b4befe',
     base         = '#1e1e2e',
@@ -53,6 +53,7 @@ local c            = {
 local theme                            = {
     font_name      = Jb,
     font           = norm_font,
+    icon_var       = 'Material Icons Round ',
     color          = c,
 
     -- INFO :
@@ -210,16 +211,6 @@ local theme                            = {
     -- notification_[width|height|margin]
     -- notification_[border_color|border_width|shape|opacity]
 
-    -- INFO :
-    -- Taglist
-    taglist_fg_focus                                = c.custom,
-    taglist_fg_empty                                = c.gray,
-    -- taglist_bg_focus = {
-    --     type = 'linear',
-    --     from = { 00, 00, 10 },
-    --     to = { 100, 100, 30 },
-    --     stops = { { 0, '#3F8CFF' }, { 1, '#5197FF' } },
-    -- },
 }
 
 -- HACK : Window switcher
