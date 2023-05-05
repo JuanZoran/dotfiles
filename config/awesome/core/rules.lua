@@ -1,7 +1,7 @@
 local key = require 'core.mappings'
 -- local dpi         = require 'beautiful.xresources'.apply_dpi
 -- Rules to apply to new clients (through the "manage" signal).
-
+-- require'ruled'
 
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -58,7 +58,7 @@ awful.rules.rules = {
         rule_any = {
             type = { 'normal', 'dialog' },
         },
-        properties = { titlebars_enabled = false },
+        properties = { titlebars_enabled = true },
     },
 
     {
@@ -69,16 +69,7 @@ awful.rules.rules = {
             floating = true,
         },
     },
-    -- {
-    --     rule = { class = 'eww-top-panel' },
-    --     properties = {
-    --         focusable = false,
-    --         border_width = dpi(0),
-    --     },
-    -- },
 }
-
-
 
 client.connect_signal('focus', function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)

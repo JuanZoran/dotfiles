@@ -1,8 +1,5 @@
 local path = ... .. '.'
 awful.screen.connect_for_each_screen(function(s)
-    local widgets = require 'widgets'
-
-    local button = util.button
     local self = setmetatable({}, {
         __index = function(_, name)
             local widget = require(path .. name)
@@ -13,6 +10,8 @@ awful.screen.connect_for_each_screen(function(s)
         end,
     })
 
+    local widgets = require 'widgets'
+    local button = util.button
     s.layoutbox = awful.widget.layoutbox(s)
     s.layoutbox:buttons(util.keys {
         button { 1, function() awful.layout.inc(1) end },
@@ -25,69 +24,80 @@ awful.screen.connect_for_each_screen(function(s)
     local size = s.geometry
     local auto_hidden = false
     s.wibar = awful.wibar {
-        -- TODO : Better layout
-        screen   = s,
+        screen       = s,
+        position     = 'top',
+        height       = size.height * 0.03,
+        width        = size.width * 0.8,
+        shape        = gears.shape.rounded_rect,
+        stretch      = false, -- 是否wibar需要拉伸填满屏幕。
+        bg           = beautiful.color.dark,
+        fg           = beautiful.color.dim_blue,
+        opacity      = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
+        -- margin = 10,
+        x            = 0,
+        y            = 0,
         -- maximum_height = dpi(65),
         -- minimum_width  = s.geometry.width,
-        -- maximum_width  = s.geometry.width,
-        height   = size.height * 0.03,
-        width    = size.width,
-        -- width    = size.width * 0.85,
-        position = 'top',
-        shape    = gears.shape.rounded_rect,
-        stretch  = false, -- 是否wibar需要拉伸填满屏幕。
-        bg       = beautiful.color.dark,
-        fg       = beautiful.color.dim_blue,
-        -- opacity      = 0.8,       -- wibox 的不透明度，介于 0 和 1 之间。
-        -- border_width = 4,
-        -- border_color = '#69bbae',
+        border_width = 4,
+        border_color = beautiful.color.blue,
     }
+
+    -- s.wibar.y = 20
+
+    local battery = widgets['battery-widget'] {
+        instant_update = true,
+        screen = s,
+        use_display_device = true,
+        widget_template = wibox.widget.textbox,
+    }
+
+    -- When UPower updates the battery status, the widget is notified
+    -- and calls a signal you need to connect to:
+    battery:connect_signal('upower::update', function(widget, device)
+        widget.text = string.format('%3d', device.percentage) .. '%'
+    end)
 
     local widget_font = beautiful.font_name .. ' 10'
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
         {
-            self.taglist,
-            -- bg = '#282832'
-            -- Left widgets
-            -- wibox.layout.margin(awesome_icon, 7, 7, 7, 7),
+            self.clock,
             self.tasklist,
-
             layout = wibox.layout.fixed.horizontal,
         },
         {
-            self.clock,
+            self.taglist,
             layout = wibox.layout.fixed.horizontal,
         },
         {
             -- Right widgets
             {
                 self.systray,
-                bg = beautiful.color.dim,
-                shape = gears.shape.rounded_rect,
-                -- forced_width = 300,
+                bg     = beautiful.color.dim,
+                shape  = gears.shape.rounded_rect,
                 widget = wibox.container.background,
             },
-            widgets['github-activity-widget'] {
-                username = 'JuanZoran',
-            },
+            wibox.layout.margin(
+                widgets['github-activity-widget'] {
+                    username = 'JuanZoran',
+                },
+                5, 5, 5, 5),
             widgets['volume-widget'] {
                 icon_and_text_args = { font = widget_font },
             },
-            widgets['batteryarc-widget'] {
-                timeout = 30,
-            },
-            -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
-            layout = wibox.layout.fixed.horizontal,
+            self.battery,
             s.layoutbox,
+            layout = wibox.layout.fixed.horizontal,
+            -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
         },
     }
+
     -- Add widgets
     -- This is a valid wallpaper definition
     bling.module.wallpaper.setup {
         screen       = s,
-        change_timer = 1800,
+        change_timer = 3600,
         position     = 'maximized',
         wallpaper    = { util.home .. '/background/dark' }, -- folders
         set_function = bling.module.wallpaper.setters.random,

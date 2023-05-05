@@ -19,17 +19,14 @@
 -- %Y	完整的年份	(2016)
 -- %%	字符串'%'	(%)
 return {
-    wibox.widget {
+    {
         widget = wibox.widget.textclock,
-        -- date = %Y-%m-%d
-        -- date = %H:%M:%S
-        -- align = 'center',
-        -- valign = 'center',
+        align = 'center',
+        valign = 'center',
         format = '%Y-%m-%d %H:%M:%S %A',
         refresh = 1,
         font = beautiful.font_name .. ' 10',
     },
-    font = beautiful.font_name .. ' 10',
-    fg = beautiful.color.lavender,
+    fg = beautiful.color.dim_blue,
     widget = wibox.container.background,
 }

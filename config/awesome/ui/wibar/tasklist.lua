@@ -22,14 +22,14 @@ return function(s)
                     forced_width  = 5,
                     forced_height = 24,
                     thickness     = 1,
-                    color         = '#777777',
+                    color         = beautiful.color.purple,
                     widget        = wibox.widget.separator,
                 },
                 valign = 'center',
                 halign = 'center',
                 widget = wibox.container.place,
             },
-            spacing        = 1,
+            spacing        = 4,
             layout         = wibox.layout.fixed.horizontal,
         },
         widget_template = {
@@ -54,20 +54,3 @@ return function(s)
         },
     }
 end
-
--- bling.widget.task_preview.enable {
---     -- x = 1,                    -- The x-coord of the popup
---     -- y = 1,                    -- The y-coord of the popup
---     height = 400,              -- The height of the popup
---     width = 400,               -- The width of the popup
---     placement_fn = function(c) -- Place the widget using awful.placement (this overrides x & y)
---         -- awful.placement.top(c, {
---         --     margins = {
---         --         top = 70,
---         --     },
---         -- })
---         awful.placement.bottom(c, {
---             margins = { bottom = 50 },
---         })
---     end,
--- }
