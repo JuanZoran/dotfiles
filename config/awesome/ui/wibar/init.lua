@@ -1,4 +1,7 @@
 local path = ... .. '.'
+-- local auto_hidden = false
+
+
 awful.screen.connect_for_each_screen(function(s)
     local self = setmetatable({}, {
         __index = function(_, name)
@@ -22,7 +25,6 @@ awful.screen.connect_for_each_screen(function(s)
 
     --- INFO : Conf
     local size = s.geometry
-    local auto_hidden = false
     s.wibar = awful.wibar {
         screen       = s,
         position     = 'top',
@@ -33,29 +35,11 @@ awful.screen.connect_for_each_screen(function(s)
         bg           = beautiful.color.dark,
         fg           = beautiful.color.dim_blue,
         opacity      = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
-        -- margin = 10,
-        x            = 0,
-        y            = 0,
-        -- maximum_height = dpi(65),
-        -- minimum_width  = s.geometry.width,
-        border_width = 4,
-        border_color = beautiful.color.blue,
+        border_width = 2,
+        border_color = beautiful.color.dim_blue,
     }
 
-    -- s.wibar.y = 20
-
-    local battery = widgets['battery-widget'] {
-        instant_update = true,
-        screen = s,
-        use_display_device = true,
-        widget_template = wibox.widget.textbox,
-    }
-
-    -- When UPower updates the battery status, the widget is notified
-    -- and calls a signal you need to connect to:
-    battery:connect_signal('upower::update', function(widget, device)
-        widget.text = string.format('%3d', device.percentage) .. '%'
-    end)
+    s.wibar.y = size.y + 14
 
     local widget_font = beautiful.font_name .. ' 10'
     s.wibar:setup {
@@ -72,12 +56,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             -- Right widgets
-            {
-                self.systray,
-                bg     = beautiful.color.dim,
-                shape  = gears.shape.rounded_rect,
-                widget = wibox.container.background,
-            },
+            self.systray,
             wibox.layout.margin(
                 widgets['github-activity-widget'] {
                     username = 'JuanZoran',
@@ -93,6 +72,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 
+
     -- Add widgets
     -- This is a valid wallpaper definition
     bling.module.wallpaper.setup {
@@ -102,36 +82,34 @@ awful.screen.connect_for_each_screen(function(s)
         wallpaper    = { util.home .. '/background/dark' }, -- folders
         set_function = bling.module.wallpaper.setters.random,
     }
-
-
-    if auto_hidden then
-        s.show_wibar_timer = gears.timer {
-            timeout = 0.25, -- 250ms delay between checks if the bar should be shown
-            callback = function()
-                local coords = mouse.coords()
-                local s_g = s.geometry
-                if coords.x < s_g.x or coords.x > s_g.x + s_g.width
-                    -- comment this out if you want to show bar even for fullscreen windows
-                    or (next(s.clients) and s.clients[1].fullscreen)
-                then
-                    if s.wibar.visible then s.wibar.visible = false end
-                    return
-                end
-                -- moving the mouse within 5px of the bottom of the screen shows the bar
-                if coords.y > s_g.y + s_g.height - s.wibar.height then
-                    s.wibar.visible = true
-                    s.show_wibar_timer:stop()
-                end
-            end,
-            autostart = true,
-        }
-        s.wibar:connect_signal('mouse::leave', function()
-            s.wibar.visible = false
-            s.show_wibar_timer:start()
-        end)
-    end
 end)
 
+-- if auto_hidden then
+--     s.show_wibar_timer = gears.timer {
+--         timeout = 0.25, -- 250ms delay between checks if the bar should be shown
+--         callback = function()
+--             local coords = mouse.coords()
+--             local s_g = s.geometry
+--             if coords.x < s_g.x or coords.x > s_g.x + s_g.width
+--                 -- comment this out if you want to show bar even for fullscreen windows
+--                 or (next(s.clients) and s.clients[1].fullscreen)
+--             then
+--                 if s.wibar.visible then s.wibar.visible = false end
+--                 return
+--             end
+--             -- moving the mouse within 5px of the bottom of the screen shows the bar
+--             if coords.y > s_g.y + s_g.height - s.wibar.height then
+--                 s.wibar.visible = true
+--                 s.show_wibar_timer:stop()
+--             end
+--         end,
+--         autostart = true,
+--     }
+--     s.wibar:connect_signal('mouse::leave', function()
+--         s.wibar.visible = false
+--         s.show_wibar_timer:start()
+--     end)
+-- end
 -- INFO : More option for wibar setup
 -- ontop	On top of other windows. 在其他窗口之上。
 -- cursor	The mouse cursor
