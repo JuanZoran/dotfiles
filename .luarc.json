@@ -1,0 +1,8 @@
+{
+    "diagnostics.globals": [
+        "lfs"
+    ],
+    "workspace.library": [
+        "${3rd}/lfs/library"
+    ]
+}

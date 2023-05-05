@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+import os
+import sys
+from pathlib import Path
+import click
+from datetime import datetime
+
+
+@click.command()
+@click.option("-n", "--new", is_flag=True, help="Create a new blog post")
+def main(new):
+    blog_root = os.environ.get("BLOG", None)
+    if not blog_root:
+        print("Please set the BLOG environment variable.")
+        sys.exit(1)
+
+    blog_root = Path(blog_root)
+
+    if new:
+        # Create new blog post
+        categories = [d.name for d in blog_root.glob("*") if d.is_dir()]
+
+        # Generate categories string for fzf
+        categories_str = "\n".join(categories)
+        with open("temp_categories.txt", "w") as temp_file:
+            temp_file.write(categories_str)
+
+        cmd = f"cat temp_categories.txt | fzf --preview 'echo {{}}'"
+        selected_category = os.popen(cmd).read().strip()
+        os.remove("temp_categories.txt")
+
+        if selected_category:
+            category = selected_category
+        else:
+            category = click.prompt("Enter the category", type=str)
+            while category not in categories:
+                choice = click.prompt(
+                    f"Category '{category}' does not exist. Do you want to create it? (y/n)",
+                    type=str,
+                )
+                if choice.lower() == "y":
+                    os.makedirs(blog_root / category)
+                    categories.append(category)
+                else:
+                    category = click.prompt("Enter the category", type=str)
+
+        title = click.prompt("Enter the blog post title", type=str)
+        safe_title = "".join(c if c.isalnum() or c.isspace() else "_" for c in title)
+        file_name = f"{safe_title}.md"
+        file_path = blog_root / category / file_name
+
+        front_matter = f"""---
+title: {title}
+date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+categories:
+    - {category}
+tags:
+    - 编程
+---
+
+"""
+        with open(file_path, "w") as f:
+            f.write(front_matter)
+
+        os.system(f"nvim -c '+normal! Gzt' {file_path}")
+    else:
+        # Open an existing blog post using fzf
+        cmd = f"rg --files {blog_root} | fzf"
+        selected_file = os.popen(cmd).read().strip()
+
+        if selected_file:
+            os.system(f"nvim {selected_file}")
+        else:
+            print("No file selected.")
+
+
+if __name__ == "__main__":
+    main()

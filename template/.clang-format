@@ -66,20 +66,17 @@ AllowAllArgumentsOnNextLine: true
 #                 int d,
 #                 int e);
 
-AllowShortBlocksOnASingleLine: Always # Never | Empty | Always
+AllowShortBlocksOnASingleLine: Never # Never | Empty | Always
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: false
 
 # 短的函数是否放在一行
 AllowShortFunctionsOnASingleLine: InlineOnly # None | InlineOnly | Inline | All
-
-AllowShortIfStatementsOnASingleLine: WithoutElse # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
-
+AllowShortIfStatementsOnASingleLine: Never # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
 AllowShortLambdasOnASingleLine: None # None | Empty | Inline | All
-
 AllowShortLoopsOnASingleLine: false
-
 AlwaysBreakAfterReturnType: None # None | All | TopLevel | AllDefinitions | TopLevelDefinitions
+
 # All:
 # class A {
 #   int

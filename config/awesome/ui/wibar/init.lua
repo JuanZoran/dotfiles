@@ -21,7 +21,7 @@ awful.screen.connect_for_each_screen(function(s)
         button { 5, function() awful.layout.inc(-1) end },
     })
 
-    --- INFO : Conf 
+    --- INFO : Conf
     local size = s.geometry
     local auto_hidden = false
     s.wibar = awful.wibar {
@@ -62,10 +62,6 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            widgets['volume-widget'] {
-                icon_and_text_args = { font = widget_font },
-            },
             {
                 self.systray,
                 bg = beautiful.color.dim,
@@ -73,22 +69,18 @@ awful.screen.connect_for_each_screen(function(s)
                 -- forced_width = 300,
                 widget = wibox.container.background,
             },
-            -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
             widgets['github-activity-widget'] {
                 username = 'JuanZoran',
             },
+            widgets['volume-widget'] {
+                icon_and_text_args = { font = widget_font },
+            },
+            widgets['batteryarc-widget'] {
+                timeout = 30,
+            },
+            -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
+            layout = wibox.layout.fixed.horizontal,
             s.layoutbox,
-            -- lain.widget.net {
-            --     settings = function()
-            --         widget:set_markup(' ' .. net_now.received .. '|' .. net_now.sent)
-            --         -- widget:set_markup((' %s|%s'):format(net_now.sent, net_now.received))
-            --     end,
-            -- },
-            -- lain.widget.cpu {
-            --     settings = function()
-            --         widget:set_markup('Cpu ' .. cpu_now.usage)
-            --     end,
-            -- },
         },
     }
     -- Add widgets

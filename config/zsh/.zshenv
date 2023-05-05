@@ -1,6 +1,6 @@
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
-PATH=$GOPATH:$GOBIN:$GOROOT/bin:$PATH
+PATH="$HOME/gowork/bin:$PATH"
 PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
 

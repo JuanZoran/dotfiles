@@ -1,5 +1,5 @@
 #!/bin/zsh
-source ./color
+source /home/zoran/zsh/script/color
 
 prompt="请选择需要打开的文件："
 

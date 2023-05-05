@@ -10,13 +10,11 @@ alias g='git'
 alias grep='rg'
 alias e='exit'
 alias format='cp ~/dotfiles/config/clangd/.clang-format .'
-alias a="ranger"
+alias a="lf"
 alias aa="lazygit"
 alias lk="du -sh * .* | sort -h"
 alias ll="exa --tree --level=2 -a --long --header --accessed"
 alias win="sudo dpkg-reconfigure lightdm"
-alias x="xmake"
-alias xr="xmake -r && xmake r"
 alias gb="git checkout"
 alias gg="git clone --depth=1"
 
@@ -32,6 +30,7 @@ alias h="hexo"
 alias ne="neofetch"
 alias gtktheme="lxappearance"
 
+# alias j='cdi'
 alias f='nvim $(fzf)'
 
 # cd fzf result dir
@@ -48,3 +47,12 @@ mkcd () {
     mkdir -p "$@" && cd "$_"
 }
 
+
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                       Xmake Alias                        │
+#  ╰──────────────────────────────────────────────────────────╯
+alias x='xmake'
+alias xr='xmake -r && xmake r'
+alias xt='xmake -r && xmake r -g test'
+alias xb='xmake -r'
