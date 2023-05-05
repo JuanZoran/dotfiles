@@ -213,35 +213,14 @@ local theme                            = {
 
 }
 
--- HACK : Window switcher
--- window_switcher_widget_bg                      = c.base,  -- The bg color of the widget
--- window_switcher_widget_border_width            = 3,       -- The border width of the widget
--- window_switcher_widget_border_radius           = dpi(10), -- The border radius of the widget
--- window_switcher_widget_border_color            = c.blue,  -- The border color of the widget
--- window_switcher_clients_spacing                = 20,      -- The space between each client item
--- window_switcher_client_icon_horizontal_spacing = 5,       -- The space between client icon and text
--- -- window_switcher_client_width                   = 400,       -- The width of one client widget
--- -- window_switcher_client_height                  = 200,       -- The height of one client widget
--- window_switcher_client_margins                 = 10,        -- The margin between the content and the border of the widget
--- window_switcher_thumbnail_margins              = 10,        -- The margin between one client thumbnail and the rest of the widget
--- thumbnail_scale                                = false,     -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
--- window_switcher_name_margins                   = 10,        -- The margin of one clients title to the rest of the widget
--- window_switcher_name_valign                    = 'center',  -- How to vertically align one clients title
--- window_switcher_name_forced_width              = 200,       -- The width of one title
--- -- window_switcher_name_font                      = norm_font, -- The font of all titles
--- window_switcher_name_normal_color              = '#89b4fa', -- The color of one title if the client is unfocused
--- window_switcher_name_focus_color               = c.blue,    -- The color of one title if the client is focused
--- window_switcher_icon_valign                    = 'center',  -- How to vertically align the one icon
--- window_switcher_icon_width                     = 40,        -- The width of one icon
-
 theme.tag_preview_widget_border_radius = 10
 theme.tag_preview_client_border_radius = 10
 theme.tag_preview_client_opacity       = 0.9
 theme.tag_preview_client_bg            = theme.bg_normal
 theme.tag_preview_client_border_color  = theme.border_normal
-theme.tag_preview_client_border_width  = theme.border_width
+theme.tag_preview_client_border_width  = 1
 theme.tag_preview_widget_bg            = theme.bg_normal
-theme.tag_preview_widget_border_color  = theme.border_normal
+-- theme.tag_preview_widget_border_color  = theme.border_normal
 theme.tag_preview_widget_border_width  = 0
 theme.tag_preview_widget_margin        = 0
 
@@ -324,5 +303,4 @@ theme.tag_preview_widget_margin        = 0
 -- theme.delete_hover      = colorize_icon(theme.delete_icon, theme.red .. '80')
 -- theme.clear             = colorize_icon(theme.clear_icon, theme.grey)
 -- theme.clear_hover       = colorize_icon(theme.clear_filled, theme.grey)
-
 return theme

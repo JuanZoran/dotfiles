@@ -19,14 +19,7 @@
 -- %Y	完整的年份	(2016)
 -- %%	字符串'%'	(%)
 return {
-    {
-        widget = wibox.widget.textclock,
-        align = 'center',
-        valign = 'center',
-        format = '%Y-%m-%d %H:%M:%S %A',
-        refresh = 1,
-        font = beautiful.font_name .. ' 10',
-    },
-    fg = beautiful.color.dim_blue,
-    widget = wibox.container.background,
+    widget = wibox.widget.textclock,
+    format = '<span font="Sarasa Mono K Bold 13">%X </span>',
+    refresh = 1,
 }
