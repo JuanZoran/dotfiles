@@ -1,0 +1,14 @@
+#!/bin/python3 -O
+import argparse
+
+p = argparse.ArgumentParser(description="创建新博客的脚本")
+
+p.add_argument("-n", "--new", type=str, help="新博客的名字")
+
+args = p.parse_args()
+
+name = args.new or '老名字'
+
+
+if __name__ == '__main__':
+    print(name)

@@ -6,7 +6,7 @@ _G.wibox     = require 'wibox' -- Widget and layout library
 _G.beautiful = require 'beautiful' -- Theme handling library
 _G.gears     = require 'gears'     --
 _G.naughty   = require 'naughty'   -- Notification library
-_G.lain      = require 'lain'      --
+-- _G.lain      = require 'lain'      --
 _G.bling     = require 'lib.bling' -- Notification library
 
 require 'core.error_handle'

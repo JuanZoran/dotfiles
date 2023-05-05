@@ -15,6 +15,7 @@ local function unset_key() {
     done
 }
 
+
 # # NOTE :zsh-vi-mode has done that
 # export ZVM_CURSOR_STYLE_ENABLED=false
 # function zle-keymap-select {
@@ -26,15 +27,15 @@ local function unset_key() {
 # }
 # zle -N zle-keymap-select
 
-
-
 # KEYTIMEOUT=1
 function zvm_config () {
+    # Do the initialization when the script is sourced (i.e. Initialize instantly)
+    # ZVM_INIT_MODE=sourcing
+
     ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
     # ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
     # ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
 
-    ZVM_VI_INSERT_SURROUND_BINDKEY=s-prefix # zsh-vim-surround support
     ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
     ZVM_VI_SURROUND_BINDKEY='s-prefix'
     ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
@@ -44,7 +45,16 @@ function zvm_config () {
 
 local -A keys
 
+function jump() {
+    if [[ -z $VIM ]]; then
+        BUFFER="cdi"
+    fi
+
+    zle accept-line
+}
+
 function load_ins_key () {
+    zle -N jump
     keys=(
         '^p' up-line-or-search
         '^k' menu-select
@@ -53,7 +63,11 @@ function load_ins_key () {
         '^v' describe-key-briefly
         '^b' backward-word
         '^f' forward-word
+
+        '^j' jump
+        '^o' accept-line
     )
+
     set_keys viins
 }
 zvm_after_init_commands+=(load_ins_key)
@@ -132,9 +146,6 @@ function zvm_after_lazy_keybindings() {
 }
 
 # # add-zsh-hook precmd recover-tab
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-
 
 # # NOTE :
 # #  ╭──────────────────────────────────────────────────────────╮
