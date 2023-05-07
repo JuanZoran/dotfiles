@@ -11,9 +11,12 @@ if [ -e "$TMUX" ]; then
     export TERM='screen-256color'
 fi
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_CTYPE=zh_CN.UTF-8
+# Workaround for locale issue with Nix
+if [ -e /etc/default/locale ]; then
+    . /etc/default/locale
+    export LANG LANGUAGE LC_ALL
+fi
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 
 export CHEATCOLORS=true
 export CHEAT_EDITOR=/usr/local/vim/bin/nvim

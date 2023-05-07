@@ -70,25 +70,12 @@ key.global = keys {
     k({ modkey }, 'j',            function() awful.client.focus.bydirection('left')  end, { description = 'focus left',             group = 'client' }),
     k({ modkey }, 'l',            function() awful.client.focus.bydirection('right') end, { description = 'focus right',            group = 'client' }),
 
-
-    -- k({ modkey }, 'Tab', function()
-    --     awful.client.focus.byidx(1)
-    -- end, { description = 'Window Switcher', group = 'client' }),
     k({ modkey }, 'Tab', function()
-        require 'lib.awesome-cyclefocus'.cycle({modifier="Super_L"})
-    end, { description = 'Window Switcher', group = 'client' }),
-
-    -- k({ modkey }, 'Tab', function()
-    --      awesome.emit_signal("bling::window_switcher::turn_on")
-    -- end, { description = 'Window Switcher', group = 'client' }),
-    -- k({ modkey }, 'Tab', function()
-    --     awful.client.focus.history.previous()
-    --     if client.focus then
-    --         client.focus:raise()
-    --     end
-    -- end, { description = 'go back', group = 'client' }),
-
-
+        awful.client.focus.history.previous()
+        if client.focus then
+            client.focus:raise()
+        end
+    end, { description = 'go back', group = 'client' }),
 
     -- k({ altkey          }, 'Up',     function() require'lib.volume-control.volume'.up() end, { description = 'Increase volume', group = 'client' }),
     -- k({ altkey          }, 'Down',   function() require'lib.volume-control.volume'.down() end, { description = 'Decrease volume', group = 'client' }),

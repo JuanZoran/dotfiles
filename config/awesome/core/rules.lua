@@ -62,6 +62,17 @@ awful.rules.rules = {
         properties = { titlebars_enabled = true },
     },
 
+    -- {
+    --     rule_any = {
+    --         fullscreen = true,
+    --     },
+    --     properties = {
+    --         floating = true,
+    --         titlebars_enabled = false,
+    --         layer = 'below',
+    --     },
+    -- },
+
     {
         rule_any = {
             class = { 'QQ', 'neovide' },

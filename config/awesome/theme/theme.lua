@@ -7,32 +7,43 @@ local themes_path = gfs.get_themes_dir()
 
 local icon_dir    = util.conf_dir .. '/theme'
 
+---@class color
 local c           = {
-    dark         = '#0c0e0f',
-    disabled     = '#707880',
-    dim          = '#181b28',
-    gray         = '#8a8e97',
-    rosewater    = '#f5e0dc',
-    flamingo     = '#f2cdcd',
-    pink         = '#f5c2e7',
-    mauve        = '#cba6f7',
-    red          = '#f38ba8',
-    maroon       = '#eba0ac',
-    white        = '#ffffff',
-    peach        = '#fab387',
-    yellow       = '#f9e2af',
-    green        = '#a6e3a1',
-    custom       = '#69bbae',
-    teal         = '#94e2d5',
-    sky          = '#89dceb',
-    sapphire     = '#74c7ec',
-    dim_blue     = '#6791c9',
-    blue         = '#89b4fa',
-    lavender     = '#b4befe',
-    base         = '#1e1e2e',
-    purple       = '#7c3aed',
-    light_purple = '#c61ad9',
-    mantle       = '#181825',
+    black          = '#0c0e0f',
+    dim_black      = '#1e1e2e',
+    dark_black     = '#181b28',
+    mantle         = '#181825',
+
+    gray           = '#8a8e97',
+    dim_gray       = '#6A6E78',
+    dark_gray      = '#4b4f5a',
+
+    rosewater      = '#f5e0dc',
+    dim_rosewater  = '#f2cdcd',
+    dark_rosewater = '#eba0ac',
+
+    flamingo       = '#f2cdcd',
+
+    green          = '#a6e3a1',
+    orange         = '#f9d562',
+
+
+    pink           = '#f5c2e7',
+    mauve          = '#cba6f7',
+    red            = '#f38ba8',
+    maroon         = '#eba0ac',
+    white          = '#ffffff',
+    peach          = '#fab387',
+    yellow         = '#f9e2af',
+    custom         = '#69bbae',
+    teal           = '#94e2d5',
+    sky            = '#89dceb',
+    sapphire       = '#74c7ec',
+    dim_blue       = '#6791c9',
+    blue           = '#89b4fa',
+    lavender       = '#b4befe',
+    light_purple   = '#c61ad9',
+    purple         = '#7c3aed',
 }
 
 -- There are other variable sets
@@ -61,11 +72,11 @@ local theme                            = {
     --  │                            Bg                            │
     --  ╰──────────────────────────────────────────────────────────╯
     active         = '#6A6E78',
-    bg_normal      = c.base,
+    bg_normal      = c.dim_black,
     bg_focus       = c.blue,
-    bg_urgent      = c.base,
-    bg_minimize    = c.base,
-    -- bg_systray    = '#1A1B26',
+    bg_urgent      = c.dim_black,
+    bg_minimize    = c.dim_black,
+    bg_systray     = c.dark_black,
     -- bg_sidebar  = '#161719',
     -- bg_selected = '#1D1F22',
     -- bg_widget   = '#1D1F22',
@@ -81,8 +92,8 @@ local theme                            = {
     fg_normal      = c.lavender,
     fg_focus       = c.white,
     fg_contrast    = c.white,
-    fg_urgent      = '#8A8E97',
-    fg_minimize    = '#8A8E97',
+    fg_urgent      = c.red,
+    fg_minimize    = c.red,
 
     useless_gap    = 15,
     border_width   = 3,
@@ -118,13 +129,13 @@ local theme                            = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                         Hotkeys                          │
     --  ╰──────────────────────────────────────────────────────────╯
-    hotkeys_bg           = c.dark,
+    hotkeys_bg           = c.black,
     hotkeys_modifiers_fg = c.sapphire,
     -- HACK :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    -- icon_theme           = 'WhiteSur',
+    icon_theme           = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
@@ -156,8 +167,8 @@ local theme                            = {
     -- --  ╭──────────────────────────────────────────────────────────╮
     -- --  │ Titlebar                                                 │
     -- --  ╰──────────────────────────────────────────────────────────╯
-    titlebar_bg_normal                              = c.dark,
-    titlebar_bg_focus                               = c.dark,
+    titlebar_bg_normal                              = c.dim_black,
+    titlebar_bg_focus                               = c.black,
     titlebar_close_button_normal                    = icon_dir .. '/titlebar/normal.svg',
     titlebar_close_button_focus                     = icon_dir .. '/titlebar/close_focus.svg',
     titlebar_close_button_normal_hover              = icon_dir .. '/titlebar/close_focus_hover.svg',
@@ -203,6 +214,10 @@ local theme                            = {
     -- titlebar_maximized_button_focus_inactive  = themes_path .. 'default/titlebar/maximized_focus_inactive.png',
     -- titlebar_maximized_button_normal_active   = themes_path .. 'default/titlebar/maximized_normal_active.png',
     -- titlebar_maximized_button_focus_active    = themes_path .. 'default/titlebar/maximized_focus_active.png',
+
+
+    -- taglist_fg_focus    = c.red,
+
     -- INFO :
     -- Notifications
     -- Variables set for theming notifications:
@@ -223,6 +238,10 @@ theme.tag_preview_widget_bg            = theme.bg_normal
 -- theme.tag_preview_widget_border_color  = theme.border_normal
 theme.tag_preview_widget_border_width  = 0
 theme.tag_preview_widget_margin        = 0
+
+
+
+
 
 -- theme.search_bar                       =
 -- theme.dark_slider_bg                   = '#3F8CFF'

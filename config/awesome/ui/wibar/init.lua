@@ -14,29 +14,31 @@ awful.screen.connect_for_each_screen(function(s)
     })
 
     local widgets = require 'widgets'
-    local button = util.button
-    s.layoutbox = awful.widget.layoutbox(s)
-    s.layoutbox:buttons(util.keys {
-        button { 1, function() awful.layout.inc(1) end },
-        button { 3, function() awful.layout.inc(-1) end },
-        button { 4, function() awful.layout.inc(1) end },
-        button { 5, function() awful.layout.inc(-1) end },
-    })
+    local rounded_rect = function(widget)
+        return {
+            widget,
+            bg = beautiful.color.black,
+            shape = gears.shape.rounded_rect,
+            widget = wibox.container.background,
+        }
+    end
 
     --- INFO : Conf
     local size = s.geometry
     s.wibar = awful.wibar {
-        screen       = s,
-        position     = 'top',
-        height       = size.height * 0.03,
-        width        = size.width * 0.8,
-        shape        = gears.shape.rounded_rect,
-        stretch      = false, -- 是否wibar需要拉伸填满屏幕。
-        bg           = beautiful.color.dark,
-        fg           = beautiful.color.dim_blue,
-        opacity      = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
-        border_width = 2,
-        border_color = beautiful.color.dim_blue,
+        screen   = s,
+        position = 'top',
+        height   = size.height * 0.03,
+        width    = size.width * 0.8,
+        shape    = gears.shape.rounded_rect,
+        stretch  = false, -- 是否wibar需要拉伸填满屏幕。
+        bg       = beautiful.color.black .. '1',
+        fg       = beautiful.color.dim_blue,
+        opacity  = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
+
+
+        -- border_width = 3,
+        -- border_color = beautiful.color.light_purple,
     }
 
     s.wibar.y = size.y + 14
@@ -45,28 +47,30 @@ awful.screen.connect_for_each_screen(function(s)
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
-        {
+        rounded_rect {
             self.clock,
             self.tasklist,
             layout = wibox.layout.fixed.horizontal,
         },
-        {
+
+        rounded_rect {
             self.taglist,
             layout = wibox.layout.fixed.horizontal,
         },
-        {
+
+        rounded_rect {
             -- Right widgets
             self.systray,
             wibox.layout.margin(
                 widgets['github-activity-widget'] {
                     username = 'JuanZoran',
                 },
-                5, 5, 5, 5),
+                1, 1, 4, 4),
             widgets['volume-widget'] {
                 icon_and_text_args = { font = widget_font },
             },
             self.battery,
-            s.layoutbox,
+            -- self.layoutbox,
             layout = wibox.layout.fixed.horizontal,
             -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
         },
