@@ -1,14 +1,13 @@
 local dpi = require 'beautiful.xresources'.apply_dpi
-
 bling.widget.tag_preview.enable {
     show_client_content = true, -- Whether or not to show the client content
-    scale = 0.25,              -- The scale of the previews compared to the screen
-    honor_padding = true,     -- Honor padding when creating widget size
-    honor_workarea = true,    -- Honor work area when creating widget size
-    placement_fn = function(c) -- Place the widget using awful.placement (this overrides x & y)
+    scale = 0.25,               -- The scale of the previews compared to the screen
+    honor_padding = true,       -- Honor padding when creating widget size
+    honor_workarea = true,      -- Honor work area when creating widget size
+    placement_fn = function(c)  -- Place the widget using awful.placement (this overrides x & y)
         awful.placement.next_to_mouse(c, {
             offset = {
-                y = dpi(60)
+                y = dpi(60),
             },
         })
     end,
@@ -18,17 +17,18 @@ local c       = beautiful.color
 ---@see https://awesomewm.org/apidoc/widgets/awful.widget.taglist.html#awful.widget.taglist
 local style   = {
     -- INFO :
-    fg_focus    = c.light_purple,
-    fg_empty    = c.dim_blue,
-    fg_occupied = c.teal,
-    spacing     = dpi(30),
+    -- fg_focus    = c.red,
+    -- fg_empty    = c.red,
+    -- fg_occupied = c.red,
+    -- fg_volatile = c.red,
+
+    spacing = dpi(30),
 }
 
 ----------------------------------------------------------------------
 local btn_act = util.enum.bottom
 local button  = util.button
 ----------------------------------------------------------------------
-
 local buttons = util.keys {
     button { btn_act.LEFT, function(t) t:view_only() end },
     button { mods = { modkey }, 1, function(t)
@@ -46,42 +46,62 @@ local buttons = util.keys {
     button { btn_act.SCROLL_UP, function(t) awful.tag.viewprev(t.screen) end },
 }
 
-
 return function(s)
     awful.tag( -- { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-        { '1', '2', '3', '4' },
+        { 1, 2, 3, 4 },
         s, awful.layout.layouts[1])
 
-    return awful.widget.taglist {
+    local icon = {
+        active   = '  ',
+        empty    = '  ',
+        occupied = '  ',
+    }
+
+    local function set_icon(self, t)
+        local text_widget = self:get_children_by_id 'index_role'[1]
+        if t.selected then
+            text_widget.text = icon.active
+        elseif #t:clients() > 0 then
+            text_widget.text = icon.occupied
+        else
+            text_widget.text = icon.empty
+        end
+    end
+
+
+    local create_callback = function(self, t, index, objects) --luacheck: no unused args
+        set_icon(self, t)
+        self:connect_signal('mouse::enter', function()
+            if #t:clients() > 0 then
+                awesome.emit_signal('bling::tag_preview::update', t)
+                awesome.emit_signal('bling::tag_preview::visibility', s, true)
+            end
+        end)
+
+        self:connect_signal('mouse::leave', function()
+            awesome.emit_signal('bling::tag_preview::visibility', s, false)
+        end)
+    end
+
+    return wibox.container.margin(awful.widget.taglist {
         screen          = s,
         filter          = awful.widget.taglist.filter.all,
-        layout          = { spacing = 0, layout = wibox.layout.fixed.horizontal },
+        layout          = wibox.layout.fixed.horizontal,
         style           = style,
         buttons         = buttons,
         widget_template = {
             widget = wibox.container.background,
             {
-                { id = 'text_role', font = beautiful.font_name .. ' 12', widget = wibox.widget.textbox },
-                -- id = 'margin_role',
-                top    = dpi(0),
-                bottom = dpi(0),
-                left   = dpi(2),
-                right  = dpi(2),
-                widget = wibox.container.margin,
+                id = 'index_role',
+                text = icon.empty,
+                widget = wibox.widget.textbox,
             },
-            ---@diagnostic disable-next-line: unused-local
-            create_callback = function(self, c3, index, objects) --luacheck: no unused args
-                self:connect_signal('mouse::enter', function()
-                    if #c3:clients() > 0 then
-                        awesome.emit_signal('bling::tag_preview::update', c3)
-                        awesome.emit_signal('bling::tag_preview::visibility', s, true)
-                    end
-                end)
 
-                self:connect_signal('mouse::leave', function()
-                    awesome.emit_signal('bling::tag_preview::visibility', s, false)
-                end)
+            ---@diagnostic disable-next-line: unused-local
+            create_callback = create_callback,
+            update_callback = function(self, t, index, objects) --luacheck: no unused args
+                set_icon(self, t)
             end,
         },
-    }
+    }, dpi(20), dpi(20))
 end

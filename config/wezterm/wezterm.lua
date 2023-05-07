@@ -42,11 +42,11 @@ return {
             inactive_tab = { bg_color = '#181825', fg_color = '#b4befe' },
             inactive_tab_hover = {
                 bg_color = '#89dceb',
-                fg_color = '#090909'
+                fg_color = '#090909',
             },
             new_tab = {
                 bg_color = '#181825',
-                fg_color = '#89b4fa'
+                fg_color = '#89b4fa',
             },
             new_tab_hover = { bg_color = '#6791c9', fg_color = '#090909' },
         },
@@ -108,8 +108,9 @@ return {
 
     adjust_window_size_when_changing_font_size = false,
     font                                       = wz.font_with_fallback {
-        -- "FiraCode Nerd Font Mono",
         'JetBrains Mono Nerd Font Mono',
         '得意黑',
+        'FiraCode Nerd Font Mono',
+        'Material Icons Round',
     },
 }

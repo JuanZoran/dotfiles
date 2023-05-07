@@ -18,8 +18,8 @@
 -- %y	两位数的年份	(16)[00 - 99]
 -- %Y	完整的年份	(2016)
 -- %%	字符串'%'	(%)
-return {
+return wibox.container.margin({
     widget = wibox.widget.textclock,
-    format = '<span font="Sarasa Mono K Bold 13">%X </span>',
+    format = '<span font="Sarasa Mono K Bold 12">%X </span>',
     refresh = 1,
-}
+}, 20, 10)

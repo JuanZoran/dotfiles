@@ -12,3 +12,5 @@ eval "$(luarocks path)"
 export PATH=$(echo $PATH | tr ':' '\n' | awk '!a[$0]++' | paste -sd ':' -)
 # export PATH=PATH
 # export PATH=$PATH:$HOME/.yarn/bin
+
+if [ -e /home/zoran/.nix-profile/etc/profile.d/nix.sh ]; then . /home/zoran/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

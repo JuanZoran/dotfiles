@@ -71,7 +71,7 @@ AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: false
 
 # 短的函数是否放在一行
-AllowShortFunctionsOnASingleLine: InlineOnly # None | InlineOnly | Inline | All
+AllowShortFunctionsOnASingleLine: None # None | InlineOnly | Inline | All
 AllowShortIfStatementsOnASingleLine: Never # Never | WithoutElse | OnlyFirstIf | AllIfsAndElse
 AllowShortLambdasOnASingleLine: None # None | Empty | Inline | All
 AllowShortLoopsOnASingleLine: false
@@ -137,7 +137,7 @@ BraceWrapping:
   AfterClass: true
   AfterStruct: true
   AfterExternBlock: true
-  AfterFunction: false
+  AfterFunction: true
   AfterEnum: false
   BeforeElse: true
   SplitEmptyFunction: true
