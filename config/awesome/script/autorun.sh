@@ -12,23 +12,16 @@ run telegram
 run utools # Utility
 run nm-applet --sm-disable # Network Manager
 # run xidlehook --not-when-fullscreen --not-when-audio \
-run xidlehook --not-when-audio \
+
+    run xidlehook --not-when-audio \
     --timer 600 'betterlockscreen -l dim' ''  \
     --timer 1000 'systemctl suspend' ''
 
 
-# scroll
-synclient \
-    VertScrollDelta=-44 \
-    HorizScrollDelta=-44 \
-    PalmDetect=1 \
-    TapButton1=1 \
-    TapButton2=3 \
-
 run xmodmap "$HOME"/.Xmodmap # remap CapsLock to Ctrl
 run xcape -e 'Control_L=Escape' # remap Ctrl to escape
 
-
+run imwheel
 # run variety # Wallpaper
 # run latte-dock
 # run xautolock -time 10 -locker 'betterlockscreen -l dim' # 在无操作十分种后锁定会话
@@ -44,3 +37,11 @@ run xcape -e 'Control_L=Escape' # remap Ctrl to escape
 #     MONITOR=$m polybar --reload --config=/home/zoran/.config/polybar/config.ini middle &
 #     MONITOR=$m polybar --reload --config=/home/zoran/.config/polybar/config.ini right &
 # done
+
+# scroll
+# synclient \
+    #     VertScrollDelta=-44 \
+    #     HorizScrollDelta=-44 \
+    #     PalmDetect=1 \
+    #     TapButton1=1 \
+    #     TapButton2=3 \

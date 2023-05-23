@@ -15,16 +15,6 @@ bling.widget.tag_preview.enable {
 
 local c       = beautiful.color
 ---@see https://awesomewm.org/apidoc/widgets/awful.widget.taglist.html#awful.widget.taglist
-local style   = {
-    -- INFO :
-    -- fg_focus    = c.red,
-    -- fg_empty    = c.red,
-    -- fg_occupied = c.red,
-    -- fg_volatile = c.red,
-
-    spacing = dpi(30),
-}
-
 ----------------------------------------------------------------------
 local btn_act = util.enum.bottom
 local button  = util.button
@@ -46,25 +36,30 @@ local buttons = util.keys {
     button { btn_act.SCROLL_UP, function(t) awful.tag.viewprev(t.screen) end },
 }
 
+local icon    = {
+    active   = { '  ', c.blue },
+    occupied = { '  ', c.green },
+    empty    = { '  ', c.gray },
+}
+
 return function(s)
     awful.tag( -- { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
         { 1, 2, 3, 4 },
         s, awful.layout.layouts[1])
 
-    local icon = {
-        active   = '  ',
-        empty    = '  ',
-        occupied = '  ',
-    }
-
     local function set_icon(self, t)
-        local text_widget = self:get_children_by_id 'index_role'[1]
+        local container = self:get_children_by_id 'icon'[1]
+        local text_widget = container.widget
+        -- print(text_widget)
         if t.selected then
-            text_widget.text = icon.active
+            text_widget.text = icon.active[1]
+            container.fg = icon.active[2]
         elseif #t:clients() > 0 then
-            text_widget.text = icon.occupied
+            text_widget.text = icon.occupied[1]
+            container.fg = icon.occupied[2]
         else
-            text_widget.text = icon.empty
+            text_widget.text = icon.empty[1]
+            container.fg = icon.empty[2]
         end
     end
 
@@ -87,16 +82,22 @@ return function(s)
         screen          = s,
         filter          = awful.widget.taglist.filter.all,
         layout          = wibox.layout.fixed.horizontal,
-        style           = style,
+        style           = {
+            spacing = dpi(30),
+        },
         buttons         = buttons,
         widget_template = {
             widget = wibox.container.background,
             {
-                id = 'index_role',
-                text = icon.empty,
-                widget = wibox.widget.textbox,
+                id = 'icon',
+                {
+                    text   = icon.empty[1],
+                    widget = wibox.widget.textbox,
+                },
+                fg     = icon.empty[2],
+                shape  = gears.shape.circle,
+                widget = wibox.container.background,
             },
-
             ---@diagnostic disable-next-line: unused-local
             create_callback = create_callback,
             update_callback = function(self, t, index, objects) --luacheck: no unused args

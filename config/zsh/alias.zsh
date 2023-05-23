@@ -31,7 +31,7 @@ alias ne="neofetch"
 alias gtktheme="lxappearance"
 
 # alias j='cdi'
-alias f='nvim $(fzf)'
+alias f="fzf --bind 'enter:become(nvim {})'"
 
 # cd fzf result dir
 alias c='cd `dirname $(fzf)`'
@@ -47,7 +47,17 @@ mkcd () {
     mkdir -p "$@" && cd "$_"
 }
 
-
+newpy () {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: newpy <new python script name>"
+        return 1
+    fi
+    if [ -f $1 ]; then
+        echo "File $1 already exists"
+        return 1
+    fi
+    echo "#!/usr/bin/env python" >> $1 && $EDITOR $1
+}
 
 #  ╭──────────────────────────────────────────────────────────╮
 #  │                       Xmake Alias                        │
@@ -56,3 +66,21 @@ alias x='xmake'
 alias xr='xmake -r && xmake r'
 alias xt='xmake -r && xmake r -g test'
 alias xb='xmake -r'
+
+
+
+
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                          Cargo                           │
+#  ╰──────────────────────────────────────────────────────────╯
+alias C='cargo'
+alias Cr='cargo run'
+alias Crr='cargo run --release'
+function Cn() { # Cargo new {project_name} && cd {project_name}
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: Cn <project_name>"
+        return 1
+    fi
+    cargo new $1 && cd $1
+}

@@ -134,7 +134,7 @@ BreakBeforeBraces: Custom
 BraceWrapping:
   # 逻辑语句的大括号是否换行
   AfterControlStatement: Never # Never | MultiLine | Always
-  AfterClass: true
+  AfterClass: false
   AfterStruct: true
   AfterExternBlock: true
   AfterFunction: true

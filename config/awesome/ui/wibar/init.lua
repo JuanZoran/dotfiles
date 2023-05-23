@@ -1,6 +1,6 @@
 local path = ... .. '.'
 -- local auto_hidden = false
-
+local c = beautiful.color
 
 awful.screen.connect_for_each_screen(function(s)
     local self = setmetatable({}, {
@@ -17,9 +17,11 @@ awful.screen.connect_for_each_screen(function(s)
     local rounded_rect = function(widget)
         return {
             widget,
-            bg = beautiful.color.black,
+            bg = c.mantle,
             shape = gears.shape.rounded_rect,
             widget = wibox.container.background,
+            border_width = 2,
+            border_color = beautiful.border_normal
         }
     end
 
@@ -32,13 +34,11 @@ awful.screen.connect_for_each_screen(function(s)
         width    = size.width * 0.8,
         shape    = gears.shape.rounded_rect,
         stretch  = false, -- 是否wibar需要拉伸填满屏幕。
-        bg       = beautiful.color.black .. '1',
-        fg       = beautiful.color.dim_blue,
+        bg       = c.black .. '1',
+        fg       = c.dim_blue,
         opacity  = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
 
 
-        -- border_width = 3,
-        -- border_color = beautiful.color.light_purple,
     }
 
     s.wibar.y = size.y + 14
@@ -87,6 +87,7 @@ awful.screen.connect_for_each_screen(function(s)
         set_function = bling.module.wallpaper.setters.random,
     }
 end)
+
 
 -- if auto_hidden then
 --     s.show_wibar_timer = gears.timer {

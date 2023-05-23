@@ -65,6 +65,7 @@ key.global = keys {
     k({ modkey, 'Shift' }, 'k',   function() awful.client.swap.bydirection('down')   end, { description = 'swap with down client',  group = 'client' }),
     k({ modkey, 'Shift' }, 'j',   function() awful.client.swap.bydirection('left')   end, { description = 'swap with left client',  group = 'client' }),
     k({ modkey, 'Shift' }, 'l',   function() awful.client.swap.bydirection('right')  end, { description = 'swap with right client', group = 'client' }),
+
     k({ modkey }, 'i',            function() awful.client.focus.bydirection('up')    end, { description = 'focus up',               group = 'client' }),
     k({ modkey }, 'k',            function() awful.client.focus.bydirection('down')  end, { description = 'focus down',             group = 'client' }),
     k({ modkey }, 'j',            function() awful.client.focus.bydirection('left')  end, { description = 'focus left',             group = 'client' }),
@@ -115,10 +116,10 @@ key.global = keys {
 	-- k({ modkey }, "q", function()
 	-- 	awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi  -show drun")
 	-- end, { description = "show the menubar", group = "rofi apps" }),
-	-- k({ modkey }, "w", function()
-	-- 	awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi -show window")
-	-- end, { description = "show the window", group = "rofi window" }),
 
+	k({ modkey }, "e", function()
+		awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show window")
+	end, { description = "show the window", group = "rofi window" }),
 
 	k({ modkey }, "r", function()
 		awful.spawn.with_shell("rofi -theme ~/.config/awesome/rofis/" .. conf.rofi_theme .. "/config.rasi -show run")
@@ -133,7 +134,7 @@ key.global = keys {
 
 
 key.clientkeys = util.keys {
-    k({ modkey }, 'f',
+    k({ modkey, 'Control' }, 'w',
         function(c)
             c.fullscreen = not c.fullscreen
             c:raise()
@@ -143,8 +144,15 @@ key.clientkeys = util.keys {
         { description = 'close', group = 'client' }),
     k({ modkey, 'Control' }, 'space', awful.client.floating.toggle,
         { description = 'toggle floating', group = 'client' }),
-    k({ modkey, 'Control' }, 'Return', function(c) c:swap(awful.client.getmaster()) end,
+
+    k({ modkey, 'Control' }, 'Return', function(c)
+            if awful.screen.focused().selected_tag:clients()[1] then
+                c:swap(awful.client.getmaster())
+            end
+        end,
         { description = 'move to master', group = 'client' }),
+
+
     k({ modkey }, 'o', function(c) c:move_to_screen() end,
         { description = 'move to screen', group = 'client' }),
     k({ modkey }, 't', function(c) c.ontop = not c.ontop end,
@@ -239,7 +247,7 @@ local myawesomemenu = {
     { 'quit',        function() awesome.quit() end },
 }
 
-local menu_awesome = { 'awesome', myawesomemenu, beautiful.awesome_icon }
+local menu_awesome = { 'awesome', myawesomemenu }
 local menu_terminal = { 'open terminal', terminal }
 
 local mainmenu = has_fdo

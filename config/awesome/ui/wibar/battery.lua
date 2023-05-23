@@ -25,7 +25,7 @@ local battery_percentage_text = wibox.widget {
     widget = wibox.widget.textbox,
 }
 
-local charging_icon           = {
+local charging_icon           = wibox.widget {
     markup = "<span foreground='" .. c.purple .. "'></span>",
     font = beautiful.icon_var .. '10',
     align = 'center',
@@ -39,26 +39,32 @@ local tmp                     = require 'widgets.battery-widget' {
     instant_update = true,
 }
 
+
+--     The device state.
+-- UNKNOWN= 0¶
+-- CHARGING= 1¶
+-- DISCHARGING= 2¶
+-- EMPTY= 3¶
+-- FULLY_CHARGED= 4¶
+-- PENDING_CHARGE= 5¶
+-- PENDING_DISCHARGE= 6¶
+-- LAST= 7¶
+local charging_map            = {
+    [0] = false,
+    [1] = true,
+    [2] = false,
+    [3] = false,
+    [4] = false,
+    [5] = true,
+    [6] = false,
+    [7] = false,
+}
+
 tmp:connect_signal('upower::update', function(_, device)
     battery_percentage_text.text = math.floor(device.percentage) .. '%'
     battery_progress.value = device.percentage
 
-    --     The device state.
-    -- UNKNOWN= 0¶
-    -- CHARGING= 1¶
-    -- DISCHARGING= 2¶
-    -- EMPTY= 3¶
-    -- FULLY_CHARGED= 4¶
-    -- PENDING_CHARGE= 5¶
-    -- PENDING_DISCHARGE= 6¶
-    -- LAST= 7¶
-
-    if device.state == 2 then
-        charging_icon.visible = true
-    else
-        charging_icon.visible = false
-    end
-
+    charging_icon.visible = (charging_map)[device.state]
     if device.percentage <= 10 then
         battery_progress.color = c.red
     elseif device.percentage <= 20 then
