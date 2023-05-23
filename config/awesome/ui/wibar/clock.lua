@@ -20,6 +20,6 @@
 -- %%	字符串'%'	(%)
 return wibox.container.margin({
     widget = wibox.widget.textclock,
-    format = '<span font="Sarasa Mono K Bold 12">%X </span>',
+    format = '<span font="Sarasa Mono K Bold 11">%X </span>',
     refresh = 1,
 }, 20, 10)

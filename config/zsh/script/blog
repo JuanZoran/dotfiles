@@ -1,9 +1,79 @@
 #!/usr/bin/env python3
 import os
 import sys
-from pathlib import Path
+import subprocess
 import click
+from pathlib import Path
 from datetime import datetime
+from typing import Tuple, List
+
+
+def fzf(
+    extracmd: List[str] = [],
+    input: str | List[str] = "",
+) -> Tuple[bool, str]:
+    """Fzf wrapper
+
+    Returns:
+        Tuple[bool, str]: (selected, result)
+    """
+    assert len(input) > 0, "Input cannot be empty"
+    input_str = "\n".join(input) if isinstance(input, list) else input
+
+    cmd = ["fzf", "--print-query"] + extracmd
+    process = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    result, _ = process.communicate(input=input_str.encode())
+    result = result.decode().rstrip().split("\n")
+
+    return (True, result[1]) if len(result) == 2 else (False, result[0])
+
+
+def handle_new(blog_root: Path):
+    # Create new blog post
+    categories = [
+        d.relative_to(blog_root).__str__() for d in blog_root.glob("*/**") if d.is_dir()
+    ]
+    while True:
+        selected, selected_category = fzf(
+            input=categories, extracmd=["--preview", f"ls {blog_root}/{{}}"]
+        )
+        if len(selected_category) == 0:  # Abort
+            return print("No category selected")
+
+        if selected:
+            category = selected_category
+            break
+
+        choice = click.prompt(
+            f"Category [{selected_category}] does not exist. Do you want to create it? (y/n) [default: y]",
+            type=str,
+        ).strip()
+
+        if choice.lower() == "y":
+            category = selected_category
+            os.makedirs(blog_root / category)
+            break
+
+    categories = category.split("/")
+    os.chdir(blog_root / category)
+    title: str = click.prompt("Enter the blog post title", type=str)
+    assert not title.endswith("/"), "Title cannot end with /"
+
+    safe_title = "".join(c if c.isalnum() or c.isspace() else "_" for c in title)
+    file_name = safe_title + ".md"
+
+    with open(file_name, "w") as f:
+        f.write("---\n")
+        f.write(f"title: {title}\n")
+        f.write(f'date: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n')
+        f.write("categories:\n")
+        for c in categories:
+            f.write(f"- {c}\n")
+        f.write("tags:\n")
+        f.write("- 编程\n")
+        f.write("---\n")
+
+    os.system(f"nvim -c '+normal! Gzt' {file_name}")
 
 
 @click.command()
@@ -15,63 +85,28 @@ def main(new):
         sys.exit(1)
 
     blog_root = Path(blog_root)
-
     if new:
-        # Create new blog post
-        categories = [d.name for d in blog_root.glob("*") if d.is_dir()]
+        return handle_new(blog_root)
 
-        # Generate categories string for fzf
-        categories_str = "\n".join(categories)
-        with open("temp_categories.txt", "w") as temp_file:
-            temp_file.write(categories_str)
+    # Open an existing blog post using fzf
+    os.chdir(blog_root)
+    cmd = "fzf"
+    selected_file = os.popen(cmd).read().strip()
+    if selected_file:
+        return os.system(f"nvim {os.getcwd()}/{selected_file}")
 
-        cmd = f"cat temp_categories.txt | fzf --preview 'echo {{}}'"
-        selected_category = os.popen(cmd).read().strip()
-        os.remove("temp_categories.txt")
+    print("No file selected.")
 
-        if selected_category:
-            category = selected_category
-        else:
-            category = click.prompt("Enter the category", type=str)
-            while category not in categories:
-                choice = click.prompt(
-                    f"Category '{category}' does not exist. Do you want to create it? (y/n)",
-                    type=str,
-                )
-                if choice.lower() == "y":
-                    os.makedirs(blog_root / category)
-                    categories.append(category)
-                else:
-                    category = click.prompt("Enter the category", type=str)
-
-        title = click.prompt("Enter the blog post title", type=str)
-        safe_title = "".join(c if c.isalnum() or c.isspace() else "_" for c in title)
-        file_name = f"{safe_title}.md"
-        file_path = blog_root / category / file_name
-
-        front_matter = f"""---
-title: {title}
-date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-categories:
-    - {category}
-tags:
-    - 编程
----
-
-"""
-        with open(file_path, "w") as f:
-            f.write(front_matter)
-
-        os.system(f"nvim -c '+normal! Gzt' {file_path}")
-    else:
-        # Open an existing blog post using fzf
-        cmd = f"cd {blog_root} && rg --files | fzf"
-        selected_file = os.popen(cmd).read().strip()
-
-        if selected_file:
-            os.system(f"nvim {blog_root}/{selected_file}")
-        else:
-            print("No file selected.")
+    # recursively list all files and directories
+    # selected_file = blog_root
+    # cmd = "ls | fzf"
+    # while True:
+    #     os.chdir(selected_file)
+    #     selected_file = os.popen(cmd).read().strip()
+    #     if not selected_file:
+    #         break
+    #     if os.path.isfile(selected_file):
+    #         return os.system(f"nvim {os.getcwd()}/{selected_file}")
 
 
 if __name__ == "__main__":

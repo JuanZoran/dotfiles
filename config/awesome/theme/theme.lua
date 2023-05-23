@@ -28,22 +28,23 @@ local c           = {
     orange         = '#f9d562',
 
 
-    pink           = '#f5c2e7',
-    mauve          = '#cba6f7',
-    red            = '#f38ba8',
-    maroon         = '#eba0ac',
-    white          = '#ffffff',
-    peach          = '#fab387',
-    yellow         = '#f9e2af',
-    custom         = '#69bbae',
-    teal           = '#94e2d5',
-    sky            = '#89dceb',
-    sapphire       = '#74c7ec',
-    dim_blue       = '#6791c9',
-    blue           = '#89b4fa',
-    lavender       = '#b4befe',
-    light_purple   = '#c61ad9',
-    purple         = '#7c3aed',
+    pink         = '#f5c2e7',
+    mauve        = '#cba6f7',
+    red          = '#f38ba8',
+    maroon       = '#eba0ac',
+    white        = '#ffffff',
+    peach        = '#fab387',
+    yellow       = '#f9e2af',
+    custom       = '#69bbae',
+    teal         = '#94e2d5',
+    sky          = '#89dceb',
+    sapphire     = '#74c7ec',
+    dim_blue     = '#6791c9',
+    blue         = '#89b4fa',
+    light_blue   = '#599eff',
+    lavender     = '#b4befe',
+    light_purple = '#c61ad9',
+    purple       = '#7c3aed',
 }
 
 -- There are other variable sets
@@ -71,7 +72,7 @@ local theme                            = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                            Bg                            │
     --  ╰──────────────────────────────────────────────────────────╯
-    active         = '#6A6E78',
+    active         = c.red,
     bg_normal      = c.dim_black,
     bg_focus       = c.blue,
     bg_urgent      = c.dim_black,
@@ -93,12 +94,12 @@ local theme                            = {
     fg_focus       = c.white,
     fg_contrast    = c.white,
     fg_urgent      = c.red,
-    fg_minimize    = c.red,
+    -- fg_minimize    = c.red,
 
     useless_gap    = 15,
-    border_width   = 3,
-    border_normal  = c.blue,
-    border_focus   = c.purple,
+    border_width   = 4,
+    border_normal  = c.light_blue,
+    border_focus   = c.light_purple,
 
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
@@ -135,7 +136,7 @@ local theme                            = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme           = 'WhiteSur',
+    -- icon_theme           = 'WhiteSur',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
@@ -214,7 +215,6 @@ local theme                            = {
     -- titlebar_maximized_button_focus_inactive  = themes_path .. 'default/titlebar/maximized_focus_inactive.png',
     -- titlebar_maximized_button_normal_active   = themes_path .. 'default/titlebar/maximized_normal_active.png',
     -- titlebar_maximized_button_focus_active    = themes_path .. 'default/titlebar/maximized_focus_active.png',
-
 
     -- taglist_fg_focus    = c.red,
 
