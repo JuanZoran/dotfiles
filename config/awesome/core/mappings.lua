@@ -10,28 +10,11 @@ local keys = util.keys
 
 --- INFO : Custom Configuration Defines
 local k = awful.key.new
-
 -- INFO :Custom utility
-awful.key.ignore_modifiers = { 'Lock', 'Mod2' }
-awful.keygrabber {
-    keybindings = {
-        { { modkey }, 'd', function()
-            naughty.notify { text = 'begin ... ' }
-        end, },
-    },
-    export_keybindings = true,
-    stop_key = 'Escape',
-    -- stop_callback = function(_, stop_key, _, sequence)
-    --     naughty.notify { text = 'stop_key: ' .. stop_key .. ', sequence: ' .. sequence }
-    -- end,
-    keypressed_callback = function(_, mods, map, event)
-        local mod = table.concat(mods, '|')
-        naughty.notify { text = 'keypressed_callback: [mods]: ' .. mod .. '[key]: ' .. map .. '[event]: ' .. event }
-    end,
-}
-
 -- These are example rubato tables. You can use one for just y, just x, or both.
 -- The duration and easing is up to you. Please check out the rubato docs to learn more.
+
+
 
 -- local term_scratch = bling.module.scratchpad {
 --     command                 = 'wezterm start --class spad',                    -- How to spawn the scratchpad
@@ -271,4 +254,7 @@ key.mouse    = keys {
     button { 5, awful.tag.viewprev },
 }
 
+-- NOTE :Custom keybinding module
+-- require 'lib.mapper'.setup {
+-- }
 return key

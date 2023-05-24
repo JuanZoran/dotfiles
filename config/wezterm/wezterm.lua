@@ -54,7 +54,7 @@ return {
 
     use_dead_keys                = false,
     enable_scroll_bar            = false,
-    -- enable_kitty_graphics        = true,
+    enable_kitty_graphics        = true,
     enable_csi_u_key_encoding    = false,
 
     default_cursor_style         = 'BlinkingBar',

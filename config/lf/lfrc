@@ -41,6 +41,8 @@ map k down
 map j updir
 map l open
 
+
+map v invert-below
 # execute current file (must be executable)
 map x delete
 #  ╭──────────────────────────────────────────────────────────╮
@@ -123,3 +125,7 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+
+set previewer ~/.config/lf/lf_kitty_preview
+set cleaner ~/.config/lf/lf_kitty_clean

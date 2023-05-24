@@ -1,5 +1,3 @@
-
-
 -- os.execute 'bash ~/.config/awesome/script/sync.sh'
 -- awful.spawn 'xrandr  --output HDMI-0 --mode 2560x1440  --pos 0x0 --rate 75 --primary --output DP-2 --pos 2560x360 --auto'
 pcall(require, 'luarocks.loader')
@@ -20,7 +18,7 @@ _G.bling     = require 'lib.bling' -- Notification library
 -- naughty.notify { text = 'end:' .. beautiful.border_foucs }
 awful.spawn.with_shell 'bash ~/.config/awesome/script/autorun.sh'
 
-print = function (...)
+print = function(...)
     for _, v in ipairs { ... } do
         naughty.notify { text = tostring(v) }
     end
@@ -35,11 +33,32 @@ awful.layout.layouts = conf.layout
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                         Set keys                         │
 --  ╰──────────────────────────────────────────────────────────╯
+
 local key = require 'core.mappings'
 root.buttons(key.mouse)
 root.keys(key.global)
+awful.key.ignore_modifiers = { 'Lock', 'Mod2' }
+-- awful.keygrabber {
+--     keybindings    = {
+--         awful.key {
+--             modifiers = { 'Control'},
+--             key       = 'z',
+--             on_press  = function(self)
+--                 print('Is now active!', self)
+--             end,
+--         },
+--     },
+--     stop_key            = 'Escape',
+--     stop_event          = 'press',
+--     keypressed_callback = function(_, modifiers, key)
+--         print('A key was pressed:', key, 'with', #modifiers, 'modifier!')
+--     end,
+--     export_keybindings  = true,
+-- }
 
 require 'ui'
 require 'core.rules'
 require 'core.titlebar'
 require 'core.signals'
+
+

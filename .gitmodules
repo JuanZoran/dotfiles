@@ -1,0 +1,3 @@
+[submodule "config/awesome/lib/mapper"]
+	path = config/awesome/lib/mapper
+	url = git@github.com:JuanZoran/awesomeMapper

@@ -1,7 +1,8 @@
 {
     "workspace.library": [
         "/usr/share/awesome/lib",
-        "${3rd}/lfs/library"
+        "${3rd}/lfs/library",
+        "/home/zoran/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/67bea6d3"
     ],
     "diagnostics.globals": [
         "lfs",
