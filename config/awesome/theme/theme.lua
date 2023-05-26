@@ -122,8 +122,8 @@ local theme                            = {
     menu_submenu_icon    = themes_path .. 'default/submenu.png',
     menu_height          = dpi(25),
     menu_width           = dpi(200),
-    menu_fg_normal       = '#89dceb',
-    menu_bg_normal       = '#181825',
+    menu_fg_normal       = c.sapphire,
+    menu_bg_normal       = c.mantle,
     -- menu_bg_normal    = '#8aadf4',
 
     -- INFO :
@@ -193,6 +193,37 @@ local theme                            = {
     titlebar_maximized_button_normal_inactive_hover = icon_dir .. '/titlebar/maximized_focus_hover.svg',
     titlebar_maximized_button_focus_inactive_hover  = icon_dir .. '/titlebar/maximized_focus_hover.svg',
 
+
+    -- taglist_fg_focus    = c.red,
+
+    window_switcher_widget_bg                       = c.mantle .. '99',   -- The bg color of the widget
+    window_switcher_widget_border_width             = 3,          -- The border width of the widget
+    window_switcher_widget_border_radius            = 0,          -- The border radius of the widget
+    window_switcher_widget_border_color             = c.light_blue,   -- The border color of the widget
+    window_switcher_clients_spacing                 = 20,         -- The space between each client item
+    window_switcher_client_icon_horizontal_spacing  = 5,          -- The space between client icon and text
+    window_switcher_client_width                    = 300,        -- The width of one client widget
+    window_switcher_client_height                   = 250,        -- The height of one client widget
+    window_switcher_client_margins                  = 10,         -- The margin between the content and the border of the widget
+    window_switcher_thumbnail_margins               = 10,         -- The margin between one client thumbnail and the rest of the widget
+    thumbnail_scale                                 = false,      -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
+    window_switcher_name_margins                    = 6,          -- The margin of one clients title to the rest of the widget
+    window_switcher_name_valign                     = 'center',   -- How to vertically align one clients title
+    window_switcher_name_forced_width               = 200,        -- The width of one title
+    window_switcher_name_font                       = '得意黑', -- The font of all titles
+    window_switcher_name_normal_color               = c.teal,     -- The color of one title if the client is unfocused
+    window_switcher_name_focus_color                = c.light_purple, -- The color of one title if the client is focused
+    window_switcher_icon_valign                     = 'center',   -- How to vertically align the one icon
+    window_switcher_icon_width                      = 40,         -- The width of one icon
+
+    -- INFO :
+    -- Notifications
+    -- Variables set for theming notifications:
+    -- notification_font
+    -- notification_[bg|fg]
+    -- notification_[width|height|margin]
+    -- notification_[border_color|border_width|shape|opacity]
+
     -- TODO: TITBLE
     -- titlebar_unfocused                        = '#252628',
     -- titlebar_close_button_normal              = themes_path .. 'default/titlebar/close_normal.png',
@@ -215,17 +246,6 @@ local theme                            = {
     -- titlebar_maximized_button_focus_inactive  = themes_path .. 'default/titlebar/maximized_focus_inactive.png',
     -- titlebar_maximized_button_normal_active   = themes_path .. 'default/titlebar/maximized_normal_active.png',
     -- titlebar_maximized_button_focus_active    = themes_path .. 'default/titlebar/maximized_focus_active.png',
-
-    -- taglist_fg_focus    = c.red,
-
-    -- INFO :
-    -- Notifications
-    -- Variables set for theming notifications:
-    -- notification_font
-    -- notification_[bg|fg]
-    -- notification_[width|height|margin]
-    -- notification_[border_color|border_width|shape|opacity]
-
 }
 
 theme.tag_preview_widget_border_radius = 10

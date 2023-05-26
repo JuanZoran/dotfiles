@@ -1,4 +1,3 @@
--- FIXME :It doesn't work
 -- local dpi         = require 'beautiful.xresources'.apply_dpi
 -- local tabbed_misc = bling.widget.tabbed_misc
 -- INFO :Avoid titlebar get conflict
@@ -24,7 +23,6 @@ client.connect_signal('request::titlebars', function(c)
             awful.mouse.client.resize(c)
         end),
     }
-
 
     ---@format disable-next
     awful.titlebar(c, { position = 'top', size = conf.titlebar_size, font = beautiful.font_name .. ' 10' }):setup {
