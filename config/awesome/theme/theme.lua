@@ -72,7 +72,7 @@ local theme                            = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                            Bg                            │
     --  ╰──────────────────────────────────────────────────────────╯
-    active         = c.red,
+    active         = c.light_purple,
     bg_normal      = c.dim_black,
     bg_focus       = c.blue,
     bg_urgent      = c.dim_black,
@@ -93,7 +93,7 @@ local theme                            = {
     fg_normal      = c.lavender,
     fg_focus       = c.white,
     fg_contrast    = c.white,
-    fg_urgent      = c.red,
+    fg_urgent      = c.light_purple,
     -- fg_minimize    = c.red,
 
     useless_gap    = 15,

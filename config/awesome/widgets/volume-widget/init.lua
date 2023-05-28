@@ -1,3 +1,4 @@
+local awful = require'awful'
 local spawn = require 'awful.spawn'
 local watch = require 'awful.widget.watch'
 local path  = ... .. '.'
