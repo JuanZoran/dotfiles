@@ -1,18 +1,18 @@
 local mapper = require 'lib.mapper'
+local awful_client = require 'awful.client'
 mapper.setup {
-    trigger = { 'Control', 'Shift', 'd' },
+    trigger = '<C-S-d>',
 }
 
-local keymap = mapper.keymap
-local map    = keymap.map
-local cmap   = keymap.client_map
-
-local modkey = 'Mod4'
-local altkey = 'Mod1'
+local keymap   = mapper.keymap
+local util     = mapper.util
+local set      = util.global_map
+local map      = keymap.map
+local cset     = keymap.client_set
+local new_mode = mapper.new_mode
 
 bling.widget.window_switcher.enable {
-    type = 'thumbnail', -- set to anything other than "thumbnail" to disable client previews
-
+    type = 'thumbnail',                                       -- set to anything other than "thumbnail" to disable client previews
     -- keybindings (the examples provided are also the default if kept unset)
     hide_window_switcher_key = 'Escape',                      -- The key on which to close the popup
     minimize_key = 'n',                                       -- The key on which to minimize the selected client
@@ -27,79 +27,108 @@ bling.widget.window_switcher.enable {
     cycleClientsByIdx = awful.client.focus.byidx,             -- The function to cycle the clients
     filterClients = awful.widget.tasklist.filter.currenttags, -- The function to filter the viewed clients
 }
-
-map({ modkey, 'Tab' }, function() awesome.emit_signal 'bling::window_switcher::turn_on' end)
-map({ modkey, 'Left' }, function() awful.tag.viewprev() end)
-map({ modkey, 'Right' }, function() awful.tag.viewnext() end)
-map({ modkey, 'Control', 'r' }, awesome.restart)
-map({ modkey, 'Shift', 'q' }, awesome.quit)
-map({ modkey, 'Escape' }, awful.tag.history.restore)
-
-map({ modkey, 'Control', 'j' }, function() awful.screen.focus_relative(-1) end)
-map({ modkey, 'Control', 'l' }, function() awful.screen.focus_relative(1) end)
+local wrap_func         = util.wrap_func
+local exec              = util.action_warp
+local switch_to_default = util.switch_to_default
 
 
-map({ modkey, 'a' }, function() awful.spawn(conf.terminal) end)
-
--- INFO : Client Movement
-map({ modkey, 'Shift', 'i' }, function() awful.client.swap.bydirection 'up' end)
-map({ modkey, 'Shift', 'k' }, function() awful.client.swap.bydirection 'down' end)
-map({ modkey, 'Shift', 'j' }, function() awful.client.swap.bydirection 'left' end)
-map({ modkey, 'Shift', 'l' }, function() awful.client.swap.bydirection 'right' end)
-
--- INFO : Client Focus
-map({ modkey, 'i' }, function() awful.client.focus.bydirection 'up' end)
-map({ modkey, 'k' }, function() awful.client.focus.bydirection 'down' end)
-map({ modkey, 'j' }, function() awful.client.focus.bydirection 'left' end)
-map({ modkey, 'l' }, function() awful.client.focus.bydirection 'right' end)
-
-
--- INFO : volume
-map('XF86AudioRaiseVolume', function() awful.spawn.with_shell 'pactl set-sink-volume @DEFAULT_SINK@ +5%' end)
-map('XF86AudioLowerVolume', function() awful.spawn.with_shell 'pactl set-sink-volume @DEFAULT_SINK@ -5%' end)
-map({ altkey, 'Up' }, function() awful.spawn.with_shell 'pactl set-sink-volume @DEFAULT_SINK@ +5%' end)
-map({ altkey, 'Down' }, function() awful.spawn.with_shell 'pactl set-sink-volume @DEFAULT_SINK@ -5%' end)
-
-
--- INFO : Brightness
-map({ altkey, 'Shift', 'Up' }, function() awful.spawn.with_shell 'xbacklight -inc 5' end)
-map({ altkey, 'Shift', 'Down' }, function() awful.spawn.with_shell 'xbacklight -dec 5' end)
-
--- INFO : Standard program
-map({ modkey, 'Return' }, function() awful.spawn(conf.terminal) end)
-map({ modkey, 's' }, function() awful.spawn.with_shell 'flameshot gui' end)
-map({ modkey, 'space' }, function() awful.layout.inc(1) end)
-map({ modkey, 'Shift', 'space' }, function() awful.layout.inc(-1) end)
-
-map({ modkey, 'Control', 'n' }, function()
-    local c = awful.client.restore()
-    if c then
-        c:emit_signal('request::activate', 'key.unminimize', { raise = true })
-    end
-end)
-
+local run = wrap_func(awful.spawn)
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                       awesome mode                       │
+--  ╰──────────────────────────────────────────────────────────╯
+set('<C-M-r>', awesome.restart)
+local _, amap = new_mode('awesome', '<S-C-a>')
+local tag     = awful.tag
+-- amap('<C-r>', awesome.restart)
+amap('q', awesome.quit)
+amap('j', tag.viewprev)
+amap('l', tag.viewnext)
+amap('<Esc>', switch_to_default)
 -- INFO : Prompt
+local rofi = 'rofi -theme ~/.config/awesome/rofis/' .. conf.rofi_theme .. '/config.rasi -show '
+local rofi_win, rofi_run = run(rofi .. 'window'), run(rofi .. 'run')
+set('<M-e>', rofi_win)
+set('<M-r>', rofi_run)
+amap('r', exec { rofi_run, switch_to_default })
+amap('w', exec { rofi_win, switch_to_default })
 
-map({ modkey, 'e' },
-    function() awful.spawn('rofi -theme ~/.config/awesome/rofis/' .. conf.rofi_theme .. '/config.rasi -show window') end)
-map({ modkey, 'r' },
-    function() awful.spawn('rofi -theme ~/.config/awesome/rofis/' .. conf.rofi_theme .. '/config.rasi -show run') end)
+
+set('<M-a>', run(conf.terminal))
+-- INFO : volume
+local volume_up, volume_down = run 'pactl set-sink-volume @DEFAULT_SINK@ +5%',
+    run 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+local brightness_up, brightness_down = run 'xbacklight -inc 5',
+    run 'xbacklight -dec 5'
+
+set('<XF86AudioMute>', run 'pactl set-sink-mute @DEFAULT_SINK@ toggle')
+set('<XF86AudioRaiseVolume>', volume_up)
+set('<XF86AudioLowerVolume>', volume_down)
+set('<XF86MonBrightnessUp>', brightness_up)
+set('<XF86MonBrightnessDown>', brightness_down)
+-- For habits this should be removed later
+-- set('<A-Up>', volume_up)
+-- set('<S-A-Up>', brightness_up)
+-- set('<A-Down>', volume_down)
+-- set('<S-A-Down>', brightness_down)
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                     --- Window mode                      │
+--  ╰──────────────────────────────────────────────────────────╯
+local _, wmap = new_mode('window', '<S-C-w>')
+local swap_client_bydirection = wrap_func(awful_client.swap.bydirection)
+wmap('I', swap_client_bydirection 'up')
+wmap('K', swap_client_bydirection 'down')
+wmap('J', swap_client_bydirection 'left')
+wmap('L', swap_client_bydirection 'right')
+
+local focus_client_bydirection = wrap_func(awful_client.focus.bydirection)
+wmap('i', focus_client_bydirection 'up')
+wmap('k', focus_client_bydirection 'down')
+wmap('j', focus_client_bydirection 'left')
+wmap('l', focus_client_bydirection 'right')
+wmap('<Esc>', switch_to_default)
+
+local screen_focus_relative = wrap_func(awful.screen.focus_relative)
+set('<C-M-j>', screen_focus_relative(-1))
+set('<C-M-l>', screen_focus_relative(1))
 
 
+-- set('<S-C-h>', util.send_string('world', { 'Shift', 'Control' }))
+local emit_signal = wrap_func(awesome.emit_signal)
+set('<M-Tab>', emit_signal 'bling::window_switcher::turn_on')
+
+-- local run_with_shell = wrap_func(awful.spawn.with_shell)
+set('<M-s>', run 'flameshot gui')
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                       device mode                        │
+--  ╰──────────────────────────────────────────────────────────╯
+local _, dmap = new_mode('device', '<S-C-d>')
+dmap('i', volume_up)
+dmap('k', volume_down)
+dmap('I', brightness_up)
+dmap('K', brightness_down)
+dmap('<Esc>', switch_to_default)
+-- set('<M-S-Space>', function() awful.layout.inc(-1) end)
+-- set('<M-Space>', function() awful.layout.inc(1) end)
+
+
+local modkey = 'Mod4'
 for i = 1, 5 do
+    -- local num = i
     local num = '#' .. i + 9
 
     map({ modkey, num }, function()
         local screen = awful.screen.focused()
-        local tag = screen.tags[i]
-        if tag then tag:view_only() end
+        local _tag = screen.tags[i]
+        if _tag then _tag:view_only() end
     end)
 
     -- Move client to tag.
     map({ modkey, 'Shift', num }, function()
         if client.focus then
-            local tag = client.focus.screen.tags[i]
-            if tag then client.focus:move_to_tag(tag) end
+            local _tag = client.focus.screen.tags[i]
+            if _tag then client.focus:move_to_tag(_tag) end
         end
     end)
 
@@ -120,35 +149,26 @@ for i = 1, 5 do
 end
 
 
---- INFO : Client Keybinds
-cmap({ modkey, 'Control', 'w' }, function(c)
-    c.fullscreen = not c.fullscreen
-    c:raise()
-end)
-
-cmap({ modkey, 'Shift', 'c' }, function(c) c:kill() end)
-cmap({ modkey, 'Control', 'space' }, awful.client.floating.toggle)
-
-
-cmap({ modkey, 'o' }, function(c) c:move_to_screen() end)
-cmap({ modkey, 't' }, function(c) c.ontop = not c.ontop end)
-cmap({ modkey, 'n' }, function(c) c.minimized = true end)
-cmap({ modkey, 'Shift', 'd' }, function(c) naughty.notify { text = c.class } end)
-cmap({ modkey, 'w' }, function(c)
+cset('<M-S-c>', function(c) c:kill() end)
+cset('<M-o>', function(c) c:move_to_screen() end)
+cset('<M-w>', function(c)
     c.maximized = not c.maximized
     c:raise()
 end)
 
 
--- INFO : Mouse Bindings
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                      Mouse Bindings                      │
+--  ╰──────────────────────────────────────────────────────────╯
 local mouse = keymap.mouse
 local cmouse = keymap.client_mouse
-
 
 local names = awful.button.names
 cmouse(names.LEFT, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
 end)
+
 cmouse({ modkey, names.LEFT }, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
     awful.mouse.client.move(c)
@@ -158,7 +178,6 @@ cmouse({ modkey, names.RIGHT }, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
     awful.mouse.client.resize(c)
 end)
-
 
 --- INFO : Set global mousebindings
 -- Load Debian menu entries
@@ -193,6 +212,37 @@ mouse(names.SCROLL_UP, awful.tag.viewnext)
 mouse(names.SCROLL_DOWN, awful.tag.viewprev)
 
 
+--- INFO : Client Keybinds
+local _, cmap = new_mode('client', '<S-C-c>')
+local with = util.with_client
+local toggle_client = util.toggle_client
+
+-- print(client.kill == nil)
+cmap('<Esc>', switch_to_default)
+cmap('f', with(function(c)
+    c.floating = not c.floating
+    c:raise()
+end))
+
+cmap('<C-c>', with(function(c) c:kill() end))
+cmap('d', with(function(c) print(c.class) end))
+cmap('t', with(toggle_client 'on_top'))
+
+--  x, y , width, height
+---@format disable
+cmap('i'     , with(function (c) c:relative_move(nil, -50, nil, nil)  end))
+cmap('k'     , with(function (c) c:relative_move(nil, 50, nil, nil)   end))
+cmap('j'     , with(function (c) c:relative_move(-50, nil, nil, nil)  end))
+cmap('l'     , with(function (c) c:relative_move(50, nil, nil, nil)   end))
+cmap('I'     , with(function (c) c:relative_move(nil, -300, nil, nil) end))
+cmap('K'     , with(function (c) c:relative_move(nil, 300, nil, nil)  end))
+cmap('J'     , with(function (c) c:relative_move(-300, nil, nil, nil) end))
+cmap('L'     , with(function (c) c:relative_move(300, nil, nil, nil)  end))
+cmap('<C-j>' , with(function (c) c:relative_move(nil, nil, -50, nil)  end))
+cmap('<C-l>' , with(function (c) c:relative_move(nil, nil, 50, nil)   end))
+cmap('<C-i>' , with(function (c) c:relative_move(nil, nil, nil, -50)  end))
+cmap('<C-k>' , with(function (c) c:relative_move(nil, nil, nil, 50)   end))
+-- local abbr_mode = handler.new_mode('a')
 -- cmap({ modkey, 'Control', 'Return' }, function(c)
 --     if awful.screen.focused().selected_tag:clients()[1] then
 --         c:swap(awful.client.getmaster())
@@ -216,15 +266,3 @@ mouse(names.SCROLL_DOWN, awful.tag.viewprev)
 -- k({ modkey }, "q", function()
 -- 	awful.spawn("rofi -theme ~/.config/awesome/rofis/" .. rofi_theme .. "/config.rasi  -show drun")
 -- end, { description = "show the menubar", group = "rofi apps" })
-
-
--- INFO : Resize
--- k({ modkey            }, 'l',     function() awful.tag.incmwfact(0.05)               end, { description = 'increase master width factor',          group = 'layout' })
--- k({ modkey            }, 'h',     function() awful.tag.incmwfact(-0.05)              end, { description = 'decrease master width factor',          group = 'layout' })
--- k({ modkey, 'Shift'   }, 'h',     function() awful.tag.incnmaster(1, nil, true)      end, { description = 'increase the number of master clients', group = 'layout' })
--- k({ modkey, 'Shift'   }, 'l',     function() awful.tag.incnmaster(-1, nil, true)     end, { description = 'decrease the number of master clients', group = 'layout' })
--- k({ modkey, 'Control' }, 'h',     function() awful.tag.incncol(1, nil, true)         end, { description = 'increase the number of columns',        group = 'layout' })
--- k({ modkey, 'Control' }, 'l',     function() awful.tag.incncol(-1, nil, true)        end, { description = 'decrease the number of columns',        group = 'layout' })
-
--- k({ modkey }, 'p', function() menubar.show() end,
---     { description = 'show the menubar', group = 'launcher' })

@@ -29,10 +29,10 @@ require 'core.conf'
 awful.spawn.with_shell 'bash ~/.config/awesome/script/autorun.sh'
 
 awful.layout.layouts = conf.layout
+require 'core.keymap'
+require 'core.signals'
+require 'core.rules'
 require 'ui'
 require 'core.titlebar'
-require 'core.rules'
-require 'core.signals'
-require 'core.keymap'
 -- os.execute 'bash ~/.config/awesome/script/sync.sh'
 -- awful.spawn 'xrandr  --output HDMI-0 --mode 2560x1440  --pos 0x0 --rate 75 --primary --output DP-2 --pos 2560x360 --auto'

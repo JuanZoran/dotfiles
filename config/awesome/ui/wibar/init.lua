@@ -21,7 +21,7 @@ awful.screen.connect_for_each_screen(function(s)
             shape = gears.shape.rounded_rect,
             widget = wibox.container.background,
             border_width = 2,
-            border_color = beautiful.border_normal
+            border_color = beautiful.border_normal,
         }
     end
 
@@ -37,8 +37,6 @@ awful.screen.connect_for_each_screen(function(s)
         bg       = c.black .. '1',
         fg       = c.dim_blue,
         opacity  = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
-
-
     }
 
     s.wibar.y = size.y + 14
@@ -48,6 +46,7 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         expand = 'none',
         rounded_rect {
+            require 'lib.mapper'.widget(),
             self.clock,
             self.tasklist,
             layout = wibox.layout.fixed.horizontal,
@@ -70,12 +69,11 @@ awful.screen.connect_for_each_screen(function(s)
                 icon_and_text_args = { font = widget_font },
             },
             self.battery,
-            -- self.layoutbox,
             layout = wibox.layout.fixed.horizontal,
+            -- self.layoutbox,
             -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
         },
     }
-
 
     -- Add widgets
     -- This is a valid wallpaper definition
@@ -87,8 +85,6 @@ awful.screen.connect_for_each_screen(function(s)
         set_function = bling.module.wallpaper.setters.random,
     }
 end)
-
-
 -- if auto_hidden then
 --     s.show_wibar_timer = gears.timer {
 --         timeout = 0.25, -- 250ms delay between checks if the bar should be shown

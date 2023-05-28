@@ -108,55 +108,50 @@ M.keys = {
 }
 
 ---@format disable-next
+local CopyMode = act.CopyMode
 M.key_tables = {
     copy_mode = {
-        { key = 'Escape',     action = act.CopyMode 'Close' },
-        { key = 'q',          action = act.CopyMode 'Close' },
         { key = 'y',          action = act.Multiple { { CopyTo = 'ClipboardAndPrimarySelection' }, { CopyMode = 'Close' } } },
-
-
-        { key = 'i',          action = act.CopyMode 'MoveUp' },
-        { key = 'k',          action = act.CopyMode 'MoveDown' },
-        { key = 'j',          action = act.CopyMode 'MoveLeft' },
-        { key = 'l',          action = act.CopyMode 'MoveRight' },
-        { key = 'UpArrow',    action = act.CopyMode 'MoveUp' },
-        { key = 'DownArrow',  action = act.CopyMode 'MoveDown' },
-        { key = 'LeftArrow',  action = act.CopyMode 'MoveLeft' },
-        { key = 'RightArrow', action = act.CopyMode 'MoveRight' },
+        { key = 'Escape',     action = CopyMode 'Close' },
+        { key = 'q',          action = CopyMode 'Close' },
+        { key = 'i',          action = CopyMode 'MoveUp' },
+        { key = 'k',          action = CopyMode 'MoveDown' },
+        { key = 'j',          action = CopyMode 'MoveLeft' },
+        { key = 'l',          action = CopyMode 'MoveRight' },
+        { key = 'UpArrow',    action = CopyMode 'MoveUp' },
+        { key = 'DownArrow',  action = CopyMode 'MoveDown' },
+        { key = 'LeftArrow',  action = CopyMode 'MoveLeft' },
+        { key = 'RightArrow', action = CopyMode 'MoveRight' },
 
 
         -- { key = 'I',     action = act.CopyMode 'PageUp' },
         -- { key = 'K',   action = act.CopyMode 'PageDown' },
-        { key = 'I', action = act.CopyMode { MoveByPage = (-0.5) } },
-        { key = 'K', action = act.CopyMode { MoveByPage = (0.5) } },
-        { key = 'J',       action = act.CopyMode 'MoveToStartOfLine' },
-        { key = 'L',          action = act.CopyMode 'MoveToEndOfLineContent' },
-
-
-        { key = 'w',          action = act.CopyMode 'MoveForwardWord' },
-        { key = 'e',          action = act.CopyMode 'MoveForwardWordEnd' },
-        { key = 'b',          action = act.CopyMode 'MoveBackwardWord' },
-        { key = ',',          action = act.CopyMode 'JumpReverse' },
-        { key = ';',          action = act.CopyMode 'JumpAgain' },
-
-        { key = 'f',          action = act.CopyMode { JumpForward = { prev_char = false } } },
-        { key = 'F',          action = act.CopyMode { JumpBackward = { prev_char = false } } },
-        { key = 't',          action = act.CopyMode { JumpForward = { prev_char = true } } },
-        { key = 'T',          action = act.CopyMode { JumpBackward = { prev_char = true } } },
-
-        { key = 'Space',      action = act.CopyMode { SetSelectionMode = 'Cell' } },
-        { key = 'v',          action = act.CopyMode { SetSelectionMode = 'Cell' } },
-        { key = 'V',          action = act.CopyMode { SetSelectionMode = 'Line' } },
-        { mods = 'CTRL',      key = 'v', action = act.CopyMode { SetSelectionMode = 'Block' } },
-
-        { key = 'o',          action = act.CopyMode 'MoveToSelectionOtherEnd' },
-        { key = 'O',          action = act.CopyMode 'MoveToSelectionOtherEndHoriz' },
-
-        { key = 'g',          action = act.CopyMode 'MoveToScrollbackTop' },
-        { key = 'G',          action = act.CopyMode 'MoveToScrollbackBottom' },
-
-
-        { mods = 'CTRL',      key = 'g', action = act.CopyMode 'Close' },
+        { key = 'I',          action = CopyMode { MoveByPage = (-0.5) } },
+        { key = 'K',          action = CopyMode { MoveByPage = (0.5) } },
+        { key = 'J',          action = CopyMode 'MoveToStartOfLine' },
+        { key = 'L',          action = CopyMode 'MoveToEndOfLineContent' },
+        { key = 'w',          action = CopyMode 'MoveForwardWord' },
+        { key = 'e',          action = CopyMode 'MoveForwardWordEnd' },
+        { key = 'b',          action = CopyMode 'MoveBackwardWord' },
+        { key = ',',          action = CopyMode 'JumpReverse' },
+        { key = ';',          action = CopyMode 'JumpAgain' },
+        { key = 'f',          action = CopyMode { JumpForward = { prev_char = false } } },
+        { key = 'F',          action = CopyMode { JumpBackward = { prev_char = false } } },
+        { key = 't',          action = CopyMode { JumpForward = { prev_char = true } } },
+        { key = 'T',          action = CopyMode { JumpBackward = { prev_char = true } } },
+        { key = 'Space',      action = CopyMode { SetSelectionMode = 'Cell' } },
+        { key = 'v',          action = CopyMode { SetSelectionMode = 'Cell' } },
+        { key = 'V',          action = CopyMode { SetSelectionMode = 'Line' } },
+        {
+            mods = 'CTRL',
+            key = 'v',
+            action = act.CopyMode { SetSelectionMode = 'Block' },
+        },
+        { key = 'o',     action = CopyMode 'MoveToSelectionOtherEnd' },
+        { key = 'O',     action = CopyMode 'MoveToSelectionOtherEndHoriz' },
+        { key = 'g',     action = CopyMode 'MoveToScrollbackTop' },
+        { key = 'G',     action = CopyMode 'MoveToScrollbackBottom' },
+        { mods = 'CTRL', key = 'g',                                       action = CopyMode 'Close' },
         -- { key = 'Enter',      action = act.CopyMode 'MoveToStartOfNextLine' },
         -- { mods = 'ALT',   key = 'LeftArrow',  action = act.CopyMode 'MoveBackwardWord' },
         -- { mods = 'ALT',   key = 'RightArrow', action = act.CopyMode 'MoveForwardWord' },

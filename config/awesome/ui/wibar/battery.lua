@@ -1,6 +1,9 @@
-local c                       = beautiful.color
-local dpi                     = require 'beautiful.xresources'.apply_dpi
-local helpers                 = require 'helpers'
+local wibox   = require 'wibox'
+local c       = beautiful.color
+local dpi     = require 'beautiful.xresources'.apply_dpi
+local helpers = require 'helpers'
+
+
 --------------------
 local battery_progress        = wibox.widget {
     color            = c.sapphire,
@@ -39,22 +42,21 @@ local tmp                     = require 'widgets.battery-widget' {
     instant_update = true,
 }
 
-
 --     The device state.
--- UNKNOWN= 0¶
--- CHARGING= 1¶
--- DISCHARGING= 2¶
--- EMPTY= 3¶
--- FULLY_CHARGED= 4¶
--- PENDING_CHARGE= 5¶
--- PENDING_DISCHARGE= 6¶
--- LAST= 7¶
+-- UNKNOWN           = 0¶
+-- CHARGING          = 1¶
+-- DISCHARGING       = 2¶
+-- EMPTY             = 3¶
+-- FULLY_CHARGED     = 4¶
+-- PENDING_CHARGE    = 5¶
+-- PENDING_DISCHARGE = 6¶
+-- LAST              = 7¶
 local charging_map            = {
     [0] = false,
     [1] = true,
     [2] = false,
     [3] = false,
-    [4] = false,
+    [4] = true,
     [5] = true,
     [6] = false,
     [7] = false,
@@ -65,14 +67,14 @@ tmp:connect_signal('upower::update', function(_, device)
     battery_progress.value = device.percentage
 
     charging_icon.visible = (charging_map)[device.state]
-    if device.percentage <= 10 then
+    if device.percentage <= 30 then
         battery_progress.color = c.red
-    elseif device.percentage <= 20 then
+    elseif device.percentage <= 50 then
         battery_progress.color = c.orange
-    elseif device.percentage <= 30 then
+    elseif device.percentage <= 70 then
         battery_progress.color = c.yellow
     else
-        battery_progress.color = c.green
+        battery_progress.color = c.custom
     end
 end)
 
