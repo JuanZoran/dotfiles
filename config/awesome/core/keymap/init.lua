@@ -83,11 +83,12 @@ rmap('w', with_exec(rofi_win))
 --  ╰──────────────────────────────────────────────────────────╯
 local _, dmap = new_mode('device', '<S-C-d>')
 dmap('<Esc>', switch_to_default)
-
 set('<M-a>', run(conf.terminal))
--- INFO : volume
-local volume_up, volume_down = run 'pactl set-sink-volume @DEFAULT_SINK@ +5%',
-    run 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+
+
+local volume = require 'helpers.volume'
+local volume_up = function() volume.increase(5) end
+local volume_down = function() volume.decrease(5) end
 local brightness_up, brightness_down = run 'xbacklight -inc 3',
     run 'xbacklight -dec 3'
 
@@ -96,7 +97,7 @@ set('<A-Up>', volume_up)
 set('<S-A-Up>', brightness_up)
 set('<A-Down>', volume_down)
 set('<S-A-Down>', brightness_down)
-dmap('<BS>', run 'pactl set-sink-mute @DEFAULT_SINK@ toggle')
+dmap('<BS>', volume.toggle_mute)
 dmap('i', volume_up)
 dmap('k', volume_down)
 dmap('I', brightness_up)
