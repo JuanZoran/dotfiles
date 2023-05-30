@@ -58,9 +58,10 @@ awful.screen.connect_for_each_screen(function(s)
         -- Right widgets
         rounded_rect {
             self.systray,
-            widgets['volume-widget'] {
-                icon_and_text_args = { font = widget_font },
-            },
+            -- widgets['volume-widget'] {
+            --     icon_and_text_args = { font = widget_font },
+            -- },
+            self.volume,
             layout = wibox.layout.fixed.horizontal,
             -- wibox.layout.margin(
             --     widgets['github-activity-widget'] {
