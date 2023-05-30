@@ -1,5 +1,5 @@
--- local dpi         = require 'beautiful.xresources'.apply_dpi
 local ruled = require 'ruled'
+local awful = require'awful'
 
 ruled.client.connect_signal('request::rules', function()
     ruled.client.append_rule {
@@ -33,7 +33,7 @@ ruled.client.connect_signal('request::rules', function()
                 'veromix',
                 'xtightvncviewer',
                 'QQ',
-                'neovide',
+                -- 'neovide',
             },
 
             -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -58,7 +58,6 @@ ruled.client.connect_signal('request::rules', function()
         properties = { titlebars_enabled = true },
     }
 end)
-
 
 client.connect_signal('focus', function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)

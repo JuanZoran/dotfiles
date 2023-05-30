@@ -66,7 +66,7 @@ M.keys = {
     k { mod, 'i', act.ScrollByPage(-0.5) },
     k { mod, 'k', act.ScrollByPage(0.5) },
 
-    k { mod, 'r', act.ReloadConfiguration },
+    k { lead, 'r', act.ReloadConfiguration },
     k { mod, ' ', act.QuickSelect },
     -- INFO : Pane Adjust Size
     -- k { mod, 'i', act.AdjustPaneSize { "Up", 5 } },
