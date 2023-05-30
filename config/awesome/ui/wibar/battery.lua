@@ -7,20 +7,20 @@ local helpers = require 'helpers'
 --------------------
 local battery_progress        = wibox.widget {
     color            = c.sapphire,
-    background_color = beautiful.fg_normal .. '00',
-    forced_width     = dpi(16),
-    border_width     = dpi(0.5),
+    background_color = beautiful.bg_normal,
     border_color     = beautiful.fg_normal .. 'A6',
-    paddings         = dpi(2),
-    bar_shape        = helpers.rrect(dpi(2)),
-    shape            = helpers.rrect(dpi(4)),
-    value            = 70,
+    forced_height    = dpi(25),
+    border_width     = 1,
+    paddings         = 2,
+    bar_shape        = helpers.rrect(2),
+    shape            = helpers.rrect(4),
+    value            = 100,
     max_value        = 100,
     widget           = wibox.widget.progressbar,
 }
 
 local battery_percentage_text = wibox.widget {
-    id = 'percent_text',
+    -- id = 'percent_text',
     text = '50%',
     font = beautiful.font_name .. 'Medium 10',
     align = 'center',
@@ -36,8 +36,9 @@ local charging_icon           = wibox.widget {
     widget = wibox.widget.textbox,
 }
 
+
 -- INFO : Load battery widget
-local tmp                     = require 'widgets.battery-widget' {
+local tmp          = require 'widgets.battery-widget' {
     use_display_device = true,
     instant_update = true,
 }
@@ -51,7 +52,7 @@ local tmp                     = require 'widgets.battery-widget' {
 -- PENDING_CHARGE    = 5¶
 -- PENDING_DISCHARGE = 6¶
 -- LAST              = 7¶
-local charging_map            = {
+local charging_map = {
     [0] = false,
     [1] = true,
     [2] = false,
@@ -74,7 +75,7 @@ tmp:connect_signal('upower::update', function(_, device)
     elseif device.percentage <= 70 then
         battery_progress.color = c.yellow
     else
-        battery_progress.color = c.custom
+        battery_progress.color = c.green
     end
 end)
 
@@ -82,15 +83,17 @@ end)
 return {
     {
         {
-            battery_progress,
-            charging_icon,
-            layout = wibox.layout.stack,
+            {
+                battery_progress,
+                charging_icon,
+                layout = wibox.layout.stack,
+            },
+            direction = 'east',
+            widget = wibox.container.rotate,
         },
-        layout = wibox.container.margin,
-        right  = dpi(3),
-        left   = dpi(3),
-        top    = dpi(3),
-        bottom = dpi(3),
+        top = 4,
+        bottom = 5,
+        widget = wibox.container.margin,
     },
     battery_percentage_text,
     spacing = dpi(3),

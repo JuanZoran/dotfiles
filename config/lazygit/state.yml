@@ -2,6 +2,7 @@ lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
 - /home/zoran/.config/awesome/lib/mapper
+- /home/zoran/dotfiles/config/awesome/lib/mapper
 - /home/zoran/.config/nvim
 - /home/zoran/myConfig/misc/awesome
 - /home/zoran/.config/nvim/custom/snippet_lua
