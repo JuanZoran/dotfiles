@@ -1,21 +1,21 @@
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                      Mouse Bindings                      │
 --  ╰──────────────────────────────────────────────────────────╯
-local mouse = mapper.keymap.mouse
+local awful = require'awful'
 local cmouse = mapper.keymap.client_mouse
 
 local modkey = 'Mod4'
-local names = awful.button.names
-cmouse(names.LEFT, function(c)
+local m = awful.button.names
+cmouse(m.LEFT, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
 end)
 
-cmouse({ modkey, names.LEFT }, function(c)
+cmouse({ modkey, m.LEFT }, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
     awful.mouse.client.move(c)
 end)
 
-cmouse({ modkey, names.RIGHT }, function(c)
+cmouse({ modkey, m.RIGHT }, function(c)
     c:emit_signal('request::activate', 'mouse_click', { raise = true })
     awful.mouse.client.resize(c)
 end)
@@ -48,9 +48,7 @@ local mainmenu             = has_fdo
         },
     }
 
-mouse(names.RIGHT, function() mainmenu:toggle() end)
-mouse(names.SCROLL_UP, awful.tag.viewnext)
-mouse(names.SCROLL_DOWN, awful.tag.viewprev)
+mapper.keymap.mouse(m.RIGHT, function() mainmenu:toggle() end)
 
 bling.widget.window_switcher.enable {
     type = 'thumbnail',                                       -- set to anything other than "thumbnail" to disable client previews
