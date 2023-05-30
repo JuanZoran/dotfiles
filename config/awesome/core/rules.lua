@@ -1,5 +1,5 @@
 local ruled = require 'ruled'
-local awful = require'awful'
+local awful = require 'awful'
 
 ruled.client.connect_signal('request::rules', function()
     ruled.client.append_rule {
@@ -11,6 +11,7 @@ ruled.client.connect_signal('request::rules', function()
             raise        = true,
             screen       = awful.screen.preferred,
             placement    = awful.placement.no_overlap + awful.placement.no_offscreen + awful.placement.centered,
+            -- round_corners = true,
         },
     }
 

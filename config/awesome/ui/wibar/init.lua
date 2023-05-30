@@ -1,18 +1,15 @@
 local path = ... .. '.'
--- local auto_hidden = false
+local wibox = require 'wibox'
 local c = beautiful.color
 
 awful.screen.connect_for_each_screen(function(s)
     local self = setmetatable({}, {
         __index = function(_, name)
             local widget = require(path .. name)
-            if type(widget) == 'function' then
-                widget = widget(s)
-            end
+            if type(widget) == 'function' then widget = widget(s) end
             return widget
         end,
     })
-
     local widgets = require 'widgets'
     local rounded_rect = function(widget)
         return {
@@ -26,20 +23,21 @@ awful.screen.connect_for_each_screen(function(s)
     end
 
     --- INFO : Conf
-    local size = s.geometry
+    local screen_size = s.geometry
     s.wibar = awful.wibar {
         screen   = s,
         position = 'top',
-        height   = size.height * 0.03,
-        width    = size.width * 0.8,
+        height   = screen_size.height * 0.03,
+        width    = screen_size.width * 0.6,
         shape    = gears.shape.rounded_rect,
         stretch  = false, -- 是否wibar需要拉伸填满屏幕。
-        bg       = c.black .. '1',
+        bg       = c.transparent,
+        on_top   = true,
         fg       = c.dim_blue,
-        opacity  = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
+        -- opacity  = 0.8, -- wibox 的不透明度，介于 0 和 1 之间。
     }
 
-    s.wibar.y = size.y + 14
+    s.wibar.y = screen_size.y + 14
 
     local widget_font = beautiful.font_name .. ' 10'
     s.wibar:setup {
@@ -47,8 +45,8 @@ awful.screen.connect_for_each_screen(function(s)
         expand = 'none',
         rounded_rect {
             require 'lib.mapper'.widget(),
-            self.clock,
             self.tasklist,
+            self.clock,
             layout = wibox.layout.fixed.horizontal,
         },
 
@@ -57,19 +55,19 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
         },
 
+        -- Right widgets
         rounded_rect {
-            -- Right widgets
             self.systray,
+            widgets['volume-widget'] {
+                icon_and_text_args = { font = widget_font },
+            },
+            layout = wibox.layout.fixed.horizontal,
             -- wibox.layout.margin(
             --     widgets['github-activity-widget'] {
             --         username = 'JuanZoran',
             --     },
             --     1, 1, 4, 4),
-            widgets['volume-widget'] {
-                icon_and_text_args = { font = widget_font },
-            },
-            self.battery,
-            layout = wibox.layout.fixed.horizontal,
+            -- self.battery,
             -- self.layoutbox,
             -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
         },
@@ -85,6 +83,58 @@ awful.screen.connect_for_each_screen(function(s)
         set_function = bling.module.wallpaper.setters.random,
     }
 end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- window	The X window id. X 窗口标识。
 -- if auto_hidden then
 --     s.show_wibar_timer = gears.timer {
 --         timeout = 0.25, -- 250ms delay between checks if the bar should be shown

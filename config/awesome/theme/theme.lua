@@ -45,6 +45,7 @@ local c           = {
     lavender     = '#b4befe',
     light_purple = '#c61ad9',
     purple       = '#7c3aed',
+    transparent  = '#00000000',
 }
 
 -- There are other variable sets

@@ -213,7 +213,9 @@ cmap('<Esc>', switch_to_default)
 
 local toggle_floating = with(function(c)
     c.floating = not c.floating
+    if not c.floating then return end
     c:raise()
+    awful.placement.centered(c)
 end)
 cmap('f', toggle_floating)
 set('<S-C-Space>', toggle_floating)
