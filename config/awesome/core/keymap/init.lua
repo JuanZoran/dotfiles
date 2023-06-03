@@ -2,6 +2,11 @@ local mapper = require 'lib.mapper'
 local awful_client = require 'awful.client'
 mapper.setup {}
 
+-- NOTE :This depends on the penlight library
+-- require 'pl.utils'.import(require 'pl.func')
+local func = require 'pl.func'
+local bind1 = func.bind1
+
 local path = ... .. '.'
 require(path .. 'misc')
 
@@ -33,6 +38,7 @@ set('<S-M-l>', run 'betterlockscreen -l dim')
 local tag = awful.tag
 amap('j', tag.viewprev)
 amap('l', tag.viewnext)
+amap('d', with_exec(require 'naughty'.destory_all_notifications))
 amap('<Esc>', switch_to_default)
 
 
@@ -86,11 +92,13 @@ dmap('<Esc>', switch_to_default)
 set('<M-a>', run(conf.terminal))
 
 
-local volume = require 'helpers.volume'
-local volume_up = function() volume.increase(5) end
-local volume_down = function() volume.decrease(5) end
-local brightness_up, brightness_down = run 'xbacklight -inc 3',
-    run 'xbacklight -dec 3'
+local volume          = require 'helpers.volume'
+local brightness      = require 'signal.brightness'
+
+local volume_up       = bind1(volume.increase, 5)
+local volume_down     = bind1(volume.decrease, 5)
+local brightness_up   = bind1(brightness.increase, 5)
+local brightness_down = bind1(brightness.decrease, 5)
 
 -- For habits this should be removed later
 set('<A-Up>', volume_up)
@@ -130,12 +138,12 @@ wmap('L', swap_client_bydirection 'right')
 
 -- local flash_focus = bling.module.flash_focus
 -- flash_focus.enable()
-local focus_client_bydirection = wrap_func(awful_client.focus.bydirection)
 -- local focus_client_bydirection = wrap_func(function(direction)
 --     awful_client.focus.bydirection(direction)
 --     flash_focus.flashfocus(client.focus)
 -- end)
 -- local focus_client_bydirection = wrap_func(awful_client.focus.bydirection)
+local focus_client_bydirection = wrap_func(awful_client.focus.bydirection)
 wmap('i', focus_client_bydirection 'up')
 wmap('k', focus_client_bydirection 'down')
 wmap('j', focus_client_bydirection 'left')
@@ -190,8 +198,6 @@ for i = 1, 5 do
     --     end
     -- end)
 end
-
-
 
 
 

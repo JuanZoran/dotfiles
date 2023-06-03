@@ -1,41 +1,45 @@
--- local container_brightness_widget = wibox.container
+local wibox = require 'wibox'
+local dpi   = require 'beautiful.xresources'.apply_dpi
 
-local brightness_widget = wibox.widget {
-    align = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox,
+
+local brightness_progress = wibox.widget {
+    color            = beautiful.color.maroon,
+    background_color = '#00000000',
+    forced_width     = dpi(28),
+    border_width     = dpi(1),
+    border_color     = '#615D76',
+    paddings         = dpi(3),
+    value            = require 'signal.brightness'.current,
+    max_value        = 100,
+    margins          = dpi(3),
+    forced_height    = dpi(25),
+    -- bar_shape        = helpers.rrect(2),
+    -- shape            = helpers.rrect(4),
+    widget           = wibox.widget.progressbar,
 }
 
--- local update_brightness_widget = function(brightness)
---     brightness_widget.text = '  ' .. brightness
--- end
-
--- local br, br_signal = awful.widget.watch(
---     '/home/sv/Scripts/Scripts-AwesomeWM/brightness-bar.sh',
---     60,
---     function(self, stdout)
---         local brightness = stdout
---         update_brightness_widget(brightness)
---     end
--- )
+awesome.connect_signal('brightness::change', function(value)
+    if value <= 10 then value = value * 10 end
+    print(value)
+    brightness_progress.value = value
+end)
 
 return {
     {
         {
-            {
-                widget = brightness_widget,
-            },
-            left = 12,
-            right = 10,
-            top = 0,
-            bottom = 0,
-            widget = wibox.container.margin,
+            font = '得意黑 10',
+            text = '亮度',
+            widget = wibox.widget.textbox,
         },
-        shape  = gears.shape.rounded_bar,
-        fg     = '#f9e2af',
-        bg     = conf.widget_bg,
-        widget = wibox.container.background,
+        {
+            value = 70,
+            forced_width = dpi(70),
+            shape = gears.shape.rounded_bar,
+            widget = brightness_progress,
+        },
+        layout = wibox.layout.fixed.horizontal,
     },
-    spacing = 5,
-    layout = wibox.layout.fixed.horizontal,
+    top = 3,
+    bottom = 3,
+    widget = wibox.container.margin,
 }

@@ -1,14 +1,14 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/zoran/dotfiles
-- /home/zoran/.config/awesome/lib/mapper
-- /home/zoran/dotfiles/config/awesome/lib/mapper
 - /home/zoran/.config/nvim
+- /home/zoran/.config/awesome/lib/mapper
+- /home/zoran/dotfiles/config/surfingkeys-conf
+- /home/zoran/dotfiles/config/awesome/lib/mapper
 - /home/zoran/myConfig/misc/awesome
 - /home/zoran/.config/nvim/custom/snippet_lua
 - /home/zoran/.config/nvim/custom/Trans.nvim
 - /home/zoran/.local/share/nvim/lazy/hlchunk.nvim
-- /home/zoran/dotfiles/config/surfingkeys-conf
 - /home/zoran/myConfig/blog
 - /home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch/cpp_lexer_generator
 - /home/zoran/.config/nvim/custom/Trans.nvim/wiki

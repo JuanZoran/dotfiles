@@ -6,7 +6,6 @@ PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
 PATH=$PATH:$HOME/zsh/script
 
-
 eval "$(luarocks path)"
 # Remove duplicate entries
 export PATH=$(echo $PATH | tr ':' '\n' | awk '!a[$0]++' | paste -sd ':' -)

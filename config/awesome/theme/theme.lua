@@ -1,14 +1,14 @@
 -- local theme_assets = require 'beautiful.theme_assets'
-local dpi         = require 'beautiful.xresources'.apply_dpi
-local Jb          = 'JetBrains Mono Nerd Font'
-local norm_font   = Jb .. ' 12'
-local gfs         = require 'gears.filesystem'
-local themes_path = gfs.get_themes_dir()
+local dpi                              = require 'beautiful.xresources'.apply_dpi
+local Jb                               = 'JetBrains Mono Nerd Font'
+local norm_font                        = Jb .. ' 12'
+local gfs                              = require 'gears.filesystem'
+local themes_path                      = gfs.get_themes_dir()
 
-local icon_dir    = util.conf_dir .. '/theme'
+local icon_dir                         = util.conf_dir .. '/theme'
 
 ---@class color
-local c           = {
+local c                                = {
     black          = '#0c0e0f',
     dim_black      = '#1e1e2e',
     dark_black     = '#181b28',
@@ -60,7 +60,6 @@ local c           = {
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-
 
 ---@class beautiful
 local theme                            = {
@@ -137,7 +136,7 @@ local theme                            = {
     --  ╭──────────────────────────────────────────────────────────╮
     --  │                           Icon                           │
     --  ╰──────────────────────────────────────────────────────────╯
-    icon_theme           = 'WhiteSur-dark',
+    -- icon_theme           = 'WhiteSur-dark',
     -- INFO :
     --  ╭──────────────────────────────────────────────────────────╮
     --  │ layout                                                   │
@@ -197,25 +196,25 @@ local theme                            = {
 
     -- taglist_fg_focus    = c.red,
 
-    window_switcher_widget_bg                       = c.mantle .. '99',   -- The bg color of the widget
-    window_switcher_widget_border_width             = 3,          -- The border width of the widget
-    window_switcher_widget_border_radius            = 0,          -- The border radius of the widget
-    window_switcher_widget_border_color             = c.light_blue,   -- The border color of the widget
-    window_switcher_clients_spacing                 = 20,         -- The space between each client item
-    window_switcher_client_icon_horizontal_spacing  = 5,          -- The space between client icon and text
-    window_switcher_client_width                    = 300,        -- The width of one client widget
-    window_switcher_client_height                   = 250,        -- The height of one client widget
-    window_switcher_client_margins                  = 10,         -- The margin between the content and the border of the widget
-    window_switcher_thumbnail_margins               = 10,         -- The margin between one client thumbnail and the rest of the widget
-    thumbnail_scale                                 = false,      -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
-    window_switcher_name_margins                    = 6,          -- The margin of one clients title to the rest of the widget
-    window_switcher_name_valign                     = 'center',   -- How to vertically align one clients title
-    window_switcher_name_forced_width               = 200,        -- The width of one title
-    window_switcher_name_font                       = '得意黑', -- The font of all titles
-    window_switcher_name_normal_color               = c.teal,     -- The color of one title if the client is unfocused
-    window_switcher_name_focus_color                = c.light_purple, -- The color of one title if the client is focused
-    window_switcher_icon_valign                     = 'center',   -- How to vertically align the one icon
-    window_switcher_icon_width                      = 40,         -- The width of one icon
+    window_switcher_widget_bg                      = c.mantle .. '99', -- The bg color of the widget
+    window_switcher_widget_border_width            = 3,                -- The border width of the widget
+    window_switcher_widget_border_radius           = 0,                -- The border radius of the widget
+    window_switcher_widget_border_color            = c.light_blue,     -- The border color of the widget
+    window_switcher_clients_spacing                = 20,               -- The space between each client item
+    window_switcher_client_icon_horizontal_spacing = 5,                -- The space between client icon and text
+    window_switcher_client_width                   = 300,              -- The width of one client widget
+    window_switcher_client_height                  = 250,              -- The height of one client widget
+    window_switcher_client_margins                 = 10,               -- The margin between the content and the border of the widget
+    window_switcher_thumbnail_margins              = 10,               -- The margin between one client thumbnail and the rest of the widget
+    thumbnail_scale                                = false,            -- If set to true, the thumbnails fit policy will be set to "fit" instead of "auto"
+    window_switcher_name_margins                   = 6,                -- The margin of one clients title to the rest of the widget
+    window_switcher_name_valign                    = 'center',         -- How to vertically align one clients title
+    window_switcher_name_forced_width              = 200,              -- The width of one title
+    window_switcher_name_font                      = '得意黑',      -- The font of all titles
+    window_switcher_name_normal_color              = c.teal,           -- The color of one title if the client is unfocused
+    window_switcher_name_focus_color               = c.light_purple,   -- The color of one title if the client is focused
+    window_switcher_icon_valign                    = 'center',         -- How to vertically align the one icon
+    window_switcher_icon_width                     = 40,               -- The width of one icon
 
     -- INFO :
     -- Notifications
@@ -224,6 +223,16 @@ local theme                            = {
     -- notification_[bg|fg]
     -- notification_[width|height|margin]
     -- notification_[border_color|border_width|shape|opacity]
+    -- notification_font                              = '',
+    notification_bg                                = c.mantle,
+    notification_fg                                = c.custom,
+    notification_border_width                      = 3,
+    -- notification_width                             = 40,
+    -- notification_spacing                           = 10,
+    -- notification_shape                             = gears.shape.rounded_rect,
+    -- notification_opacity                           = '',
+    -- notification_margin                            = '',
+    -- notification_height                            = '',
 
     -- TODO: TITBLE
     -- titlebar_unfocused                        = '#252628',

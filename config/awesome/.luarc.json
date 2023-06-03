@@ -2,7 +2,7 @@
     "workspace.library": [
         "${3rd}/lfs/library",
         "/home/zoran/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/67bea6d3",
-        "/home/zoran/.config/LLS-Addons/busted/library",
+        "/home/zoran/.config/LLS-Addons/addons/penlight/module/library",
         "${3rd}/luassert/library"
     ],
     "diagnostics.globals": [
@@ -11,5 +11,6 @@
         "screen",
         "root",
         "mouse"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }
