@@ -145,54 +145,54 @@ function zvm_after_lazy_keybindings() {
     # visual "h}" zvm_select_surround
 }
 
-# # add-zsh-hook precmd recover-tab
+# add-zsh-hook precmd recover-tab
 
-# # NOTE :
-# #  ╭──────────────────────────────────────────────────────────╮
-# #  │  bindkey: 可以查看所有的键绑定                          │
-# #  ╰──────────────────────────────────────────────────────────╯
-# # bindkey <keystroke>: 基于按键查看 widgets
-# # bindkey <keystroke> <widget>: 绑定到已经有的 widgets 里面
-# # bindkey -s <keystroke> <keystroke>: 把 a 绑定到 b 快捷键上
-# # bindkey -M <keymap> <keystroke>: 绑定到具体模式
-# # bindkey -r <keystroke>: 删除
-# # bindkey -M <keymap> -r <keystroke>: 删除 Bindkey:
-# # zle -l 查看所有的widgets
+# NOTE :
+#  ╭──────────────────────────────────────────────────────────╮
+#  │  bindkey: 可以查看所有的键绑定                          │
+#  ╰──────────────────────────────────────────────────────────╯
+# bindkey <keystroke>: 基于按键查看 widgets
+# bindkey <keystroke> <widget>: 绑定到已经有的 widgets 里面
+# bindkey -s <keystroke> <keystroke>: 把 a 绑定到 b 快捷键上
+# bindkey -M <keymap> <keystroke>: 绑定到具体模式
+# bindkey -r <keystroke>: 删除
+# bindkey -M <keymap> -r <keystroke>: 删除 Bindkey:
+# zle -l 查看所有的widgets
 
-# # NOTE :
-# # ╭──────────────────────────────────────────────────────────╮
-# # │ 可以绑定的所有模式                                       │
-# # ╰──────────────────────────────────────────────────────────╯
-# # .safe
-# # command
-# # emacs
-# # isearch
-# # listscroll
-# # main
-# # menuselect
-# # vicmd
-# # viins
-# # viopp
-# # visual
+# NOTE :
+# ╭──────────────────────────────────────────────────────────╮
+# │ 可以绑定的所有模式                                       │
+# ╰──────────────────────────────────────────────────────────╯
+# .safe
+# command
+# emacs
+# isearch
+# listscroll
+# main
+# menuselect
+# vicmd
+# viins
+# viopp
+# visual
 
 
-# # NOTE :
-# #  ╭──────────────────────────────────────────────────────────╮
-# #  │ Ctrl + a         需要在对应的词上                        │
-# #  ╰──────────────────────────────────────────────────────────╯
-# # 1.  yes -> no
-# # 2.  on -> off
-# # 3.  true -> false
-# # 4.  T -> F
-# # 5.  + -> -
-# # 6.  ++ -> --
-# # 7.  == => !=
-# # 8.  !== => ===
-# # 9.  && => ||
-# # 10. and => or
+# NOTE :
+#  ╭──────────────────────────────────────────────────────────╮
+#  │ Ctrl + a         需要在对应的词上                        │
+#  ╰──────────────────────────────────────────────────────────╯
+# 1.  yes -> no
+# 2.  on -> off
+# 3.  true -> false
+# 4.  T -> F
+# 5.  + -> -
+# 6.  ++ -> --
+# 7.  == => !=
+# 8.  !== => ===
+# 9.  && => ||
+# 10. and => or
 
-# # {}在zsh里被称为花括号，通常用于展开多个文件或文件夹的名称。例如，我们可以使用`touch file{1..3}.txt`命令来创建三个文件file1.txt、file2.txt和file3.txt。
+# {}在zsh里被称为花括号，通常用于展开多个文件或文件夹的名称。例如，我们可以使用`touch file{1..3}.txt`命令来创建三个文件file1.txt、file2.txt和file3.txt。
 
-# # ()表示子shell，它将命令序列包含在一个子进程中并执行它们。此外，它也可以用于分组命令和处理变量替换。例如，`(cd dir && command)`可以在子Shell中进入dir目录并执行command命令。
+# ()表示子shell，它将命令序列包含在一个子进程中并执行它们。此外，它也可以用于分组命令和处理变量替换。例如，`(cd dir && command)`可以在子Shell中进入dir目录并执行command命令。
 
-# # []通常用于条件测试。例如，`[ -e file.txt ]`可以检查当前目录下是否存在file.txt文件，如果存在，则返回true。另外，[]还可以用于文件名扩展。例如，`ls [abc]*.txt`将列出以a、b或c开头的所有txt文件。
+# []通常用于条件测试。例如，`[ -e file.txt ]`可以检查当前目录下是否存在file.txt文件，如果存在，则返回true。另外，[]还可以用于文件名扩展。例如，`ls [abc]*.txt`将列出以a、b或c开头的所有txt文件。

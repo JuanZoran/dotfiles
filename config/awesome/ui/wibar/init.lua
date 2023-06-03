@@ -28,7 +28,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen   = s,
         position = 'top',
         height   = screen_size.height * 0.03,
-        width    = screen_size.width * 0.6,
+        width    = screen_size.width * 0.7,
         shape    = gears.shape.rounded_rect,
         stretch  = false, -- 是否wibar需要拉伸填满屏幕。
         bg       = c.transparent,
@@ -39,12 +39,13 @@ awful.screen.connect_for_each_screen(function(s)
 
     s.wibar.y = screen_size.y + 14
 
-    local widget_font = beautiful.font_name .. ' 10'
+    -- local widget_font = beautiful.font_name .. ' 10'
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
         rounded_rect {
             require 'lib.mapper'.widget(),
+            self.systray,
             self.tasklist,
             self.clock,
             layout = wibox.layout.fixed.horizontal,
@@ -57,18 +58,14 @@ awful.screen.connect_for_each_screen(function(s)
 
         -- Right widgets
         rounded_rect {
-            self.systray,
-            -- widgets['volume-widget'] {
-            --     icon_and_text_args = { font = widget_font },
-            -- },
             self.volume,
+            self.battery,
+            self.brightness,
+            spacing = 10,
             layout = wibox.layout.fixed.horizontal,
             -- wibox.layout.margin(
-            --     widgets['github-activity-widget'] {
-            --         username = 'JuanZoran',
-            --     },
+            --     widgets['github-activity-widget'] { username = 'JuanZoran', },
             --     1, 1, 4, 4),
-            -- self.battery,
             -- self.layoutbox,
             -- awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher
         },
