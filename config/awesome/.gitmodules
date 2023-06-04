@@ -1,0 +1,9 @@
+[submodule "lib/mapper"]
+	path = lib/mapper
+	url = git@github.com:JuanZoran/awesomeMapper
+[submodule "lib/rubato"]
+	path = lib/rubato
+	url = https://github.com/andOrlando/rubato
+[submodule "lib/bling"]
+	path = lib/bling
+	url = git@github.com:BlingCorp/bling.git

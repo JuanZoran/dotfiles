@@ -19,17 +19,6 @@ function util.keys(keys)
     return ret
 end
 
-util.enum = {
-    bottom = {
-        LEFT        = 1,
-        MIDDLE      = 2,
-        RIGHT       = 3,
-        SCROLL_UP   = 4,
-        SCROLL_DOWN = 4,
-    },
-}
-
-
 ---@alias botton_key table
 local button = awful.button
 
