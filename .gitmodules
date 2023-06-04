@@ -1,3 +1,9 @@
-[submodule "config/awesome/lib/mapper"]
-	path = config/awesome/lib/mapper
-	url = git@github.com:JuanZoran/awesomeMapper
+[submodule "config/awesome"]
+	path = config/awesome
+	url = git@github.com:JuanZoran/awesome
+[submodule "background"]
+	path = background
+	url = git@github.com:JuanZoran/background.git
+[submodule "config/surfingkeys-conf"]
+	path = config/surfingkeys-conf
+	url = git@github.com:JuanZoran/surfingkeys-conf.git
