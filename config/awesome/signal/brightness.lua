@@ -1,7 +1,7 @@
 local M = {}
 
 local spawn = require 'awful.spawn'
-M.current = io.popen('xbacklight -get'):read '*n'
+M.current = io.popen('xbacklight -get'):read '*n' or 100
 
 local emit_signal = awesome.emit_signal
 M.increase = function(value)

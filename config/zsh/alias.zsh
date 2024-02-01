@@ -84,3 +84,4 @@ function Cn() { # Cargo new {project_name} && cd {project_name}
     fi
     cargo new $1 && cd $1
 }
+

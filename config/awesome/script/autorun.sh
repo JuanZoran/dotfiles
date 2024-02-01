@@ -39,9 +39,9 @@ run imwheel
 # done
 
 # scroll
-# synclient \
-    #     VertScrollDelta=-44 \
-    #     HorizScrollDelta=-44 \
-    #     PalmDetect=1 \
-    #     TapButton1=1 \
-    #     TapButton2=3 \
+synclient \
+        VertScrollDelta=-44 \
+        HorizScrollDelta=-44 \
+        PalmDetect=1 \
+        TapButton1=1 \
+        TapButton2=3 \

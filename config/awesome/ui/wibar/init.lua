@@ -45,9 +45,9 @@ awful.screen.connect_for_each_screen(function(s)
         expand = 'none',
         rounded_rect {
             require 'lib.mapper'.widget(),
-            self.systray,
-            self.tasklist,
             self.clock,
+            self.tasklist,
+            self.systray,
             layout = wibox.layout.fixed.horizontal,
         },
 

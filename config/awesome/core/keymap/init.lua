@@ -42,6 +42,16 @@ amap('d', with_exec(require 'naughty'.destory_all_notifications))
 amap('<Esc>', switch_to_default)
 
 
+local touchpad = true
+amap('<BS>', function()
+    touchpad = not touchpad
+    awful.spawn('xinput set-prop 18 "Device Enabled" ' .. (touchpad and 1 or 0))
+    switch_to_default()
+    print('Touchpad is ' .. (touchpad and 'enabled' or 'disabled'))
+end)
+
+
+
 
 
 
@@ -68,14 +78,6 @@ rmap('<CR>', with_exec(run 'chromium-browser'))
 rmap('n', with_exec(run 'neovide'))
 rmap('r', with_exec(rofi_run))
 rmap('w', with_exec(rofi_win))
-
-
-
-
-
-
-
-
 
 
 
@@ -231,10 +233,7 @@ set('<S-M-p>', function()
     local c = awful_client.restore()
     if c then c:activate() end
 end)
-cset('<M-p>', function(c)
-    c.minimized = true
-end)
-
+cset('<M-p>', function(c) c.minimized = true end)
 
 cmap('<C-c>', with(function(c) c:kill() end))
 cmap('d', with(function(c) print(c.class) end))
@@ -249,22 +248,22 @@ end)
 
 
 
---  x, y , width, height
 ---@format disable
-cmap('i'     , with(function (c) c:relative_move(nil, -50, nil, nil)  end))
-cmap('k'     , with(function (c) c:relative_move(nil, 50, nil, nil)   end))
-cmap('j'     , with(function (c) c:relative_move(-50, nil, nil, nil)  end))
-cmap('l'     , with(function (c) c:relative_move(50, nil, nil, nil)   end))
-cmap('I'     , with(function (c) c:relative_move(nil, -300, nil, nil) end))
-cmap('K'     , with(function (c) c:relative_move(nil, 300, nil, nil)  end))
-cmap('J'     , with(function (c) c:relative_move(-300, nil, nil, nil) end))
-cmap('L'     , with(function (c) c:relative_move(300, nil, nil, nil)  end))
-cmap('<C-j>' , with(function (c) c:relative_move(nil, nil, -50, nil)  end))
-cmap('<C-l>' , with(function (c) c:relative_move(nil, nil, 50, nil)   end))
-cmap('<C-i>' , with(function (c) c:relative_move(nil, nil, nil, -50)  end))
-cmap('<C-k>' , with(function (c) c:relative_move(nil, nil, nil, 50)   end))
-
-
+local function relative_move(x, y, width, height)
+    return function(c) c:relative_move(x, y, width, height) end
+end
+cmap('i'     , with( relative_move(nil, -50, nil, nil)  ))
+cmap('k'     , with( relative_move(nil, 50, nil, nil)   ))
+cmap('j'     , with( relative_move(-50, nil, nil, nil)  ))
+cmap('l'     , with( relative_move(50, nil, nil, nil)   ))
+cmap('I'     , with( relative_move(nil, -300, nil, nil) ))
+cmap('K'     , with( relative_move(nil, 300, nil, nil)  ))
+cmap('J'     , with( relative_move(-300, nil, nil, nil) ))
+cmap('L'     , with( relative_move(300, nil, nil, nil)  ))
+cmap('<C-j>' , with( relative_move(nil, nil, -50, nil)  ))
+cmap('<C-l>' , with( relative_move(nil, nil, 50, nil)   ))
+cmap('<C-i>' , with( relative_move(nil, nil, nil, -50)  ))
+cmap('<C-k>' , with( relative_move(nil, nil, nil, 50)   ))
 
 
 
@@ -309,8 +308,6 @@ cmap('<C-k>' , with(function (c) c:relative_move(nil, nil, nil, 50)   end))
 --         c:swap(awful.client.getmaster())
 --     end
 -- end)
-
-
 
 -- set('<XF86AudioMute>', run 'pactl set-sink-mute @DEFAULT_SINK@ toggle')
 -- set('<XF86AudioRaiseVolume>', volume_up)
