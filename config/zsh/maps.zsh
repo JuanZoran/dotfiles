@@ -15,41 +15,24 @@ local function unset_key() {
     done
 }
 
-
-# # NOTE :zsh-vi-mode has done that
-# export ZVM_CURSOR_STYLE_ENABLED=false
-# function zle-keymap-select {
-#     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-#         echo -ne '\e[1 q'
-#     elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
-#         echo -ne '\e[5 q'
-#     fi
-# }
-# zle -N zle-keymap-select
-
 # KEYTIMEOUT=1
 function zvm_config () {
-    # Do the initialization when the script is sourced (i.e. Initialize instantly)
-    # ZVM_INIT_MODE=sourcing
+    ZVM_INIT_MODE=sourcing # 不要延迟加载
 
     ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
     # ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
     # ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
 
-    ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
+    # ZVM_VI_INSERT_ESCAPE_BINDKEY='^S'
     ZVM_VI_SURROUND_BINDKEY='s-prefix'
-    ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
     ZVM_VI_HIGHLIGHT_BACKGROUND=#89e051           # Hex value
     ZVM_VI_HIGHLIGHT_FOREGROUND=#1d202f           # Hex value
 }
 
+
 local -A keys
-
 function jump() {
-    if [[ -z $VIM ]]; then
-        BUFFER="cdi"
-    fi
-
+    if [[ -z $VIM ]]; then BUFFER="cdi" fi
     zle accept-line
 }
 
@@ -65,15 +48,28 @@ function load_ins_key () {
         '^f' forward-word
 
         '^j' jump
-        '^o' accept-line
     )
 
     set_keys viins
 }
-zvm_after_init_commands+=(load_ins_key)
+
+
+#    ╭─────────────────╮
+#    │ Auto completion │
+#    ╰─────────────────╯
+function load_complete() {
+    zstyle ':autocomplete:*' widget-style menu-select
+    # zstyle ':autocomplete:*' insert-unambiguous yes
+    # # Up arrowzstyle ':autocomplete:*' widget-style complete-word
+    # complete-word: (Shift-)Tab inserts the top (bottom) completion.
+    # menu-complete: Press again to cycle to next (previous) completion.
+    # menu-select:   Same as `menu-complete`, but updates selection in menu.
+    zi light marlonrichert/zsh-autocomplete
+}
+
+zvm_after_init_commands+=(load_ins_key load_complete)
 
 function zvm_after_lazy_keybindings() {
-    # Unbind key
     unset_key viopp \
         j k iW iw ia
 
@@ -89,7 +85,6 @@ function zvm_after_lazy_keybindings() {
         L vi-end-of-line
     )
     set_keys vicmd
-
 
     keys=(
         j backward-char
@@ -108,42 +103,31 @@ function zvm_after_lazy_keybindings() {
         L vi-end-of-line
     )
     set_keys viopp
-    # zvm_bindkey visual "i" up-line
-    # unset_key visual \
-        #     "i^["\
-        #     "i "\
-        #     "i\""\
-        #     "i'"\
-        #     "i("\
-        #     "i)"\
-        #     "i<"\
-        #     "i>"\
-        #     "iW"\
-        #     "i["\
-        #     "i]"\
-        #     "i\`"\
-        #     "ia"\
-        #     "iw"\
-        #     "i{"\
-        #     "i}"
-    # visual "h" zvm_readkeys_handler
-    # visual "h^[" zvm_select_surround
-    # visual "h " zvm_select_surround
-    # visual "h\"" zvm_select_surround
-    # visual "h'" zvm_select_surround
-    # visual "h(" zvm_select_surround
-    # visual "h)" zvm_select_surround
-    # visual "h<" zvm_select_surround
-    # visual "h>" zvm_select_surround
-    # visual "hW" select-in-blank-word
-    # visual "h[" zvm_select_surround
-    # visual "h]" zvm_select_surround
-    # visual "h\`" zvm_select_surround
-    # visual "ha" select-in-shell-word
-    # visual "hw" select-in-word
-    # visual "h{" zvm_select_surround
-    # visual "h}" zvm_select_surround
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # add-zsh-hook precmd recover-tab
 
@@ -196,3 +180,53 @@ function zvm_after_lazy_keybindings() {
 # ()表示子shell，它将命令序列包含在一个子进程中并执行它们。此外，它也可以用于分组命令和处理变量替换。例如，`(cd dir && command)`可以在子Shell中进入dir目录并执行command命令。
 
 # []通常用于条件测试。例如，`[ -e file.txt ]`可以检查当前目录下是否存在file.txt文件，如果存在，则返回true。另外，[]还可以用于文件名扩展。例如，`ls [abc]*.txt`将列出以a、b或c开头的所有txt文件。
+
+
+# NOTE :zsh-vi-mode has done that
+# export ZVM_CURSOR_STYLE_ENABLED=false
+# function zle-keymap-select {
+#     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+#         echo -ne '\e[1 q'
+#     elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+#         echo -ne '\e[5 q'
+#     fi
+# }
+# zle -N zle-keymap-select
+
+
+
+# zvm_bindkey visual "i" up-line
+# unset_key visual \
+    #     "i^["\
+    #     "i "\
+    #     "i\""\
+    #     "i'"\
+    #     "i("\
+    #     "i)"\
+    #     "i<"\
+    #     "i>"\
+    #     "iW"\
+    #     "i["\
+    #     "i]"\
+    #     "i\`"\
+    #     "ia"\
+    #     "iw"\
+    #     "i{"\
+    #     "i}"
+# visual "h" zvm_readkeys_handler
+# visual "h^[" zvm_select_surround
+# visual "h " zvm_select_surround
+# visual "h\"" zvm_select_surround
+# visual "h'" zvm_select_surround
+# visual "h(" zvm_select_surround
+# visual "h)" zvm_select_surround
+# visual "h<" zvm_select_surround
+# visual "h>" zvm_select_surround
+# visual "hW" select-in-blank-word
+# visual "h[" zvm_select_surround
+# visual "h]" zvm_select_surround
+# visual "h\`" zvm_select_surround
+# visual "ha" select-in-shell-word
+# visual "hw" select-in-word
+# visual "h{" zvm_select_surround
+# visual "h}" zvm_select_surround
