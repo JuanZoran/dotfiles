@@ -6,6 +6,8 @@ alias rm='safe-rm'
 alias ins='sudo pacman -S'
 alias del="sudo pacman -Rns"
 alias up='sudo pacman -Syu'
+alias nb='npm run build'
+alias nt='npm run test'
 
 - () {
     cd -
