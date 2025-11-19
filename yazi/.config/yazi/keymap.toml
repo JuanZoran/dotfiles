@@ -1,0 +1,96 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please open an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[mgr]
+
+keymap = [
+	# General controls
+	{ on = [ "<Esc>", "<C-[>" ],                  run = "escape", desc = "退出可视模式、清除选择或取消提示" },
+	{ on = "q",       run = "quit",               desc = "退出程序" },
+	{ on = "Q",       run = "quit --no-cwd-file", desc = "退出并跳过写入 cwd 文件" },
+	{ on = "<C-c>",   run = "close",              desc = "关闭当前标签，若为最后一个则退出" },
+	{ on = "<C-z>",   run = "suspend",            desc = "挂起进程" },
+
+	# Movement (lf + ranger)
+	{ on = "i",          run = "arrow prev",  desc = "向上移动选择（参考 lf）" },
+	{ on = "k",          run = "arrow next",  desc = "向下移动选择（参考 lf）" },
+	{ on = "<Up>",       run = "arrow prev",  desc = "向上移动选择" },
+	{ on = "<Down>",     run = "arrow next",  desc = "向下移动选择" },
+	{ on = "j",          run = "leave",       desc = "返回上级目录" },
+	{ on = "l",          run = "enter",       desc = "进入目录或打开文件" },
+	{ on = "<Left>",     run = "leave",       desc = "返回上级目录" },
+	{ on = "<Right>",    run = "enter",       desc = "进入高亮目录" },
+	{ on = [ "g",        "g" ],               run = "arrow top", desc = "跳到列表顶部" },
+	{ on = "G",          run = "arrow bot",   desc = "跳到列表底部" },
+	{ on = "H",          run = "back",        desc = "回到上一次访问的目录" },
+	{ on = "L",          run = "forward",     desc = "前进到下一个历史目录" },
+	{ on = "I",          run = "arrow -50%",  desc = "跳到列表上半部（lf 半页上）" },
+	{ on = "K",          run = "arrow 50%",   desc = "跳到列表下半部（lf 半页下）" },
+	{ on = "<C-u>",      run = "arrow -50%",  desc = "向上移动半页" },
+	{ on = "<C-d>",      run = "arrow 50%",   desc = "向下移动半页" },
+	{ on = "<C-b>",      run = "arrow -100%", desc = "翻页向上" },
+	{ on = "<C-f>",      run = "arrow 100%",  desc = "翻页向下" },
+	{ on = "<PageUp>",   run = "arrow -100%", desc = "按 PgUp 翻页向上" },
+	{ on = "<PageDown>", run = "arrow 100%",  desc = "按 PgDn 翻页向下" },
+
+	# Selection
+	{ on = "<Space>", run = [ "toggle",            "arrow next" ], desc = "切换选中并向下移动" },
+	{ on = "v",       run = "visual_mode",         desc = "进入可视选择模式" },
+	{ on = "V",       run = "visual_mode --unset", desc = "进入可视取消模式" },
+
+	# File operations
+	{ on = "o",         run = "open",                 desc = "打开选中项" },
+	{ on = "O",         run = "open --interactive",   desc = "交互式打开选中项" },
+	{ on = "<Enter>",   run = "open",                 desc = "打开当前高亮文件" },
+	{ on = "<S-Enter>", run = "open --interactive",   desc = "交互式打开当前高亮文件" },
+	{ on = "y",         run = "yank",                 desc = "复制（剪贴）选中文件" },
+	{ on = "Y",         run = "unyank",               desc = "取消剪贴缓冲" },
+	{ on = "x",         run = "remove",               desc = "将选中项移至垃圾桶（lf 删除）" },
+	{ on = "X",         run = "remove --permanently", desc = "永久删除选中项" },
+	{ on = "p",         run = "paste",                desc = "粘贴剪贴的文件" },
+	{ on = "P",         run = "paste --force",        desc = "粘贴并覆盖目标" },
+	{ on = "-",         run = "link",                 desc = "创建选中文件的绝对路径符号链接" },
+	{ on = "_",         run = "link --relative",      desc = "创建选中文件的相对路径符号链接" },
+	{ on = "<C-->",     run = "hardlink",             desc = "为剪贴文件创建硬链接" },
+	{ on = "a",         run = "create",               desc = "创建新文件（目录请以 / 结尾）" },
+	{ on = "r",         run = "rename",               desc = "重命名当前高亮项" },
+	{ on = "R",         run = "reload",               desc = "重新加载当前目录" },
+
+	# Search / shell helpers
+	{ on = "f",   run = "filter --smart",          desc = "筛选文件" },
+	{ on = "/",   run = "find --smart",            desc = "查找下一个文件" },
+	{ on = "?",   run = "find --previous --smart", desc = "查找上一个文件" },
+	{ on = "n",   run = "find_arrow",              desc = "跳到下一个匹配" },
+	{ on = "N",   run = "find_arrow --previous",   desc = "跳到上一个匹配" },
+	{ on = ".",   run = "hidden toggle",           desc = "切换隐藏文件" },
+	{ on = "Tab", run = "spot",                    desc = "高亮当前文件" },
+	{ on = "s",   run = "search --via=fd",         desc = "用 fd 按名搜索" },
+	{ on = "S",   run = "search --via=rg",         desc = "用 ripgrep 按内容搜索" },
+	{ on = [ ":", ";" ],                           run = "shell --block --interactive", desc = "运行阻塞式 shell 命令" },
+
+	# Sorting variants
+	{ on = [ ", ", "n" ], run = "sort natural --reverse=no",      desc = "按自然顺序排序" },
+	{ on = [ ", ", "N" ], run = "sort natural --reverse",         desc = "按自然顺序排序（反向）" },
+	{ on = [ ", ", "s" ], run = "sort size --reverse=no",         desc = "按大小排序" },
+	{ on = [ ", ", "S" ], run = "sort size --reverse",            desc = "按大小排序（反向）" },
+	{ on = [ ", ", "a" ], run = "sort alphabetical --reverse=no", desc = "按字母顺序排序" },
+	{ on = [ ", ", "A" ], run = "sort alphabetical --reverse",    desc = "按字母顺序排序（反向）" },
+	{ on = [ ", ", "t" ], run = "sort type --reverse=no",         desc = "按类型排序" },
+	{ on = [ ", ", "T" ], run = "sort type --reverse",            desc = "按类型排序（反向）" },
+
+	# Jump targets
+	{ on = [ "g", "h" ],       run = "cd ~",             desc = "回到主目录" },
+	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "进入 ~/.config" },
+	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "进入 ~/Downloads" },
+	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "交互式跳转目录" },
+	{ on = [ "g", "f" ],       run = "follow",           desc = "跟随当前高亮的符号链接" },
+
+	# Tabs
+	{ on = "t", run = "tab_create --current", desc = "用当前位置创建新标签页" },
+	{ on = "1", run = "tab_switch 0",         desc = "切换到标签页 1" },
+	{ on = "2", run = "tab_switch 1",         desc = "切换到标签页 2" },
+	{ on = "3", run = "tab_switch 2",         desc = "切换到标签页 3" },
+	{ on = "4", run = "tab_switch 3",         desc = "切换到标签页 4" },
+	{ on = "5", run = "tab_switch 4",         desc = "切换到标签页 5" },
+]
