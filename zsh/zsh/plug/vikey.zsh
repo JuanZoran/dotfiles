@@ -19,6 +19,24 @@ function zvm_config () {
     ZVM_VI_SURROUND_BINDKEY='s-prefix'
     ZVM_VI_HIGHLIGHT_BACKGROUND=#89e051           # Hex value
     ZVM_VI_HIGHLIGHT_FOREGROUND=#1d202f           # Hex value
+
+    # Cursor shape configuration using zsh-vi-mode built-in options
+    # Insert mode: beam (bar) cursor
+    ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
+    # Normal mode: block cursor
+    ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+    # Visual mode: underline cursor
+    ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+
+    # Set cursor color: bg=#58a6ff
+    # Get the cursor style and append color escape sequence
+    local icur=$(zvm_cursor_style $ZVM_CURSOR_BEAM)
+    local ncur=$(zvm_cursor_style $ZVM_CURSOR_BLOCK)
+    local vcur=$(zvm_cursor_style $ZVM_CURSOR_UNDERLINE)
+    
+    ZVM_INSERT_MODE_CURSOR=$icur'\e]12;#58a6ff\a'
+    ZVM_NORMAL_MODE_CURSOR=$ncur'\e]12;#58a6ff\a'
+    ZVM_VISUAL_MODE_CURSOR=$vcur'\e]12;#58a6ff\a'
 }
 
 local -A keys
